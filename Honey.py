@@ -123,6 +123,10 @@ def honeyout(s, log, html, refresh):
 	Generate html output at the specified refresh rate.
 	"""
 	while True:
+		# Setup html directory if it doesn't exist
+		if not os.path.exists(os.path.dirname(html)):
+			os.makedirs(os.path.dirname(html))
+
 		inputfile  = open(log)
 		outputfile = open(html, 'w')
 
