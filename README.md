@@ -7,4 +7,6 @@ Usage:
 
 Run in console mode: python Honey.py
 
+In console mode type 'help' for a list of command options.
+
 Run in deamon mode: python Honey.py -d &
