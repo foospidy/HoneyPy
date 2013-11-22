@@ -210,6 +210,8 @@ def argue(argv):
 		print 'python HoneyPy.py'
 		os._exit(2)
 
+	consolemode = True
+
 	for opt, arg in opts:
 		if opt == '-h':
 			print 'python HoneyPy.py'
@@ -219,9 +221,11 @@ def argue(argv):
 			os._exit(0)
 		elif '-d' == opt:
 			# run in deamon mode.
+			consolemode = False
 			startservices()
 
-	console()
+	if consolemode:
+		console()
 
 
 def startservices():
