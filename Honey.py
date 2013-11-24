@@ -7,6 +7,7 @@
 import socket
 import threading
 import ConfigParser
+import logging
 import os
 import time
 import re
@@ -28,18 +29,14 @@ servicescfg = ConfigParser.ConfigParser()
 honeypycfg.read(cfgfile)
 servicescfg.read(svcfile)
 
-# Setup log directory if it doesn't exist
+# Setup log directory if it doesn't exist, and setup logging
 if not os.path.exists(os.path.dirname(logfile)):
 	os.makedirs(os.path.dirname(logfile))
 
-def logger(file, txt):
-	"""
-	Log messages to log file in standard format
-	"""
-	f = open(file, 'a')
-	f.write(time.asctime(time.localtime(time.time())) + ' ' + txt + '\n')
-	f.close()
-
+# ISO 8601 time format
+logging.basicConfig(filename=logfile, level=logging.DEBUG, format='%(asctime)sZ %(levelname)s %(message)s')
+# use UTC/GMT
+logging.Formatter.converter = time.gmtime
 
 def honey(service, log):
 	"""
@@ -74,9 +71,9 @@ def honey(service, log):
 		# Bind to the port
 		s.bind(('', int(port)))
 	except socket.error as msg:
-		logger(log, 'Error starting %s:%s, %s' % (service, port, msg))
+		logging.debug('Error starting %s:%s, %s' % (service, port, msg))
 	except:
-		logger(log, 'Error something for %s:%s' % (service, port))
+		logging.debug(log, 'Error something for %s:%s' % (service, port))
 	else:
 		# Now wait for client connection.
 		s.listen(5)
@@ -84,7 +81,7 @@ def honey(service, log):
 		while True:
 			# Establish connection with client.
 			c, addr = s.accept()
-			logger(log, '%s %s %s connect!' % (service, port, addr))
+			logging.info('CONNECT %s %s [%s] %s %s' % (host, port, service, addr[0], addr[1]))
 
 			# disable scripting for now, to be implemented in the future
 			scripting = False;
@@ -95,11 +92,11 @@ def honey(service, log):
 						c.send(foo.nextmsg())
 						data = c.recv(1024)
 						if not data: break
-						logger(log, '%s %s %s %s' % (service, port, addr, data.encode("hex")))
+						logging.info('%s %s %s %s' % (service, port, addr, data.encode("hex")))
 						foo.receive(data)
 
 					except socket.error as msg:
-						logger(log, '%s %s %s %s' % (service, port, addr, str(msg)))
+						logging.info('%s %s %s %s' % (service, port, addr, str(msg)))
 						break
 			else:
 				# accept connections and log data to file
@@ -108,10 +105,11 @@ def honey(service, log):
 						c.send(response)
 						data = c.recv(1024)
 						if not data: break
-						logger(log, '%s %s %s %s' % (service, port, addr, data.encode("hex")))
+						logging.info('RX %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], data.encode("hex")))
 
 					except socket.error as msg:
-						logger(log, '%s %s %s %s' % (service, port, addr, str(msg)))
+						# typically "[Errno 104] Connection reset by peer", want to capture this as info
+						logging.info('ERROR %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], str(msg)))
 						break
 
 			# Close the connection
@@ -163,7 +161,7 @@ def console():
 	safe_input = '';
 	while 'quit' != safe_input:
         	input      = raw_input('honey>');
-		safe_input = (input[:20]) if len(input) > 20 else input
+		safe_input = (input[:20]) if len(input) > 20 else input.strip()
 		input      = '' # clear untrusted variable
 
         	if 'start' == safe_input:
@@ -237,7 +235,7 @@ def startservices():
 	count = 0
 	for s in servicescfg.sections():
 		count = count + 1
-		logger(logfile, 'Starting %s on port %s' % (s, servicescfg.get(s, 'port')))
+		logging.info('Starting %s on port %s' % (s, servicescfg.get(s, 'port')))
 
 		t        = threading.Thread(target=honey, args=(s, logfile), name=s)
 		t.deamon = True
@@ -252,7 +250,7 @@ def configure():
 
 	for s in honeypycfg.sections():
 		if 'honeypyout' == s:
-                        logger(logfile, 'Starting %s writing to %s' % (s, honeypycfg.get(s, 'html')))
+                        logging.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'html')))
                         t = threading.Thread(target=honeyout, args=(s, logfile, honeypycfg.get(s, 'html'), honeypycfg.get(s, 'refresh')), name=s)
 			t.deamon = True
 			t.start()
