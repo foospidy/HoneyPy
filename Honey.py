@@ -235,11 +235,14 @@ def startservices():
 	count = 0
 	for s in servicescfg.sections():
 		count = count + 1
-		logging.info('Starting %s on port %s' % (s, servicescfg.get(s, 'port')))
+		logging.info('Starting [%s] on port %s' % (s, servicescfg.get(s, 'port')))
 
 		t        = threading.Thread(target=honey, args=(s, logfile), name=s)
 		t.deamon = True
-		t.start()
+		try:
+			t.start()
+		except:
+			logging.debug('Error starting thread for [%s]. Is this a 32-bit system? If so, known issue, hope to fix soon.' % (s))
 
 
 def configure():
