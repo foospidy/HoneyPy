@@ -38,18 +38,27 @@ logging.basicConfig(filename=logfile, level=logging.DEBUG, format='%(asctime)sZ 
 # use UTC/GMT
 logging.Formatter.converter = time.gmtime
 
+# setup statsd if enabled
+if 'Yes' == honeypycfg.get('statsd', 'enabled'):
+	from lib.thirdparty.statsd import StatsdClient
+
+
 def honey(service, log):
 	"""
 	release the honey!
 	start the specified service and capture data to log file
 	TODO: implement scriptable service emulation.
 	"""
-	global servicescfg
+	global servicescfg, honeypycfg
 
 	scriping = False
 	port     = servicescfg.get(service, 'port')
 	response = servicescfg.get(service, 'response')
 	script   = servicescfg.get(service, 'script')
+
+	statsd   = honeypycfg.get('statsd', 'enabled')
+	statsd_h = honeypycfg.get('statsd', 'host')
+	statsd_p = honeypycfg.get('statsd', 'port')
 
 	if script.strip() != '':
 		if not os.path.exists(script):
@@ -82,6 +91,7 @@ def honey(service, log):
 			# Establish connection with client.
 			c, addr = s.accept()
 			logging.info('CONNECT %s %s [%s] %s %s' % (host, port, service, addr[0], addr[1]))
+			StatsdClient.send({"HoneyPy." + host + ".connect":"1|c"}, (statsd_h, int(statsd_p)))
 
 			# disable scripting for now, to be implemented in the future
 			scripting = False;
@@ -106,10 +116,12 @@ def honey(service, log):
 						data = c.recv(1024)
 						if not data: break
 						logging.info('RX %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], data.encode("hex")))
+						StatsdClient.send({"HoneyPy." + host + ".rx":"1|c"}, (statsd_h, int(statsd_p)))
 
 					except socket.error as msg:
 						# typically "[Errno 104] Connection reset by peer", want to capture this as info
 						logging.info('ERROR %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], str(msg)))
+						StatsdClient.send({"HoneyPy." + host + ".error":"1|c"}, (statsd_h, int(statsd_p)))
 						break
 
 			# Close the connection
@@ -184,7 +196,14 @@ def console():
 			except urllib2.URLError:
 				print 'Error retreiving services.cfg'
 				print 'Try downloading directly from ' + url
-
+		elif 'test-statsd' == safe_input:
+			if 'Yes' == honeypycfg.get('statsd', 'enabled'):
+				statsd_h = honeypycfg.get('statsd', 'host')
+				statsd_p = honeypycfg.get('statsd', 'port')
+				StatsdClient.send({"HoneyPy." + socket.gethostname() + ".test":"1|c"}, (statsd_h, int(statsd_p)))
+				print 'statsd test sent to %s on port %s' % (statsd_h, statsd_p)
+			else:
+				print 'statsd not enabled.'
 		elif 'help' == safe_input:
 			print 'start     - start services as defined in honeypy.cfg.'
 			print 'count     - display count of current running threads.'
