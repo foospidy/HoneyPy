@@ -186,7 +186,7 @@ def console():
 			for t in threading.enumerate():
 				#print t
 				print t.name
-		elif 'updatesvc' == safe_input:
+		elif 'update-services' == safe_input:
 			try:
 				url  = 'http://www.foospidy.com/var/HoneyPy/services.cfg'
 				f    = urllib2.urlopen(url)
@@ -205,12 +205,13 @@ def console():
 			else:
 				print 'statsd not enabled.'
 		elif 'help' == safe_input:
-			print 'start     - start services as defined in honeypy.cfg.'
-			print 'count     - display count of current running threads.'
-			print 'threads   - display list of all current running thread names.'
-			print 'updatesvc - update the service.cfg file.'
-			print 'help      - display this help info.'
-			print 'quit      - stop all current running threads and quit.'
+			print 'start           - start services as defined in honeypy.cfg.'
+			print 'count           - display count of current running threads.'
+			print 'threads         - display list of all current running thread names.'
+			print 'update-services - update the service.cfg file.'
+			print 'test-statsd     - if statsd is enabled send a test counter to configured host.'
+			print 'help            - display this help info.'
+			print 'quit            - stop all current running threads and quit.'
 		elif 'banner' == safe_input:
 			print banner.decode("base64")
 
