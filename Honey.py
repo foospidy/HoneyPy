@@ -67,16 +67,16 @@ def honey(service, log):
 			foo = imp.load_source('HoneyPyMod', script)
 			scriping = True
 
-	# Create a socket object
-	s    = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-	# the SO_REUSEADDR flag tells the kernel to reuse a local socket in TIME_WAIT state, without waiting for its natural timeout to expire.
-	s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-	# Get local machine name
-	host = socket.gethostname()
-
 	try:
+		# Create a socket object
+		s    = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+		# the SO_REUSEADDR flag tells the kernel to reuse a local socket in TIME_WAIT state, without waiting for its natural timeout to expire.
+		s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+		# Get local machine name
+		host = socket.gethostname()
+
 		# Bind to the port
 		s.bind(('', int(port)))
 	except socket.error as msg:
