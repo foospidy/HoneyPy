@@ -91,7 +91,8 @@ def honey(service, log):
 			# Establish connection with client.
 			c, addr = s.accept()
 			logging.info('CONNECT %s %s [%s] %s %s' % (host, port, service, addr[0], addr[1]))
-			StatsdClient.send({"HoneyPy." + host + ".connect":"1|c"}, (statsd_h, int(statsd_p)))
+			if(statsd):
+				StatsdClient.send({"HoneyPy." + host + ".connect":"1|c"}, (statsd_h, int(statsd_p)))
 
 			# disable scripting for now, to be implemented in the future
 			scripting = False;
@@ -116,12 +117,14 @@ def honey(service, log):
 						data = c.recv(1024)
 						if not data: break
 						logging.info('RX %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], data.encode("hex")))
-						StatsdClient.send({"HoneyPy." + host + ".rx":"1|c"}, (statsd_h, int(statsd_p)))
+						if(statsd):
+							StatsdClient.send({"HoneyPy." + host + ".rx":"1|c"}, (statsd_h, int(statsd_p)))
 
 					except socket.error as msg:
 						# typically "[Errno 104] Connection reset by peer", want to capture this as info
 						logging.info('ERROR %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], str(msg)))
-						StatsdClient.send({"HoneyPy." + host + ".error":"1|c"}, (statsd_h, int(statsd_p)))
+						if(statsd):
+							StatsdClient.send({"HoneyPy." + host + ".error":"1|c"}, (statsd_h, int(statsd_p)))
 						break
 
 			# Close the connection
@@ -193,6 +196,8 @@ def console():
 				data = f.read()
 				with open(svcfile, "wb") as svccfg:
 					svccfg.write(data)
+
+				print 'service.cfg file updated, restart HoneyPy to take effect.'
 			except urllib2.URLError:
 				print 'Error retreiving services.cfg'
 				print 'Try downloading directly from ' + url
@@ -252,17 +257,22 @@ def startservices():
 	"""
 	global servicescfg, logfile
 
+	max   = 450 
 	count = 0
+
 	for s in servicescfg.sections():
 		count = count + 1
-		logging.info('Starting [%s] on port %s' % (s, servicescfg.get(s, 'port')))
 
-		t        = threading.Thread(target=honey, args=(s, logfile), name=s)
-		t.deamon = True
-		try:
-			t.start()
-		except:
-			logging.debug('Error starting thread for [%s]. Is this a 32-bit system? If so, known issue, hope to fix soon.' % (s))
+		if count <= max:
+			logging.info('Starting [%s] on port %s' % (s, servicescfg.get(s, 'port')))
+			try:
+				t        = threading.Thread(target=honey, args=(s, logfile), name=s)
+				t.deamon = True
+				t.start()
+			except:
+				logging.debug('Error starting thread for [%s]. Is this a 32-bit system? If so, known issue, hope to fix soon.' % (s))
+		else:
+			logging.info('Skipping [%s] on port %s; max service count exceeded.' % (s, servicescfg.get(s, 'port')))
 
 
 def configure():
