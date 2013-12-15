@@ -16,7 +16,6 @@ import getopt
 import urllib2
 import imp
 import hashlib
-from twitter import *
 
 # get absolute paths for config and log files.
 cfgfile = os.path.dirname(os.path.abspath(__file__)) + '/etc/honeypy.cfg'
@@ -39,6 +38,10 @@ if not os.path.exists(os.path.dirname(logfile)):
 logging.basicConfig(filename=logfile, level=logging.DEBUG, format='%(asctime)sZ %(levelname)s %(message)s')
 # use UTC/GMT
 logging.Formatter.converter = time.gmtime
+
+# setup twitter if enabled
+if 'Yes' == honeypycfg.get('twitter', 'enabled'):
+	from twitter import *
 
 # setup statsd if enabled
 if 'Yes' == honeypycfg.get('statsd', 'enabled'):
@@ -149,7 +152,10 @@ def honeytweet(service, clientip):
 	t = Twitter(auth=OAuth(ot, os, ck, cs))
 	nodename = honeypycfg.get('twitter', 'nodename')
 	comment = servicescfg.get(service, 'comment')
-	t.statuses.update(status=nodename + ': ' + comment + ' from ' + clientip)
+	try:
+		t.statuses.update(status=nodename + ': ' + comment + ' from ' + clientip)
+	except:
+		logging.debug('Error posting to Twitter');
 
 
 def honeyout(s, log, html, refresh):

@@ -12,7 +12,17 @@ In console mode type 'help' for a list of command options.
 Run in deamon mode: python Honey.py -d &
 
 #### StatsD Support
-Send counters to StatsD to graph HoneyPy activity in Graphite
+Send CONNECT, RX, and ERROR events to StatsD. More on StatsD, https://github.com/etsy/statsd
 
 #### Twitter API Support
-Post CONNECT events to Twitter
+Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
+
+To install on Debian:
+apt-get install python-pip
+pip install twitter
+
+Also required is a Twitter account and setting up a Twitter app:
+https://dev.twitter.com/apps/new
+
+Example Twitter account, @HoneyPyLog - https://www.twitter.com/HoneyPyLog
+
