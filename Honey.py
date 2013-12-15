@@ -153,7 +153,7 @@ def honeytweet(service, clientip):
 	nodename = honeypycfg.get('twitter', 'nodename')
 	comment = servicescfg.get(service, 'comment')
 	try:
-		t.statuses.update(status=nodename + ': ' + comment + ' from ' + clientip)
+		t.statuses.update(status=nodename + ': #' + service + ' '  + comment + ' from ' + clientip)
 	except:
 		logging.debug('Error posting to Twitter');
 
