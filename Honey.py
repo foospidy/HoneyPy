@@ -15,6 +15,8 @@ import sys
 import getopt
 import urllib2
 import imp
+import hashlib
+from twitter import *
 
 # get absolute paths for config and log files.
 cfgfile = os.path.dirname(os.path.abspath(__file__)) + '/etc/honeypy.cfg'
@@ -56,6 +58,8 @@ def honey(service, log):
 	response = servicescfg.get(service, 'response')
 	script   = servicescfg.get(service, 'script')
 
+	twitter  = honeypycfg.get('twitter', 'enabled')
+
 	statsd   = honeypycfg.get('statsd', 'enabled')
 	statsd_h = honeypycfg.get('statsd', 'host')
 	statsd_p = honeypycfg.get('statsd', 'port')
@@ -91,7 +95,11 @@ def honey(service, log):
 			# Establish connection with client.
 			c, addr = s.accept()
 			logging.info('CONNECT %s %s [%s] %s %s' % (host, port, service, addr[0], addr[1]))
-			if(statsd):
+
+			if('Yes' == twitter):
+				honeytweet(service, addr[0])
+
+			if('Yes' == statsd):
 				StatsdClient.send({"HoneyPy." + host + ".connect":"1|c"}, (statsd_h, int(statsd_p)))
 
 			# disable scripting for now, to be implemented in the future
@@ -117,18 +125,31 @@ def honey(service, log):
 						data = c.recv(1024)
 						if not data: break
 						logging.info('RX %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], data.encode("hex")))
-						if(statsd):
+						if('Yes' == statsd):
 							StatsdClient.send({"HoneyPy." + host + ".rx":"1|c"}, (statsd_h, int(statsd_p)))
 
 					except socket.error as msg:
 						# typically "[Errno 104] Connection reset by peer", want to capture this as info
 						logging.info('ERROR %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], str(msg)))
-						if(statsd):
+						if('Yes' == statsd):
 							StatsdClient.send({"HoneyPy." + host + ".error":"1|c"}, (statsd_h, int(statsd_p)))
 						break
 
 			# Close the connection
 			c.close()
+
+def honeytweet(service, clientip):
+	global servicescfg, honeypycfg
+
+	ck = honeypycfg.get('twitter', 'consumerkey')
+	cs = honeypycfg.get('twitter', 'consumersecret')
+	ot = honeypycfg.get('twitter', 'oauthtoken')
+	os = honeypycfg.get('twitter', 'oauthsecret')
+
+	t = Twitter(auth=OAuth(ot, os, ck, cs))
+	nodename = honeypycfg.get('twitter', 'nodename')
+	comment = servicescfg.get(service, 'comment')
+	t.statuses.update(status=nodename + ': ' + comment + ' from ' + clientip)
 
 
 def honeyout(s, log, html, refresh):

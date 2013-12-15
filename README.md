@@ -10,3 +10,9 @@ Run in console mode: python Honey.py
 In console mode type 'help' for a list of command options.
 
 Run in deamon mode: python Honey.py -d &
+
+#### StatsD Support
+Send counters to StatsD to graph HoneyPy activity in Graphite
+
+#### Twitter API Support
+Post CONNECT events to Twitter
