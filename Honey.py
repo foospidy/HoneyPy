@@ -42,6 +42,13 @@ logging.Formatter.converter = time.gmtime
 # setup twitter if enabled
 if 'Yes' == honeypycfg.get('twitter', 'enabled'):
 	from twitter import *
+	twitterlogfile = os.path.dirname(os.path.abspath(__file__)) + '/log/twitter.log'
+	twitterlog     = logging.getLogger('twitter')
+	twitterlogfh   = logging.FileHandler(twitterlogfile)
+	twitterlogfh.setLevel(logging.DEBUG)
+	twitterlog.addHandler(twitterlogfh)
+	#twitterlog.basicConfig(filename=twitterlogfile, level=logging.DEBUG, format='%(asctime)sZ %(levelname)s %(message)s')
+	twitterlog.info('Twitter enabled.')
 
 # setup statsd if enabled
 if 'Yes' == honeypycfg.get('statsd', 'enabled'):
@@ -154,8 +161,8 @@ def honeytweet(service, clientip):
 	comment = servicescfg.get(service, 'comment')
 	try:
 		t.statuses.update(status=nodename + ': #' + service + ' '  + comment + ' from ' + clientip)
-	except:
-		logging.debug('Error posting to Twitter');
+	except Exception, err:
+		twitterlog.debug('Error posting to Twitter: %s' % err)
 
 
 def honeyout(s, log, html, refresh):
