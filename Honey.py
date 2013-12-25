@@ -1,4 +1,4 @@
-#!/usr/bin/python							# This is server.py file
+#!/usr/bin/python
 
 # Copyright (c) 2013, phiLLip maDDux II (foospidy)
 # GNU GENERAL PUBLIC LICENSE
@@ -8,6 +8,7 @@ import socket
 import threading
 import ConfigParser
 import logging
+import logging.handlers
 import os
 import time
 import re
@@ -34,21 +35,33 @@ servicescfg.read(svcfile)
 if not os.path.exists(os.path.dirname(logfile)):
 	os.makedirs(os.path.dirname(logfile))
 
-# ISO 8601 time format
-logging.basicConfig(filename=logfile, level=logging.DEBUG, format='%(asctime)sZ %(levelname)s %(message)s')
-# use UTC/GMT
-logging.Formatter.converter = time.gmtime
+# root logger
+logger = logging.getLogger("")
+logger.setLevel(logging.DEBUG)
+
+# logging format
+logging.Formatter.converter = time.gmtime	# using UTC/GMT
+format                      = logging.Formatter('%(asctime)sZ %(levelname)s %(message)s')
+
+# honey logger
+honeyloghandler = logging.handlers.TimedRotatingFileHandler(logfile, 'midnight', 1)
+honeylogger     = logging.getLogger('honey')
+
+honeylogger.setLevel(logging.DEBUG)
+honeyloghandler.setFormatter(format)
+honeylogger.addHandler(honeyloghandler)
 
 # setup twitter if enabled
 if 'Yes' == honeypycfg.get('twitter', 'enabled'):
 	from twitter import *
-	twitterlogfile = os.path.dirname(os.path.abspath(__file__)) + '/log/twitter.log'
-	twitterlog     = logging.getLogger('twitter')
-	twitterlogfh   = logging.FileHandler(twitterlogfile)
-	twitterlogfh.setLevel(logging.DEBUG)
-	twitterlog.addHandler(twitterlogfh)
-	#twitterlog.basicConfig(filename=twitterlogfile, level=logging.DEBUG, format='%(asctime)sZ %(levelname)s %(message)s')
-	twitterlog.info('Twitter enabled.')
+	twitterlogfile    = os.path.dirname(os.path.abspath(__file__)) + '/log/twitter.log'
+	twitterloghandler = logging.handlers.TimedRotatingFileHandler(twitterlogfile, 'midnight', 1)
+	twitterlogger     = logging.getLogger('twitter')
+
+	twitterlogger.setLevel(logging.DEBUG)
+	twitterloghandler.setFormatter(format)
+	twitterlogger.addHandler(twitterloghandler)
+	twitterlogger.info('Twitter enabled.')
 
 # setup statsd if enabled
 if 'Yes' == honeypycfg.get('statsd', 'enabled'):
@@ -94,9 +107,9 @@ def honey(service, log):
 		# Bind to the port
 		s.bind(('', int(port)))
 	except socket.error as msg:
-		logging.debug('Error starting %s:%s, %s' % (service, port, msg))
+		honeylogger.debug('Error starting %s:%s, %s' % (service, port, msg))
 	except:
-		logging.debug(log, 'Error something for %s:%s' % (service, port))
+		honeylogger.debug(log, 'Error something for %s:%s' % (service, port))
 	else:
 		# Now wait for client connection.
 		s.listen(5)
@@ -104,7 +117,7 @@ def honey(service, log):
 		while True:
 			# Establish connection with client.
 			c, addr = s.accept()
-			logging.info('CONNECT %s %s [%s] %s %s' % (host, port, service, addr[0], addr[1]))
+			honeylogger.info('CONNECT %s %s [%s] %s %s' % (host, port, service, addr[0], addr[1]))
 
 			if('Yes' == twitter):
 				honeytweet(service, addr[0])
@@ -121,11 +134,11 @@ def honey(service, log):
 						c.send(foo.nextmsg())
 						data = c.recv(1024)
 						if not data: break
-						logging.info('%s %s %s %s' % (service, port, addr, data.encode("hex")))
+						honeylogger.info('%s %s %s %s' % (service, port, addr, data.encode("hex")))
 						foo.receive(data)
 
 					except socket.error as msg:
-						logging.info('%s %s %s %s' % (service, port, addr, str(msg)))
+						honeylogger.info('%s %s %s %s' % (service, port, addr, str(msg)))
 						break
 			else:
 				# accept connections and log data to file
@@ -134,13 +147,13 @@ def honey(service, log):
 						c.send(response)
 						data = c.recv(1024)
 						if not data: break
-						logging.info('RX %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], data.encode("hex")))
+						honeylogger.info('RX %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], data.encode("hex")))
 						if('Yes' == statsd):
 							StatsdClient.send({"HoneyPy." + host + ".rx":"1|c"}, (statsd_h, int(statsd_p)))
 
 					except socket.error as msg:
 						# typically "[Errno 104] Connection reset by peer", want to capture this as info
-						logging.info('ERROR %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], str(msg)))
+						honeylogger.info('ERROR %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], str(msg)))
 						if('Yes' == statsd):
 							StatsdClient.send({"HoneyPy." + host + ".error":"1|c"}, (statsd_h, int(statsd_p)))
 						break
@@ -156,13 +169,13 @@ def honeytweet(service, clientip):
 	ot = honeypycfg.get('twitter', 'oauthtoken')
 	os = honeypycfg.get('twitter', 'oauthsecret')
 
-	t = Twitter(auth=OAuth(ot, os, ck, cs))
+	t        = Twitter(auth=OAuth(ot, os, ck, cs))
 	nodename = honeypycfg.get('twitter', 'nodename')
-	comment = servicescfg.get(service, 'comment')
+	comment  = servicescfg.get(service, 'comment')
 	try:
 		t.statuses.update(status=nodename + ': #' + service + ' '  + comment + ' from ' + clientip)
 	except Exception, err:
-		twitterlog.debug('Error posting to Twitter: %s' % err)
+		twitterlogger.debug('Error posting to Twitter: %s' % err)
 
 
 def honeyout(s, log, html, refresh):
@@ -289,7 +302,7 @@ def startservices():
 	"""
 	start all services specified in the config file
 	"""
-	global servicescfg, logfile
+	global servicescfg, logfile, honeylogger
 
 	max   = 450 
 	count = 0
@@ -298,15 +311,15 @@ def startservices():
 		count = count + 1
 
 		if count <= max:
-			logging.info('Starting [%s] on port %s' % (s, servicescfg.get(s, 'port')))
+			honeylogger.info('Starting [%s] on port %s' % (s, servicescfg.get(s, 'port')))
 			try:
 				t        = threading.Thread(target=honey, args=(s, logfile), name=s)
 				t.deamon = True
 				t.start()
 			except:
-				logging.debug('Error starting thread for [%s]. Is this a 32-bit system? If so, known issue, hope to fix soon.' % (s))
+				honeylogger.debug('Error starting thread for [%s]. Is this a 32-bit system? If so, known issue, hope to fix soon.' % (s))
 		else:
-			logging.info('Skipping [%s] on port %s; max service count exceeded.' % (s, servicescfg.get(s, 'port')))
+			honeylogger.info('Skipping [%s] on port %s; max service count exceeded.' % (s, servicescfg.get(s, 'port')))
 
 
 def configure():
@@ -317,7 +330,7 @@ def configure():
 
 	for s in honeypycfg.sections():
 		if 'honeypyout' == s:
-                        logging.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'html')))
+                        honeylogger.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'html')))
                         t = threading.Thread(target=honeyout, args=(s, logfile, honeypycfg.get(s, 'html'), honeypycfg.get(s, 'refresh')), name=s)
 			t.deamon = True
 			t.start()
