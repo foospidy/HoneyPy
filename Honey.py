@@ -10,6 +10,7 @@ import ConfigParser
 import logging
 import logging.handlers
 import os
+import fnmatch
 import time
 import re
 import sys
@@ -40,8 +41,11 @@ logger = logging.getLogger("")
 logger.setLevel(logging.DEBUG)
 
 # logging format
-logging.Formatter.converter = time.gmtime	# using UTC/GMT
-format                      = logging.Formatter('%(asctime)sZ %(levelname)s %(message)s')
+os.environ['TZ'] = 'Europe/London'
+time.tzset()
+logging.Formatter.conferter = time.gmtime	# using UTC/GMT
+format                      = logging.Formatter(fmt='%(asctime)s %(levelname)s %(message)s')
+#, datefmt='%Y-%m-%d %H:%M:%S %z')
 
 # honey logger
 honeyloghandler = logging.handlers.TimedRotatingFileHandler(logfile, 'midnight', 1)
@@ -178,32 +182,46 @@ def honeytweet(service, clientip):
 		twitterlogger.debug('Error posting to Twitter: %s' % err)
 
 
-def honeyout(s, log, html, refresh):
+def honeyout(htmldir, refresh):
 	"""
 	Generate html output at the specified refresh rate.
 	"""
 	while True:
 		# Setup html directory if it doesn't exist
-		if not os.path.exists(os.path.dirname(html)):
-			os.makedirs(os.path.dirname(html))
+		htmldir = os.path.dirname(os.path.abspath(__file__)) + '/' + htmldir
+		if not os.path.exists(htmldir):
+			os.makedirs(htmldir)
 
-		inputfile  = open(log)
-		outputfile = open(html, 'w')
+		menu = '<a href="honeypy.log.html">honeypy.log</a><br>'
+		for filename in os.listdir(os.path.dirname(os.path.abspath(__file__)) + '/log'):
+			if fnmatch.fnmatch(filename, "honeypy.log.*"):
+				menu += '<a href="' +  filename + '.html">' + filename + '</a><br>'
+			
 
-		outputfile.writelines('<pre>')
+		for filename in os.listdir(os.path.dirname(os.path.abspath(__file__)) + '/log'):
+			if fnmatch.fnmatch(filename, "honeypy.log*"):
+				inputfile  = open(os.path.dirname(os.path.abspath(__file__)) + '/log/' + filename)
+				outputfile = open(os.path.dirname(os.path.abspath(__file__)) + '/html/' + filename + '.html', 'w')
 
-		for line in inputfile:
-       		 	if not re.match("^.*(.192.168.*).*$", line):
-       		        	match = re.search(r'\(\'.*,', line)
-               		 	if match:
-	                        	ip = re.sub(r'[\(\'\,]', '', match.group())
-     		                   	newline = re.sub(ip, '<a href="http://who.is/whois-ip/ip-address/' + ip + '" target="_new">' + ip + '</a>', line)
-    		                    	outputfile.writelines(newline)
+				outputfile.writelines('<html><head><title>HoneyPy - Logs</title></head>')
+				outputfile.writelines('<table><tr><td colspan=2><h3>HoneyPy Log</h3></td></tr><tr><td valign=top>' + menu + '</td><td valign=top>')
+				outputfile.writelines('<pre>')
 
-		outputfile.writelines('</pre>')
+				for line in inputfile:
+					words = line.split()
+					if re.match("CONNECT|RX", words[3]):
+						newline = words[0] + ' ' + words[1] + ' ' + words[3] + ' ' + words[5] + ' ' + words[6] + ' <a href="http://who.is/whois-ip/ip-address/' + words[7] + '" target="_new">' + words[7] + '</a> ' + words[8] + ' '
+						if 10 == len(words):
+							newline += '<a href="http://www.foospidy.com/opt/honeydb2/whois-data/' + words[7] + '/' + words[9] + '" target="_new">' + words[9] + '</a>'
+						newline += "\n"
+    			               		outputfile.writelines(newline)
 
-		inputfile.close()
-		outputfile.close()
+				outputfile.writelines('</pre>')
+				outputfile.writelines('</td></tr></table></html>')
+
+				inputfile.close()
+				outputfile.close()
+
 		time.sleep(int(refresh))
 
 
@@ -256,12 +274,17 @@ def console():
 				print 'statsd test sent to %s on port %s' % (statsd_h, statsd_p)
 			else:
 				print 'statsd not enabled.'
+		elif 'display-log' == safe_input:
+			with open(logfile) as file:
+				for line in file:
+					print line
 		elif 'help' == safe_input:
 			print 'start           - start services as defined in honeypy.cfg.'
 			print 'count           - display count of current running threads.'
 			print 'threads         - display list of all current running thread names.'
 			print 'update-services - update the service.cfg file.'
 			print 'test-statsd     - if statsd is enabled send a test counter to configured host.'
+			print 'display-log     - displays the contents of honeypy.log.'
 			print 'help            - display this help info.'
 			print 'quit            - stop all current running threads and quit.'
 		elif 'banner' == safe_input:
@@ -326,12 +349,12 @@ def configure():
 	"""
 	do what the honeypy config file says
 	"""
-	global honeypycfg, logfile
+	global honeypycfg
 
 	for s in honeypycfg.sections():
 		if 'honeypyout' == s:
-                        honeylogger.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'html')))
-                        t = threading.Thread(target=honeyout, args=(s, logfile, honeypycfg.get(s, 'html'), honeypycfg.get(s, 'refresh')), name=s)
+                        honeylogger.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'htmldir')))
+                        t = threading.Thread(target=honeyout, args=(honeypycfg.get(s, 'htmldir'), honeypycfg.get(s, 'refresh')), name=s)
 			t.deamon = True
 			t.start()
 
