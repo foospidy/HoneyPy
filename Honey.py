@@ -224,6 +224,50 @@ def honeyout(htmldir, refresh):
 
 		time.sleep(int(refresh))
 
+def honeypysql():
+        """
+        Generate sql files from log data
+        """
+	global honeypycfg
+
+	h = hashlib.md5()
+
+        while True:
+                # Setup sql directory if it doesn't exist
+                sqldir = os.path.dirname(os.path.abspath(__file__)) + '/' + honeypycfg.get('honeypysql', 'sqldir')
+                if not os.path.exists(sqldir):
+                        os.makedirs(sqldir)
+
+                for filename in os.listdir(os.path.dirname(os.path.abspath(__file__)) + '/log'):
+                        if fnmatch.fnmatch(filename, "honeypy.log*"):
+                                inputfile  = open(os.path.dirname(os.path.abspath(__file__)) + '/log/' + filename)
+                                outputfile = open(sqldir + '/' + filename + '.sql', 'w')
+
+				# create table if not exist
+                                outputfile.writelines('')
+
+                                for line in inputfile:
+                                        words = line.split()
+                                        if re.match("CONNECT|RX", words[3]):
+                                                newline = "INSERT INTO honeypy (date, time, date_time, millisecond, event, local_host, local_port, service, remote_host, remote_port"
+
+						if 10 == len(words):
+							newline += ", data, bytes, data_hash"
+
+						timeparts = words[1].split(',')
+						newline += ") VALUES ('" + words[0] + "', '" + timeparts[0] + "', '" + words[0] + " " + timeparts[0] + "', " + timeparts[1] + ", '" + words[3] + "', 'localhost', '" + words[5] + "', '" + words[6] + "', '" + words[7] + "', '" + words[8] + "'"
+
+                                                if 10 == len(words):
+							h.update(words[9])
+                                                        newline += ", '" + words[9] + "', " + str(len(words[9])) + ", '" + h.hexdigest() + "'"
+                                                newline += ");\n"
+                                                outputfile.writelines(newline)
+
+
+                                inputfile.close()
+                                outputfile.close()
+
+                time.sleep(int(honeypycfg.get('honeypysql', 'refresh')))
 
 def console():
 	"""
@@ -357,6 +401,12 @@ def configure():
                         t = threading.Thread(target=honeyout, args=(honeypycfg.get(s, 'htmldir'), honeypycfg.get(s, 'refresh')), name=s)
 			t.deamon = True
 			t.start()
+
+		if 'honeypysql' == s:
+			honeylogger.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'sqldir')))
+			t = threading.Thread(target=honeypysql, args=(), name=s)
+                        t.deamon = True
+                        t.start()
 
 
 configure()
