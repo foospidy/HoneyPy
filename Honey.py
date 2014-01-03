@@ -186,9 +186,10 @@ def honeyout(htmldir, refresh):
 	"""
 	Generate html output at the specified refresh rate.
 	"""
+	htmldir = os.path.dirname(os.path.abspath(__file__)) + '/' + htmldir
+
 	while True:
 		# Setup html directory if it doesn't exist
-		htmldir = os.path.dirname(os.path.abspath(__file__)) + '/' + htmldir
 		if not os.path.exists(htmldir):
 			os.makedirs(htmldir)
 
@@ -230,11 +231,11 @@ def honeypysql():
         """
 	global honeypycfg
 
-	h = hashlib.md5()
+	h      = hashlib.md5()
+	sqldir = os.path.dirname(os.path.abspath(__file__)) + '/' + honeypycfg.get('honeypysql', 'sqldir')
 
         while True:
                 # Setup sql directory if it doesn't exist
-                sqldir = os.path.dirname(os.path.abspath(__file__)) + '/' + honeypycfg.get('honeypysql', 'sqldir')
                 if not os.path.exists(sqldir):
                         os.makedirs(sqldir)
 
