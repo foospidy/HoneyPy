@@ -12,9 +12,11 @@ import logging.handlers
 import os
 import fnmatch
 import time
+import datetime
 import re
 import sys
 import getopt
+import urllib
 import urllib2
 import imp
 import hashlib
@@ -86,6 +88,7 @@ def honey(service, log):
 	script   = servicescfg.get(service, 'script')
 
 	twitter  = honeypycfg.get('twitter', 'enabled')
+	honeydb  = honeypycfg.get('honeydb', 'enabled')
 
 	statsd   = honeypycfg.get('statsd', 'enabled')
 	statsd_h = honeypycfg.get('statsd', 'host')
@@ -129,6 +132,10 @@ def honey(service, log):
 			if('Yes' == statsd):
 				StatsdClient.send({"HoneyPy." + host + ".connect":"1|c"}, (statsd_h, int(statsd_p)))
 
+			if('Yes' == honeydb):
+				t =  datetime.datetime.now()
+				honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'CONNECT', host, port, "[" + service + "]", addr[0], addr[1], '')
+
 			# disable scripting for now, to be implemented in the future
 			scripting = False;
 
@@ -154,6 +161,9 @@ def honey(service, log):
 						honeylogger.info('RX %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], data.encode("hex")))
 						if('Yes' == statsd):
 							StatsdClient.send({"HoneyPy." + host + ".rx":"1|c"}, (statsd_h, int(statsd_p)))
+
+						if('Yes' == honeydb):
+							honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'RX', host, port, "[" + service + "]", addr[0], addr[1], data.encode("hex"))
 
 					except socket.error as msg:
 						# typically "[Errno 104] Connection reset by peer", want to capture this as info
@@ -269,6 +279,28 @@ def honeypysql():
                                 outputfile.close()
 
                 time.sleep(int(honeypycfg.get('honeypysql', 'refresh')))
+
+def honeydb_logger(date, time, date_time, millisecond, event, local_host, local_port, service, remote_host, remote_port, data):
+	# post events to honedb logger
+	global honeypycfg
+
+	u = honeypycfg.get('honeydb', 'url')
+        s = honeypycfg.get('honeydb', 'secret')
+	h = hashlib.md5()
+
+	h.update(data)
+
+	# applying [:-3] to time to truncate microsecond
+	d = urllib.urlencode([('date', date), ('time', time), ('date_time', date_time), ('millisecond', str(millisecond)[:-3]), ('s', s), ('event', event), ('local_host', local_host), ('local_port', local_port), ('service', service), ('remote_host', remote_host), ('remote_port', remote_port), ('data', data), ('bytes', str(len(data))), ('data_hash', h.hexdigest())])
+
+	try:
+		req      = urllib2.Request(u, d, {'User-Agent':'HoneyPy'})
+		response = urllib2.urlopen(req)
+		page     = response.read()
+
+		honeylogger.info('Post event to honeydb, response: %s' % (page))
+	except urllib2.URLError, e:
+		honeylogger.debug('Error posting to honeydb: %s %s' % (str(e.code), str(e.reason)))
 
 def console():
 	"""
@@ -398,16 +430,18 @@ def configure():
 
 	for s in honeypycfg.sections():
 		if 'honeypyout' == s:
-                        honeylogger.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'htmldir')))
-                        t = threading.Thread(target=honeyout, args=(honeypycfg.get(s, 'htmldir'), honeypycfg.get(s, 'refresh')), name=s)
-			t.deamon = True
-			t.start()
+			if 'Yes' == honeypycfg.get(s, 'enabled'):
+                        	honeylogger.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'htmldir')))
+                        	t = threading.Thread(target=honeyout, args=(honeypycfg.get(s, 'htmldir'), honeypycfg.get(s, 'refresh')), name=s)
+				t.deamon = True
+				t.start()
 
 		if 'honeypysql' == s:
-			honeylogger.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'sqldir')))
-			t = threading.Thread(target=honeypysql, args=(), name=s)
-                        t.deamon = True
-                        t.start()
+			if  'Yes' == honeypycfg.get(s, 'enabled'):
+				honeylogger.info('Starting %s writing to %s' % (s, honeypycfg.get(s, 'sqldir')))
+				t = threading.Thread(target=honeypysql, args=(), name=s)
+                        	t.deamon = True
+                        	t.start()
 
 
 configure()
