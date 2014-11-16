@@ -11,9 +11,6 @@ In console mode type 'help' for a list of command options.
 
 Run in deamon mode: python Honey.py -d &
 
-#### StatsD Support
-Send CONNECT, RX, and ERROR events to StatsD. More on StatsD, https://github.com/etsy/statsd
-
 #### Twitter API Support
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
 
