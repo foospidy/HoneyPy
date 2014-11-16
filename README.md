@@ -15,7 +15,9 @@ Run in deamon mode: python Honey.py -d &
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
 
 To install on Debian:
+
 apt-get install python-pip
+
 pip install twitter
 
 Also required is a Twitter account and setting up a Twitter app:
