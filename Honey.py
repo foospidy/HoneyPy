@@ -69,11 +69,6 @@ if 'Yes' == honeypycfg.get('twitter', 'enabled'):
 	twitterlogger.addHandler(twitterloghandler)
 	twitterlogger.info('Twitter enabled.')
 
-# setup statsd if enabled
-if 'Yes' == honeypycfg.get('statsd', 'enabled'):
-	from lib.thirdparty.statsd import StatsdClient
-
-
 def honey(service, log):
 	"""
 	release the honey!
@@ -89,10 +84,6 @@ def honey(service, log):
 
 	twitter  = honeypycfg.get('twitter', 'enabled')
 	honeydb  = honeypycfg.get('honeydb', 'enabled')
-
-	statsd   = honeypycfg.get('statsd', 'enabled')
-	statsd_h = honeypycfg.get('statsd', 'host')
-	statsd_p = honeypycfg.get('statsd', 'port')
 
 	if script.strip() != '':
 		if not os.path.exists(script):
@@ -129,9 +120,6 @@ def honey(service, log):
 			if('Yes' == twitter):
 				honeytweet(service, addr[0])
 
-			if('Yes' == statsd):
-				StatsdClient.send({"HoneyPy." + host + ".connect":"1|c"}, (statsd_h, int(statsd_p)))
-
 			if('Yes' == honeydb):
 				t =  datetime.datetime.now()
 				honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'CONNECT', host, port, "[" + service + "]", addr[0], addr[1], '')
@@ -159,8 +147,6 @@ def honey(service, log):
 						data = c.recv(1024)
 						if not data: break
 						honeylogger.info('RX %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], data.encode("hex")))
-						if('Yes' == statsd):
-							StatsdClient.send({"HoneyPy." + host + ".rx":"1|c"}, (statsd_h, int(statsd_p)))
 
 						if('Yes' == honeydb):
 							honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'RX', host, port, "[" + service + "]", addr[0], addr[1], data.encode("hex"))
@@ -168,8 +154,6 @@ def honey(service, log):
 					except socket.error as msg:
 						# typically "[Errno 104] Connection reset by peer", want to capture this as info
 						honeylogger.info('ERROR %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], str(msg)))
-						if('Yes' == statsd):
-							StatsdClient.send({"HoneyPy." + host + ".error":"1|c"}, (statsd_h, int(statsd_p)))
 						break
 
 			# Close the connection
@@ -190,7 +174,6 @@ def honeytweet(service, clientip):
 		t.statuses.update(status=nodename + ': #' + service + ' '  + comment + ' from ' + clientip + ' https://foospidy.com/opt/honeydb/view-ip/' + clientip)
 	except Exception, err:
 		twitterlogger.debug('Error posting to Twitter: %s' % err)
-
 
 def honeyout(htmldir, refresh):
 	"""
@@ -343,14 +326,6 @@ def console():
 			except urllib2.URLError:
 				print 'Error retreiving services.cfg'
 				print 'Try downloading directly from ' + url
-		elif 'test-statsd' == safe_input:
-			if 'Yes' == honeypycfg.get('statsd', 'enabled'):
-				statsd_h = honeypycfg.get('statsd', 'host')
-				statsd_p = honeypycfg.get('statsd', 'port')
-				StatsdClient.send({"HoneyPy." + socket.gethostname() + ".test":"1|c"}, (statsd_h, int(statsd_p)))
-				print 'statsd test sent to %s on port %s' % (statsd_h, statsd_p)
-			else:
-				print 'statsd not enabled.'
 		elif 'display-log' == safe_input:
 			with open(logfile) as file:
 				for line in file:
@@ -360,7 +335,6 @@ def console():
 			print 'count           - display count of current running threads.'
 			print 'threads         - display list of all current running thread names.'
 			print 'update-services - update the service.cfg file.'
-			print 'test-statsd     - if statsd is enabled send a test counter to configured host.'
 			print 'display-log     - displays the contents of honeypy.log.'
 			print 'help            - display this help info.'
 			print 'quit            - stop all current running threads and quit.'
@@ -368,7 +342,6 @@ def console():
 			print banner.decode("base64")
 
 	os._exit(0)
-
 
 def argue(argv):
 	"""
@@ -397,7 +370,6 @@ def argue(argv):
 	if consolemode:
 		console()
 
-
 def startservices():
 	"""
 	start all services specified in the config file
@@ -421,7 +393,6 @@ def startservices():
 		else:
 			honeylogger.info('Skipping [%s] on port %s; max service count exceeded.' % (s, servicescfg.get(s, 'port')))
 
-
 def configure():
 	"""
 	do what the honeypy config file says
@@ -442,7 +413,6 @@ def configure():
 				t = threading.Thread(target=honeypysql, args=(), name=s)
                         	t.deamon = True
                         	t.start()
-
 
 configure()
 argue(sys.argv[1:])
