@@ -333,7 +333,7 @@ def console():
 				print t.name
 		elif 'update-services' == safe_input:
 			try:
-				url  = 'http://www.foospidy.com/var/HoneyPy/services.cfg'
+				url  = 'https://raw.githubusercontent.com/foospidy/HoneyPy/master/etc/services.cfg'
 				f    = urllib2.urlopen(url)
 				data = f.read()
 				with open(svcfile, "wb") as svccfg:
