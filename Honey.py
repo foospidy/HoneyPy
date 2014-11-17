@@ -414,5 +414,6 @@ def configure():
                         	t.deamon = True
                         	t.start()
 
+# configure honeypy and process command line arguments
 configure()
 argue(sys.argv[1:])

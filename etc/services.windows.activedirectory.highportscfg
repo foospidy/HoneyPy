@@ -1,73 +1,73 @@
 # HoneyPy Copyright (C) 2014. foospidy
-# HoneyPy/etc/services.windows.activedirectory.cfg
+# HoneyPy/etc/services.windows.activedirectory.highports.cfg
 # references:
 # http://technet.microsoft.com/en-us/library/dd772723(v=ws.10).aspx
 
 [DNS]
-port     = 53
+port     = 10053
 response = MS DNS
 comment  = Possible dns attacks
 enabled  = Yes
 script   =
 
 [Kerberos]
-port     = 88
+port     = 10088
 response = MS Kerberos
 comment  = Possible kerberos attacks 
 enabled  = Yes
 script   = 
 
 [DomainController]
-port     = 135
+port     = 10135
 response = MS Active Directory
 comment  = Possible domain controller attacks 
 enabled  = Yes
 script   = 
 
 [DFSN]
-port     = 139
+port     = 10139
 response = MS Domain Controller
 comment  = Possible DFSN, NetBIOS, Session Service, NetLogon attacks 
 enabled  = Yes
 script   = 
 
 [LDAP]
-port     = 389
+port     = 10389
 response = MS LDAP
 comment  = Possible ldap attacks 
 enabled  = Yes
 script   = 
 
 [CIFS]
-port     = 445
+port     = 10445
 response = MS Domain Controller
 comment  = Possible file replicator attacks 
 enabled  = Yes
 script   = 
 
 [KerberosChangePassword]
-port     = 464
+port     = 10464
 response = MS Kerberos
 comment  = Possible kerberos attacks 
 enabled  = Yes
 script   = 
 
 [SLDAP]
-port     = 636
+port     = 10636
 response = MS LDAP
 comment  = Possible sldap attacks 
 enabled  = Yes
 script   = 
 
 [LDAP_GC]
-port     = 3268
+port     = 13268
 response = MS Global Catalog
 comment  = Possible ldap global catalog  attacks 
 enabled  = Yes
 script   = 
 
 [SLDAP_GC]
-port     = 3269
+port     = 13269
 response = MS Global Catalog
 comment  = Possible sldap global catalog attacks 
 enabled  = Yes
