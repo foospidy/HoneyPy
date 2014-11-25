@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 # Copyright (c) 2013, phiLLip maDDux II (foospidy)
 # GNU GENERAL PUBLIC LICENSE
 # https://github.com/foospidy/HoneyPy/blob/master/LICENSE
@@ -21,6 +20,9 @@ import urllib2
 import imp
 import hashlib
 
+# prevent creation of compiled bytecode files
+sys.dont_write_bytecode = True
+
 # get absolute paths for config and log files.
 cfgfile = os.path.dirname(os.path.abspath(__file__)) + '/etc/honeypy.cfg'
 svcfile = os.path.dirname(os.path.abspath(__file__)) + '/etc/services.cfg'
@@ -34,7 +36,7 @@ servicescfg = ConfigParser.ConfigParser()
 honeypycfg.read(cfgfile)
 servicescfg.read(svcfile)
 
-# Setup log directory if it doesn't exist, and setup logging
+# setup log directory if it doesn't exist, and setup logging
 if not os.path.exists(os.path.dirname(logfile)):
 	os.makedirs(os.path.dirname(logfile))
 
@@ -43,7 +45,7 @@ logger = logging.getLogger("")
 logger.setLevel(logging.DEBUG)
 
 # logging format
-os.environ['TZ'] = 'Europe/London'
+os.environ['TZ']            = 'Europe/London'
 time.tzset()
 logging.Formatter.conferter = time.gmtime	# using UTC/GMT
 format                      = logging.Formatter(fmt='%(asctime)s %(levelname)s %(message)s')
@@ -69,29 +71,29 @@ if 'Yes' == honeypycfg.get('twitter', 'enabled'):
 	twitterlogger.addHandler(twitterloghandler)
 	twitterlogger.info('Twitter enabled.')
 
-def honey(service, log):
+def honey(service, logfile):
 	"""
 	release the honey!
 	start the specified service and capture data to log file
-	TODO: implement scriptable service emulation.
 	"""
 	global servicescfg, honeypycfg
 
-	scriping = False
-	port     = servicescfg.get(service, 'port')
-	response = servicescfg.get(service, 'response')
-	script   = servicescfg.get(service, 'script')
-
-	twitter  = honeypycfg.get('twitter', 'enabled')
-	honeydb  = honeypycfg.get('honeydb', 'enabled')
+	scripting = False
+	port      = servicescfg.get(service, 'port')
+	response  = servicescfg.get(service, 'response')
+	script    = servicescfg.get(service, 'script')
+	twitter   = honeypycfg.get('twitter', 'enabled')
+	honeydb   = honeypycfg.get('honeydb', 'enabled')
 
 	if script.strip() != '':
-		if not os.path.exists(script):
-			print '%s : what you stank? Dere aint no scrip fill fool!' % (service)
-		else:
-			foo = imp.load_source('HoneyPyMod', script)
-			scriping = True
+		scripting        = True
+		full_script_path = os.path.dirname(os.path.abspath(__file__)) + '/lib/' + script
 
+		if not os.path.exists(full_script_path):
+				message = 'error! ' + str(service) + ' module does not exist!'
+				honeylogger.debug(message)
+				print 'WARNING: ' + message
+	
 	try:
 		# Create a socket object
 		s    = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -104,57 +106,61 @@ def honey(service, log):
 
 		# Bind to the port
 		s.bind(('', int(port)))
+
 	except socket.error as msg:
 		honeylogger.debug('Error starting %s:%s, %s' % (service, port, msg))
 	except:
-		honeylogger.debug(log, 'Error something for %s:%s' % (service, port))
-	else:
+		honeylogger.debug('Error something for %s:%s' % (service, port))
+	
+	while True:
 		# Now wait for client connection.
 		s.listen(5)
 
-		while True:
-			# Establish connection with client.
-			c, addr = s.accept()
-			honeylogger.info('CONNECT %s %s [%s] %s %s' % (host, port, service, addr[0], addr[1]))
+		# Establish connection with client.
+		(c, (remote_host, remote_port)) = s.accept()
+		honeylogger.info('CONNECT %s %s [%s] %s %s' % (host, port, service, remote_host, remote_port))
 
-			if('Yes' == twitter):
-				honeytweet(service, addr[0])
+		if('Yes' == twitter):
+			honeytweet(service, remote_host)
 
-			if('Yes' == honeydb):
-				t =  datetime.datetime.now()
-				honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'CONNECT', host, port, "[" + service + "]", addr[0], addr[1], '')
+		if('Yes' == honeydb):
+			t =  datetime.datetime.now()
+			honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'CONNECT', host, port, "[" + service + "]", remote_host, remote_port, '')
 
-			# disable scripting for now, to be implemented in the future
-			scripting = False;
-
-			if scriping:
-				while True:
-					try:
-						c.send(foo.nextmsg())
-						data = c.recv(1024)
-						if not data: break
-						honeylogger.info('%s %s %s %s' % (service, port, addr, data.encode("hex")))
-						foo.receive(data)
-
-					except socket.error as msg:
-						honeylogger.info('%s %s %s %s' % (service, port, addr, str(msg)))
-						break
+		if scripting:
+			if not os.path.exists(full_script_path):
+				message = 'error! ' + str(service) + ' module does not exist!'
+				honeylogger.debug(message)
+				print 'WARNING: ' + message
 			else:
-				# accept connections and log data to file
-				while True:
-					try:
-						c.send(response)
-						data = c.recv(1024)
-						if not data: break
-						honeylogger.info('RX %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], data.encode("hex")))
+				try:
+					path, filename    = os.path.split(full_script_path)
+					module, extension = os.path.splitext(filename)
+					modfoo            = imp.load_source(module, full_script_path)
+					modthread         = modfoo.MyMainHoney(honeylogger, host, port, service, remote_host, remote_port, c)
+					modthread.deamon  = True
+					modthread.start()
+				except Exception as e:
+					message = 'error! could not load module. you should like... check it out.'
+					honeylogger.debug(message)
+					honeylogger.debug(str(e))
+					print 'WARNING: ' + message
+		else:
+			# accept connections and log data to file
+			while True:
+				try:
+					c.send(response + "\n")
+					data = c.recv(1024)
+					if not data: break
+					honeylogger.info('RX %s %s [%s] %s %s %s' % (host, port, service, remote_host, remote_port, data.encode("hex")))
 
-						if('Yes' == honeydb):
-							honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'RX', host, port, "[" + service + "]", addr[0], addr[1], data.encode("hex"))
+					if('Yes' == honeydb):
+						honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'RX', host, port, "[" + service + "]", remote_host, remote_port, data.encode("hex"))
 
-					except socket.error as msg:
-						# typically "[Errno 104] Connection reset by peer", want to capture this as info
-						honeylogger.info('ERROR %s %s [%s] %s %s %s' % (host, port, service, addr[0], addr[1], str(msg)))
-						break
+				except socket.error as msg:
+					# typically "[Errno 104] Connection reset by peer", want to capture this as info
+					honeylogger.info('ERROR %s %s [%s] %s %s %s' % (host, port, service, remote_host, remote_port, str(msg)))
+					break
 
 			# Close the connection
 			c.close()
@@ -382,16 +388,19 @@ def startservices():
 	for s in servicescfg.sections():
 		count = count + 1
 
-		if count <= max:
-			honeylogger.info('Starting [%s] on port %s' % (s, servicescfg.get(s, 'port')))
-			try:
-				t        = threading.Thread(target=honey, args=(s, logfile), name=s)
-				t.deamon = True
-				t.start()
-			except:
-				honeylogger.debug('Error starting thread for [%s]. Is this a 32-bit system? If so, known issue, hope to fix soon.' % (s))
-		else:
-			honeylogger.info('Skipping [%s] on port %s; max service count exceeded.' % (s, servicescfg.get(s, 'port')))
+		if 'Yes' == servicescfg.get(s, 'enabled'):
+			if count <= max:
+				honeylogger.info('Starting [%s] on port %s' % (s, servicescfg.get(s, 'port')))
+				try:
+					script = servicescfg.get(s, 'script')
+					t        = threading.Thread(target=honey, args=(s, logfile), name=s)
+					t.deamon = True
+					t.start()
+				except Exception as e:
+					honeylogger.debug('Error starting thread for [%s]. Is this a 32-bit system? If so, known issue, hope to fix soon.' % (s))
+					print 'error! ' + str(e)
+			else:
+				honeylogger.info('Skipping [%s] on port %s; max service count exceeded.' % (s, servicescfg.get(s, 'port')))
 
 def configure():
 	"""
