@@ -398,7 +398,6 @@ def startservices():
 					t.start()
 				except Exception as e:
 					honeylogger.debug('Error starting thread for [%s]. Is this a 32-bit system? If so, known issue, hope to fix soon.' % (s))
-					print 'error! ' + str(e)
 			else:
 				honeylogger.info('Skipping [%s] on port %s; max service count exceeded.' % (s, servicescfg.get(s, 'port')))
 
