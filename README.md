@@ -28,7 +28,7 @@ As an example, if you want HoneyPy to listen for telnet connections on port 23, 
 
 if root user:
 
-`\#./ipt_set_tcp 23 2300`
+`#./ipt_set_tcp 23 2300`
 
 or if using sudo:
 
