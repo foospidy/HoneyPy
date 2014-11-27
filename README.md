@@ -47,6 +47,42 @@ script   = honeypy_ftp_proftpd.py
 ```
 note: the response parameter is ignored when using the script parameter.
 
+#### Creating Custom Service Emulators
+Hopefully creating new emulators is now easy. HoneyPy takes care of sending/receiving data and logging, all you have to do is write the custom protocol/logic. The service emulators in the lib directory can be used as templates to create new emulators.
+
+Example:
+https://github.com/foospidy/HoneyPy/blob/master/lib/honeypy_random_hashcount.py
+
+There are three sections to edit: custom import, custom protocol, and custom functions. To keep the template well organized, you should only make modifciaitons in the designated sections, note the comments that denote each section.
+
+Example of custom import. Import the Python modules you need:
+```
+### START CUSTOM IMPORT
+import time
+import os
+import md5
+### END CUSTOM IMPORT
+```
+
+Next, use the custom protocol section to write your logic. use the `self.tx()` function to transfer (send) data to the socket, and use the `self.rx()` function to receive data from the socket.
+
+```
+### START CUSTOM PROTOCOL ########################################################################################
+self.tx('ACCEPT_CONN: ' + str(self.remote_host) + ':' + str(self.remote_port) + '\n')
+count = 0
+m     = md5.new()
+
+while True:
+	count = count + 1
+	m.update(str(count))
+	self.tx(m.hexdigest() + ':' + str(os.urandom(99)) + '\n')
+	self.rx()
+	time.sleep(1)
+
+### END CUSTOM PROTOCOL ##########################################################################################
+```
+
+
 #### Twitter API Support
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
 
