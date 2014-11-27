@@ -31,7 +31,7 @@ if root user:
 
 or if using sudo:
 
-$sudo ./ipt_set_tcp 23 2300
+$sudo ./ipt\_set_tcp 23 2300
 
 #### Twitter API Support
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
