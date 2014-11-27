@@ -80,7 +80,7 @@ while True:
 ### END CUSTOM PROTOCOL #############################################################
 ```
 
-Add custom functions as needed at the bottom. All functions must have the first parameter be `self`. When you call custom functions in the custom protocol section you must prefix with `self.`, for example: `self.md5sum('test')`
+Add custom functions as needed at the bottom. All functions must have the first parameter be `self`. When you call custom functions from the custom protocol section you must prefix them with `self.`, for example: `self.md5sum('test')`
 
 ```
 ### START CUSTOM FUNCTIONS ##########################################################
