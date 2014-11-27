@@ -39,7 +39,7 @@ class MyMainHoney(threading.Thread):
 
 			while True:
 				count = count + 1
-				self.tx(md5sum(count) + ':' + str(os.urandom(99)) + '\n')
+				self.tx(self.md5sum(count) + ':' + str(os.urandom(99)) + '\n')
 				self.rx()
 				time.sleep(1)
 
@@ -52,7 +52,7 @@ class MyMainHoney(threading.Thread):
 		self.client_socket.close()
 
 	### START CUSTOM FUNCTIONS ##################################################################################################################
-	def md5sum(data):
+	def md5sum(self, data):
 		m = md5.new()
 		m.update(str(data))
 		return m.hexdigest()
