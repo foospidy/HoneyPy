@@ -36,12 +36,10 @@ class MyMainHoney(threading.Thread):
 			### START CUSTOM PROTOCOL ###########################################################################################################
 			self.tx('ACCEPT_CONN: ' + str(self.remote_host) + ':' + str(self.remote_port) + '\n')
 			count = 0
-			m     = md5.new()
 
 			while True:
 				count = count + 1
-				m.update(str(count))
-				self.tx(m.hexdigest() + ':' + str(os.urandom(99)) + '\n')
+				self.tx(md5sum(count) + ':' + str(os.urandom(99)) + '\n')
 				self.rx()
 				time.sleep(1)
 
@@ -54,3 +52,9 @@ class MyMainHoney(threading.Thread):
 		self.client_socket.close()
 
 	### START CUSTOM FUNCTIONS ##################################################################################################################
+	def md5sum(data):
+		m = md5.new()
+		m.update(str(data))
+		return m.hexdigest()
+	
+	### END CUSTOM FUNCTIONS ####################################################################################################################
