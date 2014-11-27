@@ -27,6 +27,7 @@ While you should not run HoneyPy with the root user, this means HoneyPy will not
 As an example, if you want HoneyPy to listen for telnet connections on port 23, choose a port above 1024. Edit the HoneyPy service config file to have telnet run on a high port (e.g. 2300). Then use ipt-kit to redirect 23 to 2300, example commands:
 
 if root user:
+
 \#./ipt\_set_tcp 23 2300
 
 or if using sudo:
