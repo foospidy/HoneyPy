@@ -67,7 +67,7 @@ import md5
 Next, use the custom protocol section to write your logic. use the `self.tx()` function to transfer (send) data to the socket, and use the `self.rx()` function to receive data from the socket.
 
 ```
-### START CUSTOM PROTOCOL #############################################################
+### START CUSTOM PROTOCOL ###########################################################
 self.tx('ACCEPT_CONN: ' + str(self.remote_host) + ':' + str(self.remote_port) + '\n')
 count = 0
 
@@ -77,19 +77,19 @@ while True:
 	self.rx()
 	time.sleep(1)
 
-### END CUSTOM PROTOCOL ###############################################################
+### END CUSTOM PROTOCOL #############################################################
 ```
 
 Add custom functions as needed at the bottom. All functions must have the first parameter be `self`. When you call custom functions in the custom protocol section you must prefix with `self.`, for example: `self.md5sum('test')`
 
 ```
-### START CUSTOM FUNCTIONS ############################################################
+### START CUSTOM FUNCTIONS ##########################################################
 def md5sum(self, data):
 	m = md5.new()
 	m.update(str(data))
 	return m.hexdigest()
 
-### END CUSTOM FUNCTIONS ##############################################################
+### END CUSTOM FUNCTIONS ############################################################
 ```
 
 #### Twitter API Support
