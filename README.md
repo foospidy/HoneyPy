@@ -45,7 +45,7 @@ comment  = Possible ftp attacks
 enabled  = Yes
 script   = honeypy_ftp_proftpd.py
 ```
-
+note: the response parameter is ignored when using the script parameter.
 
 #### Twitter API Support
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
