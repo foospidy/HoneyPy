@@ -1,7 +1,7 @@
 HoneyPy
 =======
 
-A low interaction honeypot. Coded in Python and intended to be a very basic honeypot that is easy to deploy. More features will be added on in time.
+A low interaction honeypot. Coded in Python and intended to be a very basic honeypot that is easy to deploy. By default HoneyPy simply opens ports to listen on, and only logs connections and data sent to it. It only responds with a message specified in the service config file for each service. Custom "scripts" or service emulators can be created to listen on those ports to provide more interaction. See the secton on custom service emulation below for more information.
 
 #### Usage
 **You should not run HoneyPy as root!** It is recommended to use a dedicated account to run under. HoneyPy is developed and run on Debain. There's no reason why it should not work on other Linux/Unix flavors as long as all Python dependencies are installed.
@@ -33,6 +33,17 @@ if root user:
 or if using sudo:
 
 $sudo ./ipt\_set_tcp 23 2300
+
+#### Custom Service Emulation
+HoneyPy now supports custom service emulators. Service emulators can make the honeypot look more like a real system in order to invoke more interaction and capture more attack data. The emulator is a Python module that is loaded on start. HonePy simply opens a socket and hands it off to the service emulator. There are example service emulators included in the lib directory. These will be improved, and more added, in the future. To enable an emulator add the file name to the script parameter in the service config file. Example:
+'''
+[ftp]
+port     = 21
+response = cookie!
+comment  = Possible ftp attacks 
+enabled  = Yes
+script   = honeypy\_ftp_proftpd.py
+'''
 
 #### Twitter API Support
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
