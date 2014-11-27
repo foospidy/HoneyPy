@@ -42,10 +42,13 @@ HoneyPy now supports custom service emulators. Service emulators can make the ho
 `port     = 21`
 
 `response = cookie!`
-comment  = Possible ftp attacks 
-enabled  = Yes
-script   = honeypy\_ftp_proftpd.py
-`
+
+`comment  = Possible ftp attacks`
+
+`enabled  = Yes`
+
+`script   = honeypy\_ftp_proftpd.py`
+
 
 #### Twitter API Support
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
