@@ -67,21 +67,30 @@ import md5
 Next, use the custom protocol section to write your logic. use the `self.tx()` function to transfer (send) data to the socket, and use the `self.rx()` function to receive data from the socket.
 
 ```
-### START CUSTOM PROTOCOL ########################################################################################
+### START CUSTOM PROTOCOL #########################################################################
 self.tx('ACCEPT_CONN: ' + str(self.remote_host) + ':' + str(self.remote_port) + '\n')
 count = 0
-m     = md5.new()
 
 while True:
 	count = count + 1
-	m.update(str(count))
-	self.tx(m.hexdigest() + ':' + str(os.urandom(99)) + '\n')
+	self.tx(self.md5sum(count) + ':' + str(os.urandom(99)) + '\n')
 	self.rx()
 	time.sleep(1)
 
-### END CUSTOM PROTOCOL ##########################################################################################
+### END CUSTOM PROTOCOL ############################################################################
 ```
 
+Add custom functions as needed at the bottom. All functions must have the first parameter be `self`. When you call custom functions in the custom protocol section you must prefix with `self.`, for example: `self.md5sum('test')`
+
+```
+### START CUSTOM FUNCTIONS #########################################################################
+def md5sum(self, data):
+	m = md5.new()
+	m.update(str(data))
+	return m.hexdigest()
+
+### END CUSTOM FUNCTIONS ###########################################################################
+```
 
 #### Twitter API Support
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
