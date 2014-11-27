@@ -28,11 +28,11 @@ As an example, if you want HoneyPy to listen for telnet connections on port 23, 
 
 if root user:
 
-`\#./ipt\_set_tcp 23 2300`
+`\#./ipt_set_tcp 23 2300`
 
 or if using sudo:
 
-`$sudo ./ipt\_set_tcp 23 2300`
+`$sudo ./ipt_set_tcp 23 2300`
 
 #### Custom Service Emulation
 HoneyPy now supports custom service emulators. Service emulators can make the honeypot look more like a real system in order to invoke more interaction and capture more attack data. The emulator is a Python module that is loaded on start. HonePy simply opens a socket and hands it off to the service emulator. There are example service emulators included in the lib directory. These will be improved, and more added, in the future. To enable an emulator add the file name to the script parameter in the service config file. Example:
@@ -47,7 +47,7 @@ HoneyPy now supports custom service emulators. Service emulators can make the ho
 
 `enabled  = Yes`
 
-`script   = honeypy\_ftp_proftpd.py`
+`script   = honeypy_ftp_proftpd.py`
 
 
 #### Twitter API Support
