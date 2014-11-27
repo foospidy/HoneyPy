@@ -42,7 +42,8 @@ port     = 21
 response = cookie!
 comment  = Possible ftp attacks
 enabled  = Yes
-script   = honeypy_ftp_proftpd.py```
+script   = honeypy_ftp_proftpd.py
+```
 
 
 #### Twitter API Support
