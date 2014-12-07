@@ -83,7 +83,7 @@ def honey(service, logfile):
 	port      = servicescfg.get(service, 'port')
 	response  = servicescfg.get(service, 'response')
 	script    = servicescfg.get(service, 'script')
-	host      = honeypycfg.get('honeypy', 'host')
+	host      = honeypycfg.get('honeypy', 'hostname')
 	twitter   = honeypycfg.get('twitter', 'enabled')
 	honeydb   = {'enabled': honeypycfg.get('honeydb', 'enabled'), 'url': honeypycfg.get('honeydb', 'url'), 'secret': honeypycfg.get('honeydb', 'secret')}
 
