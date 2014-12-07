@@ -19,4 +19,5 @@ def logger(url, secret, date, time, date_time, millisecond, event, local_host, l
 		# hmmmm, maybe later...
 		#honeylogger.info('Post event to honeydb, response: %s' % (page))
 	except urllib2.URLError, e:
-		honeylogger.debug('Error posting to honeydb: %s %s' % (str(e.code), str(e.reason)))
+		#honeylogger.debug('Error posting to honeydb: %s %s' % (str(e.code), str(e.reason)))
+		print 'Error posting to honeydb: %s %s' % (str(e.code), str(e.reason))
