@@ -83,6 +83,7 @@ def honey(service, logfile):
 	port      = servicescfg.get(service, 'port')
 	response  = servicescfg.get(service, 'response')
 	script    = servicescfg.get(service, 'script')
+	host      = honeypycfg.get('honeypy', 'host')
 	twitter   = honeypycfg.get('twitter', 'enabled')
 	honeydb   = {'enabled': honeypycfg.get('honeydb', 'enabled'), 'url': honeypycfg.get('honeydb', 'url'), 'secret': honeypycfg.get('honeydb', 'secret')}
 
@@ -102,8 +103,9 @@ def honey(service, logfile):
 		# the SO_REUSEADDR flag tells the kernel to reuse a local socket in TIME_WAIT state, without waiting for its natural timeout to expire.
 		s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-		# Get local machine name
-		host = socket.gethostname()
+		# If no host name set in config, get local machine name
+		if '' == str(host):
+			host = socket.gethostname()
 
 		# Bind to the port
 		s.bind(('', int(port)))
