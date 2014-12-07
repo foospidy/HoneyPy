@@ -19,6 +19,7 @@ import urllib
 import urllib2
 import imp
 import hashlib
+import lib.honeydb
 
 # prevent creation of compiled bytecode files
 sys.dont_write_bytecode = True
@@ -83,7 +84,7 @@ def honey(service, logfile):
 	response  = servicescfg.get(service, 'response')
 	script    = servicescfg.get(service, 'script')
 	twitter   = honeypycfg.get('twitter', 'enabled')
-	honeydb   = honeypycfg.get('honeydb', 'enabled')
+	honeydb   = {'enabled': honeypycfg.get('honeydb', 'enabled'), 'url': honeypycfg.get('honeydb', 'url'), 'secret': honeypycfg.get('honeydb', 'secret')}
 
 	if script.strip() != '':
 		scripting        = True
@@ -123,9 +124,9 @@ def honey(service, logfile):
 		if('Yes' == twitter):
 			honeytweet(service, remote_host)
 
-		if('Yes' == honeydb):
+		if('Yes' == honeydb['enabled']):
 			t =  datetime.datetime.now()
-			honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'CONNECT', host, port, "[" + service + "]", remote_host, remote_port, '')
+			lib.honeydb.logger(honeydb['url'], honeydb['secret'], t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'CONNECT', host, port, "[" + service + "]", remote_host, remote_port, '')
 
 		if scripting:
 			if not os.path.exists(full_script_path):
@@ -137,7 +138,7 @@ def honey(service, logfile):
 					path, filename    = os.path.split(full_script_path)
 					module, extension = os.path.splitext(filename)
 					modfoo            = imp.load_source(module, full_script_path)
-					modthread         = modfoo.MyMainHoney(honeylogger, host, port, service, remote_host, remote_port, c)
+					modthread         = modfoo.MyMainHoney(honeylogger, honeydb, host, port, service, remote_host, remote_port, c)
 					modthread.deamon  = True
 					modthread.start()
 				except Exception as e:
@@ -154,8 +155,8 @@ def honey(service, logfile):
 					if not data: break
 					honeylogger.info('RX %s %s [%s] %s %s %s' % (host, port, service, remote_host, remote_port, data.encode("hex")))
 
-					if('Yes' == honeydb):
-						honeydb_logger(t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'RX', host, port, "[" + service + "]", remote_host, remote_port, data.encode("hex"))
+					if('Yes' == honeydb['enabled']):
+						lib.honeydb.logger(honeydb['url'], honeydb['secret'], t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'CONNECT', host, port, "[" + service + "]", remote_host, remote_port, '')
 
 				except socket.error as msg:
 					# typically "[Errno 104] Connection reset by peer", want to capture this as info
@@ -268,28 +269,6 @@ def honeypysql():
                                 outputfile.close()
 
                 time.sleep(int(honeypycfg.get('honeypysql', 'refresh')))
-
-def honeydb_logger(date, time, date_time, millisecond, event, local_host, local_port, service, remote_host, remote_port, data):
-	# post events to honedb logger
-	global honeypycfg
-
-	u = honeypycfg.get('honeydb', 'url')
-        s = honeypycfg.get('honeydb', 'secret')
-	h = hashlib.md5()
-
-	h.update(data)
-
-	# applying [:-3] to time to truncate microsecond
-	d = urllib.urlencode([('date', date), ('time', time), ('date_time', date_time), ('millisecond', str(millisecond)[:-3]), ('s', s), ('event', event), ('local_host', local_host), ('local_port', local_port), ('service', service), ('remote_host', remote_host), ('remote_port', remote_port), ('data', data), ('bytes', str(len(data))), ('data_hash', h.hexdigest())])
-
-	try:
-		req      = urllib2.Request(u, d, {'User-Agent':'HoneyPy'})
-		response = urllib2.urlopen(req)
-		page     = response.read()
-
-		honeylogger.info('Post event to honeydb, response: %s' % (page))
-	except urllib2.URLError, e:
-		honeylogger.debug('Error posting to honeydb: %s %s' % (str(e.code), str(e.reason)))
 
 def console():
 	"""
