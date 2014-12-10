@@ -47,6 +47,7 @@ class MyMainHoney(threading.Thread):
 			loggedin           = False
 			user               = ''
 			password           = ''
+			pwd                = '/'
 			
 			time.sleep(2)
 			self.tx('220 ProFTPD 1.2.4 Server (ProFTPD) [::ffff:' + self.host + ']\n')
@@ -73,13 +74,22 @@ class MyMainHoney(threading.Thread):
 							self.txt('503 Login with USER first\n')
 						else:
 							if 'password' == command[1]:
+								# initialize some variables
+								if 'root' == user:
+									pwd = '/root'
+								else:
+									pwd = '/home/' + user
+
 								self.tx('230 User ' + user + ' logged in\n')
 							else:
 								self.tx('530 Login incorrect.\n')
 
+				elif 'pwd' == command[0]:
+					self.tx(pwd)
+
 				elif 'syst' == command[0]:
 					self.tx('215 UNIX Type: L8')
-				
+
 				elif 'help' == command[0]:
 					self.tx('help not availible\n')
 					
