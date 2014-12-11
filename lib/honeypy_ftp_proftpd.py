@@ -37,7 +37,7 @@ class MyMainHoney(threading.Thread):
 		return data
 
 	def run(self):
-		self.rx()
+		#self.rx()
 		try:
 			### START CUSTOM PROTOCOL ###########################################################################################################
 			command            = ['foo'] # initialize first element of array with something
@@ -84,15 +84,18 @@ class MyMainHoney(threading.Thread):
 							else:
 								self.tx('530 Login incorrect.\n')
 
-				elif 'pwd' == command[0]:
-					self.tx(pwd)
+				elif 'pwd' == command[0] or 'xpwd' == command[0]:
+					self.tx(pwd + '\n')
 
 				elif 'syst' == command[0]:
 					self.tx('215 UNIX Type: L8')
 
 				elif 'help' == command[0]:
 					self.tx('help not availible\n')
-					
+
+				elif 'quit' == command[0]:
+					break;
+				
 				else:
 					self.tx('500 ' + command[0] + ' not understood\n')
 			
@@ -108,3 +111,4 @@ class MyMainHoney(threading.Thread):
 
 	### START CUSTOM FUNCTIONS ##################################################################################################################
 	### END CUSTOM FUNCTIONS ####################################################################################################################
+
