@@ -81,12 +81,16 @@ class MyMainHoney(threading.Thread):
 									pwd = '/home/' + user
 
 								self.tx('230 User ' + user + ' logged in\n')
+								
 							else:
 								self.tx('530 Login incorrect.\n')
 
 				elif 'pwd' == command[0] or 'xpwd' == command[0]:
 					self.tx(pwd + '\n')
 
+				elif 'cwd' == command[0] or 'xcwd' == command[0]:
+					self.tx('550 ' + command[1] ': No such file or directory\n') 
+					
 				elif 'syst' == command[0]:
 					self.tx('215 UNIX Type: L8')
 
