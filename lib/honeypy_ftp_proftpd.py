@@ -91,7 +91,7 @@ class MyMainHoney(threading.Thread):
 					if len(command) < 2:
 						self.tx('501 Invalid number of arguments\n')
 					else:
-					self.tx('550 ' + command[1] + ': No such file or directory\n')
+						self.tx('550 ' + command[1] + ': No such file or directory\n')
 
 				elif 'port' == command[0]:
 					if len(command) < 2:
