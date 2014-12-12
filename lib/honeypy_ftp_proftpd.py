@@ -81,7 +81,6 @@ class MyMainHoney(threading.Thread):
 									pwd = '/home/' + user
 
 								self.tx('230 User ' + user + ' logged in\n')
-								
 							else:
 								self.tx('530 Login incorrect.\n')
 
@@ -89,8 +88,29 @@ class MyMainHoney(threading.Thread):
 					self.tx(pwd + '\n')
 
 				elif 'cwd' == command[0] or 'xcwd' == command[0]:
-					self.tx('550 ' + command[1] ': No such file or directory\n') 
-					
+					if len(command) < 2:
+						self.tx('501 Invalid number of arguments\n')
+					else:
+					self.tx('550 ' + command[1] + ': No such file or directory\n')
+
+				elif 'port' == command[0]:
+					if len(command) < 2:
+						self.tx('501 Invalid number of arguments\n')
+					else:
+						self.tx('501 Illegal PORT command\n')
+				
+				elif 'cdup' == command[0]:
+					self.tx('550 ' + command[1] + ': No such file or directory\n')
+
+				elif 'pasv' == command[0]:
+					self.tx('Passive mode on.\n')
+				
+				elif 'abor' == command[0]:
+					self.tx('226 Abort successful\n')
+				
+				elif 'allo' == command[0]:
+					self.tx('214 Syntax: ALLO is not implemented (ignored)\n')
+				
 				elif 'syst' == command[0]:
 					self.tx('215 UNIX Type: L8')
 
@@ -115,4 +135,3 @@ class MyMainHoney(threading.Thread):
 
 	### START CUSTOM FUNCTIONS ##################################################################################################################
 	### END CUSTOM FUNCTIONS ####################################################################################################################
-
