@@ -71,7 +71,7 @@ class MyMainHoney(threading.Thread):
 						self.tx('530 Login incorrect.\n')
 					else:
 						if '' == user:
-							self.txt('503 Login with USER first\n')
+							self.tx('503 Login with USER first\n')
 						else:
 							if 'password' == command[1]:
 								# initialize some variables
@@ -97,17 +97,24 @@ class MyMainHoney(threading.Thread):
 
 				elif 'mkd' == command[0] or 'xmkd' == command[0]:
 					if len(command) < 2:
-						self.txt('501 Invalid number of arguments\n')
+						self.tx('501 Invalid number of arguments\n')
 					else:
-						self.tx(550 ' + command[1] + ': Permission denied')
+						self.tx('550 ' + command[1] + ': Permission denied')
 
+				elif 'site' == command[0]:
+					if len(command) < 2:
+						self.tx('500 \'SITE\' requires parameters\n')
+					else:
+						if 'help' == command[1]:
+							self.tx(self.get_site_help())
+						
 				elif 'port' == command[0]:
 					if len(command) < 2:
 						self.tx('501 Invalid number of arguments\n')
 					else:
 						self.tx('501 Illegal PORT command\n')
 				
-				elif 'cdup' == command[0] or 'xcup' == command[0]::
+				elif 'cdup' == command[0]:
 					self.tx('550 ' + command[1] + ': No such file or directory\n')
 
 				elif 'pasv' == command[0]:
@@ -119,11 +126,14 @@ class MyMainHoney(threading.Thread):
 				elif 'allo' == command[0]:
 					self.tx('214 Syntax: ALLO is not implemented (ignored)\n')
 				
+				elif 'acct' == command[0] or 'macb' == command[0] or 'rein' == command[0] or 'smnt' == command[0] or 'stru' == command[0]:
+					self.tx('502 ' + command[0].upper() + ' command not implemented\n')
+				
 				elif 'syst' == command[0]:
 					self.tx('215 UNIX Type: L8')
 
 				elif 'help' == command[0]:
-					self.tx('help not availible\n')
+					self.tx(self.get_help())
 
 				elif 'quit' == command[0]:
 					break;
@@ -142,4 +152,9 @@ class MyMainHoney(threading.Thread):
 		self.client_socket.close()
 
 	### START CUSTOM FUNCTIONS ##################################################################################################################
+	def get_help(self):
+		return '214-The following commands are recognized (* =>\'s unimplemented):\n214-CWD     XCWD    CDUP    XCUP    SMNT*   QUIT    PORT    PASV\n214-EPRT    EPSV    ALLO*   RNFR    RNTO    DELE    MDTM    RMD\n214-XRMD    MKD     XMKD    PWD     XPWD    SIZE    SYST    HELP\n214-NOOP    FEAT    OPTS    AUTH*   CCC*    CONF*   ENC*    MIC*\n214-PBSZ*   PROT*   TYPE    STRU    MODE    RETR    STOR    STOU\n214-APPE    REST    ABOR    USER    PASS    ACCT*   REIN*   LIST\n214-NLST    STAT    SITE    MLSD    MLST\n214 Direct comments to root@localhost\n'
+
+	def get_site_help(self):
+		return '214-The following SITE commands are recognized (* =>\'s unimplemented)\n214-CPFR <sp> pathname\n214-CPTO <sp> pathname\n214-UTIME <sp> YYYYMMDDhhmm[ss] <sp> path\n214-SYMLINK <sp> source <sp> destination\n214-RMDIR <sp> path\n214-MKDIR <sp> path\n214-The following SITE extensions are recognized:\n214-RATIO -- show all ratios in effect\n214-QUOTA\n214-HELP\n214-CHGRP\n214-CHMOD\n214 Direct comments to root@localhost\n'
 	### END CUSTOM FUNCTIONS ####################################################################################################################
