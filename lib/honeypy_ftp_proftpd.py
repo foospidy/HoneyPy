@@ -107,7 +107,7 @@ class MyMainHoney(threading.Thread):
 					else:
 						self.tx('501 Illegal PORT command\n')
 				
-				elif 'cdup' == command[0]:
+				elif 'cdup' == command[0] or 'xcup' == command[0]::
 					self.tx('550 ' + command[1] + ': No such file or directory\n')
 
 				elif 'pasv' == command[0]:
