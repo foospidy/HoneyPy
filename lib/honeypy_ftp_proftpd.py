@@ -92,15 +92,23 @@ class MyMainHoney(threading.Thread):
 						self.tx('501 Invalid number of arguments\n')
 					else:
 						self.tx('550 ' + command[1] + ': No such file or directory\n')
+					
+					#todo 257 "' + command[1] + '" - Directory successfully created
 
-				elif 'cdup' == command[0] or 'xcup' == command[0]:
-					self.tx('550 ' + command[1] + ': No such file or directory\n')
+				elif 'mkd' == command[0] or 'xmkd' == command[0]:
+					if len(command) < 2:
+						self.txt('501 Invalid number of arguments\n')
+					else:
+						self.tx(550 ' + command[1] + ': Permission denied')
 
 				elif 'port' == command[0]:
 					if len(command) < 2:
 						self.tx('501 Invalid number of arguments\n')
 					else:
 						self.tx('501 Illegal PORT command\n')
+				
+				elif 'cdup' == command[0]:
+					self.tx('550 ' + command[1] + ': No such file or directory\n')
 
 				elif 'pasv' == command[0]:
 					self.tx('Passive mode on.\n')
