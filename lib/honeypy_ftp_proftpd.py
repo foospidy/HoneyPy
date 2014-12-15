@@ -123,11 +123,13 @@ class MyMainHoney(threading.Thread):
 				elif 'abor' == command[0]:
 					self.tx('226 Abort successful\n')
 				
-				elif 'allo' == command[0]:
-					self.tx('214 Syntax: ALLO is not implemented (ignored)\n')
-				
+				# command not implemented
 				elif 'acct' == command[0] or 'macb' == command[0] or 'rein' == command[0] or 'smnt' == command[0] or 'stru' == command[0]:
 					self.tx('502 ' + command[0].upper() + ' command not implemented\n')
+				
+				# command not understood
+				elif 'pbsz' == command[0] 'prot' == command[0] or 'allo' == command[0] or 'auth' == command[0] or 'ccc' == command[0] or 'conf' == command[0] or 'enc' == command[0] or 'mic' == command[0]:
+					self.tx('500' + command[0] + ' not understood\n')
 				
 				elif 'syst' == command[0]:
 					self.tx('215 UNIX Type: L8')
