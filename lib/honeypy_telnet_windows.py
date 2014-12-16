@@ -29,7 +29,6 @@ class MyMainHoney(threading.Thread):
 		return data
 
 	def run(self):
-		self.rx()
 		try:
 			### START CUSTOM PROTOCOL ###########################################################################################################
 			time.sleep(3)
