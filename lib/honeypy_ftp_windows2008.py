@@ -30,7 +30,6 @@ class MyMainHoney(threading.Thread):
 		return data
 
 	def run(self):
-		self.rx()
 		try:
 			### START CUSTOM PROTOCOL ###########################################################################################################
 			command            = ['foo'] # initialize first element of array with something
