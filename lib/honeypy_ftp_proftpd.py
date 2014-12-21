@@ -53,95 +53,110 @@ class MyMainHoney(threading.Thread):
 			self.tx('220 ProFTPD 1.2.4 Server (ProFTPD) [::ffff:' + self.host + ']\n')
 			
 			while 'quit' != command[0]:
-				command = str(self.rx()).rstrip().lower().split()
+				input = str(self.rx()).rstrip().lower().split('\r\n')
+				#print '\ninput size: ' + str(len(input)) + ' ' + str(input)
 				
-				if 0 == len(command):
-					self.tx('500 Invalid command: try being more creative\n')
-					command = ['foo']
-	
-				elif 'user' == command[0]:
-					if len(command) < 2:
-						self.tx('500 USER: command requires a parameter\n')
-					else:
-						user = command[1]
-						self.tx('331 Password required for ' + command[1] + '\n')
-
-				elif 'pass' == command[0]:
-					if len(command) < 2:
-						self.tx('530 Login incorrect.\n')
-					else:
-						if '' == user:
-							self.tx('503 Login with USER first\n')
+				for line in input:
+					command = str(line).rstrip().lower().split()
+					#print 'command size: ' + str(len(command)) + ' ' + str(command)
+				
+					if 0 == len(command):
+						self.tx('500 Invalid command: try being more creative\n')
+						command = ['foo']
+		
+					elif 'user' == command[0]:
+						if len(command) < 2:
+							self.tx('500 USER: command requires a parameter\n')
 						else:
-							if 'password' == command[1]:
-								# initialize some variables
-								if 'root' == user:
-									pwd = '/root'
-								else:
-									pwd = '/home/' + user
+							user = command[1]
+							self.tx('331 Password required for ' + command[1] + '\n')
 
-								self.tx('230 User ' + user + ' logged in\n')
+					elif 'pass' == command[0]:
+						if len(command) < 2:
+							self.tx('530 Login incorrect.\n')
+						else:
+							if '' == user:
+								self.tx('503 Login with USER first\n')
 							else:
-								self.tx('530 Login incorrect.\n')
+								if 'password' == command[1]:
+									# initialize some variables
+									if 'root' == user:
+										pwd = '/root'
+									else:
+										pwd = '/home/' + user
 
-				elif 'pwd' == command[0] or 'xpwd' == command[0]:
-					self.tx(pwd + '\n')
+									loggedin = True
+									self.tx('230 User ' + user + ' logged in\n')
+								else:
+									self.tx('530 Login incorrect.\n')
 
-				elif 'cwd' == command[0] or 'xcwd' == command[0]:
-					if len(command) < 2:
-						self.tx('501 Invalid number of arguments\n')
-					else:
-						self.tx('550 ' + command[1] + ': No such file or directory\n')
+					elif 'pwd' == command[0] or 'xpwd' == command[0]:
+						if not loggedin:
+							self.tx('530 Please login with USER and PASS\n')
+						else:
+							self.tx(pwd + '\n')
+
+					elif 'cwd' == command[0] or 'xcwd' == command[0]:
+						if not loggedin:
+							self.tx('530 Please login with USER and PASS\n')
+						else:
+							if len(command) < 2:
+								self.tx('501 Invalid number of arguments\n')
+							else:
+								self.tx('550 ' + command[1] + ': No such file or directory\n')
+							
+							#todo 257 "' + command[1] + '" - Directory successfully created
+
+					elif 'mkd' == command[0] or 'xmkd' == command[0]:
+						if not loggedin:
+							self.tx('530 Please login with USER and PASS\n')
+						else:
+							if len(command) < 2:
+								self.tx('501 Invalid number of arguments\n')
+							else:
+								self.tx('550 ' + command[1] + ': Permission denied')
+
+					elif 'site' == command[0]:
+						if len(command) < 2:
+							self.tx('500 \'SITE\' requires parameters\n')
+						else:
+							if 'help' == command[1]:
+								self.tx(self.get_site_help())
+							
+					elif 'port' == command[0]:
+						if len(command) < 2:
+							self.tx('501 Invalid number of arguments\n')
+						else:
+							self.tx('501 Illegal PORT command\n')
 					
-					#todo 257 "' + command[1] + '" - Directory successfully created
+					elif 'cdup' == command[0]:
+						self.tx('550 ' + command[1] + ': No such file or directory\n')
 
-				elif 'mkd' == command[0] or 'xmkd' == command[0]:
-					if len(command) < 2:
-						self.tx('501 Invalid number of arguments\n')
+					elif 'pasv' == command[0]:
+						self.tx('Passive mode on.\n')
+					
+					elif 'abor' == command[0]:
+						self.tx('226 Abort successful\n')
+					
+					# command not implemented
+					elif 'acct' == command[0] or 'macb' == command[0] or 'rein' == command[0] or 'smnt' == command[0] or 'stru' == command[0]:
+						self.tx('502 ' + command[0].upper() + ' command not implemented\n')
+					
+					# command not understood
+					elif 'pbsz' == command[0] or 'prot' == command[0] or 'allo' == command[0] or 'auth' == command[0] or 'ccc' == command[0] or 'conf' == command[0] or 'enc' == command[0] or 'mic' == command[0]:
+						self.tx('500' + command[0] + ' not understood\n')
+					
+					elif 'syst' == command[0]:
+						self.tx('215 UNIX Type: L8')
+
+					elif 'help' == command[0]:
+						self.tx(self.get_help())
+
+					elif 'quit' == command[0]:
+						break;
+					
 					else:
-						self.tx('550 ' + command[1] + ': Permission denied')
-
-				elif 'site' == command[0]:
-					if len(command) < 2:
-						self.tx('500 \'SITE\' requires parameters\n')
-					else:
-						if 'help' == command[1]:
-							self.tx(self.get_site_help())
-						
-				elif 'port' == command[0]:
-					if len(command) < 2:
-						self.tx('501 Invalid number of arguments\n')
-					else:
-						self.tx('501 Illegal PORT command\n')
-				
-				elif 'cdup' == command[0]:
-					self.tx('550 ' + command[1] + ': No such file or directory\n')
-
-				elif 'pasv' == command[0]:
-					self.tx('Passive mode on.\n')
-				
-				elif 'abor' == command[0]:
-					self.tx('226 Abort successful\n')
-				
-				# command not implemented
-				elif 'acct' == command[0] or 'macb' == command[0] or 'rein' == command[0] or 'smnt' == command[0] or 'stru' == command[0]:
-					self.tx('502 ' + command[0].upper() + ' command not implemented\n')
-				
-				# command not understood
-				elif 'pbsz' == command[0] or 'prot' == command[0] or 'allo' == command[0] or 'auth' == command[0] or 'ccc' == command[0] or 'conf' == command[0] or 'enc' == command[0] or 'mic' == command[0]:
-					self.tx('500' + command[0] + ' not understood\n')
-				
-				elif 'syst' == command[0]:
-					self.tx('215 UNIX Type: L8')
-
-				elif 'help' == command[0]:
-					self.tx(self.get_help())
-
-				elif 'quit' == command[0]:
-					break;
-				
-				else:
-					self.tx('500 ' + command[0] + ' not understood\n')
+						self.tx('500 ' + command[0] + ' not understood\n')
 			
 			self.tx('221 Goodbye.\n')
 
