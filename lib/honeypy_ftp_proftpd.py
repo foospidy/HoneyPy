@@ -128,7 +128,7 @@ class MyMainHoney(threading.Thread):
 					self.tx('502 ' + command[0].upper() + ' command not implemented\n')
 				
 				# command not understood
-				elif 'pbsz' == command[0] 'prot' == command[0] or 'allo' == command[0] or 'auth' == command[0] or 'ccc' == command[0] or 'conf' == command[0] or 'enc' == command[0] or 'mic' == command[0]:
+				elif 'pbsz' == command[0] or 'prot' == command[0] or 'allo' == command[0] or 'auth' == command[0] or 'ccc' == command[0] or 'conf' == command[0] or 'enc' == command[0] or 'mic' == command[0]:
 					self.tx('500' + command[0] + ' not understood\n')
 				
 				elif 'syst' == command[0]:
