@@ -175,12 +175,18 @@ def honeytweet(service, clientip):
 	cs = honeypycfg.get('twitter', 'consumersecret')
 	ot = honeypycfg.get('twitter', 'oauthtoken')
 	os = honeypycfg.get('twitter', 'oauthsecret')
+	tb = honeypycfg.get('twitter', 'ask_animus') # threat bot
 
 	t        = Twitter(auth=OAuth(ot, os, ck, cs))
 	nodename = honeypycfg.get('twitter', 'nodename')
 	comment  = servicescfg.get(service, 'comment')
+	animus   = '';
+	
+	if('Yes' == tb):
+		animus = ' @threatbot'
+	
 	try:
-		t.statuses.update(status=nodename + ': #' + service + ' '  + comment + ' from ' + clientip + ' https://foospidy.com/opt/honeydb/view-ip/' + clientip)
+		t.statuses.update(status=nodename + ': #' + service + ' '  + comment + ' from ' + clientip + ' https://foospidy.com/opt/honeydb/view-ip/' + clientip + animus)
 	except Exception, err:
 		twitterlogger.debug('Error posting to Twitter: %s' % err)
 
