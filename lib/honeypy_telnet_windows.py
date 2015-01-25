@@ -9,9 +9,10 @@ import time
 ### END CUSTOM IMPORT
 
 class MyMainHoney(threading.Thread):
-	def __init__(self, logger, host, port, service, remote_host, remote_port, client_socket):
+	def __init__(self, logger, honeydb, host, port, service, remote_host, remote_port, client_socket):
 		threading.Thread.__init__(self)
 		self.logger        = logger
+		self.honeydb       = honeydb
 		self.host          = host
 		self.port          = port
 		self.service       = service
@@ -22,6 +23,10 @@ class MyMainHoney(threading.Thread):
 	def tx(self, data):
 		self.client_socket.send(data)
 		self.logger.info('TX %s %s [%s] %s %s %s' % (self.host, self.port, self.service, self.remote_host, self.remote_port, data.encode("hex")))
+
+		if('Yes' == self.honeydb['enabled']):
+			t =  datetime.datetime.now()
+			lib.honeydb.logger(self.honeydb['url'], self.honeydb['secret'], t.strftime("%Y-%m-%d"), t.strftime("%H:%M:%S"), t.strftime("%Y-%m-%d") + " " + t.strftime("%H:%M:%S"), t.microsecond, 'TX', self.host, self.port, "[" + self.service + "]", self.remote_host, self.remote_port, data.encode("hex"))
 
 	def rx(self):
 		data = self.client_socket.recv(65535)
