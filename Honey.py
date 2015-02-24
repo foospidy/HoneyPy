@@ -285,7 +285,7 @@ def console():
 	global svcfile
 
 	banner = 'ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX18gICAgICAgCiAgL1wgIC9cX19fICBfIF9fICAgX19fIF8gICBfICAvIF8gXF8gICBfIAogLyAvXy8gLyBfIFx8ICdfIFwgLyBfIFwgfCB8IHwvIC9fKS8gfCB8IHwKLyBfXyAgLyAoXykgfCB8IHwgfCAgX18vIHxffCAvIF9fXy98IHxffCB8ClwvIC9fLyBcX19fL3xffCB8X3xcX19ffFxfXywgXC8gICAgIFxfXywgfAogICAgICAgICAgICAgICAgICAgICAgICB8X19fLyAgICAgICB8X19fLyAKCg=='
-	version = 'WyBIb25leVB5IHYwLjUgQ29weXJpZ2h0IChjKSAyMDEzLTIwMTUgZm9vc3BpZHkgXQ=='
+	version = 'WyBIb25leVB5IHYwLjAuNSBDb3B5cmlnaHQgKGMpIDIwMTMtMjAxNSBmb29zcGlkeSBd'
 
 	print banner.decode("base64"),
 	print version.decode("base64") + "\n"
