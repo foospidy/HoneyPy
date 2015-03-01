@@ -1,6 +1,8 @@
 HoneyPy
 =======
 
+The latest updates significantly change how HoneyPy works, this readme is obsolete, it will be updated soon.
+
 A low interaction honeypot. Coded in Python and intended to be a very basic honeypot that is easy to deploy. By default HoneyPy simply opens ports to listen on, and only logs connections and data sent to it. It only responds with a message specified in the service config file for each service. Custom "scripts" or service emulators can be created to listen on those ports to provide more interaction. See the secton on custom service emulation below for more information.
 
 #### Usage
