@@ -25,6 +25,8 @@ In console mode type 'help' for a list of command options. Example of the consol
 [HoneyPy v0.1.0 Copyright (c) 2013-2015. foospidy]
 
 HoneyPy Console. For help type 'help'.
+HoneyPy>start
+8 service(s) started!
 HoneyPy>
 ```
 
