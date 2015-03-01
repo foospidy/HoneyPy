@@ -1,0 +1,209 @@
+# HoneyPy Copyright (C) 2013-2015 foospidy
+# services.linux.example
+# Important: service names must not contain spaces.
+# Important: use port redirecting for services that listen on ports below 1024 (see https://github.com/foospidy/ipt-kit).
+# Reference: https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+
+[Echo]
+plugin      = Echo
+port        = tcp:10007
+description = Echo back data received via tcp.
+enabled     = No
+
+[Echo_udp]
+plugin      = Echo_udp
+port        = udp:10007
+description = Echo back data received via udp.
+enabled     = No
+
+[MOTD]
+plugin      = MOTD
+port        = tcp:10008
+description = Send a message via tcp and close connection.
+enabled     = No
+
+[MOTD_udp]
+plugin      = MOTD_udp
+port        = udp:10008
+description = Send a message via udp.
+enabled     = No
+
+[FTP]
+plugin      = Echo
+port        = tcp:10021
+description = Echo back data received via tcp.
+enabled     = No
+
+[SSH]
+plugin      = Random
+port        = tcp:10022
+description = Send random data via tcp.
+enabled     = No
+
+[Telnet]
+plugin      = TelnetDebian7
+port        = tcp:10023
+description = Emulate Debian telnet login via tcp.
+enabled     = No
+
+[SMTP]
+plugin      = Echo
+port        = tcp:10025
+description = Echo back data received via tcp.
+enabled     = No
+
+[DNS]
+plugin      = Echo
+port        = tcp:10053
+description = Echo back data received via tcp.
+enabled     = No
+
+[DNS_udp]
+plugin      = Echo_udp
+port        = udp:10053
+description = Echo back data received via udp.
+enabled     = No
+
+[Bootp]
+plugin      = Echo_udp
+port        = udp:10067
+description = Echo back data received via tcp.
+enabled     = No
+
+[TFTP]
+plugin      = Echo_udp
+port        = udp:10069
+description = Echo back data received via udp.
+enabled     = No
+
+[HTTP]
+plugin      = Echo
+port        = tcp:10080
+description = Echo back data received via tcp.
+enabled     = No
+
+[Kerberos]
+plugin      = Echo
+port        = tcp:10088
+description = Echo back data received via tcp.
+enabled     = No 
+
+[Kerberos_udp]
+plugin      = Echo_udp
+port        = udp:10088
+description = Echo back data received via udp.
+enabled     = No 
+
+[POP3]
+plugin      = Echo
+port        = tcp:10110
+description = Echo back data received via tcp.
+enabled     = No 
+
+[SunRPC]
+plugin      = Echo
+port        = tcp:10111
+description = Echo back data received via tcp.
+enabled     = No
+
+[SunRPC_udp]
+plugin      = Echo_udp
+port        = udp:10111
+description = Echo back data received via udp.
+enabled     = No
+
+[NTP]
+plugin      = Echo_udp
+port        = udp:10123
+description = Echo back data received via udp.
+enabled     = No
+
+[NetBIOS]
+plugin      = Echo_udp
+port        = udp:10137
+description = Echo back data received via udp.
+enabled     = No
+
+[Samba]
+plugin      = Echo
+port        = tcp:10139
+description = Echo back data received via tcp.
+enabled     = No
+
+[IMAP]
+plugin      = Echo
+port        = tcp:10143
+description = Echo back data received via tcp.
+enabled     = No
+
+[SNMP]
+plugin      = Echo_udp
+port        = udp:10161
+description = Echo back data received via udp.
+enabled     = No
+
+[LDAP]
+plugin      = Echo
+port        = tcp:10389
+description = Echo back data received via tcp.
+enabled     = No
+
+[LDAP_udp]
+plugin      = Echo_udp
+port        = udp:10389
+description = Echo back data received via udp.
+enabled     = No
+
+[HTTPS]
+plugin      = Random
+port        = tcp:10443
+description = Send random data via tcp.
+enabled     = No
+
+[Syslog]
+plugin      = Echo_udp
+port        = udp:10514
+description = Echo back data received via udp.
+enabled     = No
+
+[SLDAP]
+plugin      = Echo
+port        = tcp:10636
+description = Echo back data received via tcp.
+enabled     = No
+
+[SLDAP_udp]
+plugin      = Echo_udp
+port        = udp:10636
+description = Echo back data received via udp.
+enabled     = No
+
+[Rsync]
+plugin      = Echo
+port        = tcp:10873
+description = Echo back data received via tcp.
+enabled     = No
+
+[MySQL]
+plugin      = Random
+port        = tcp:3306
+description = Send random data via tcp.
+enabled     = No
+
+[NFS]
+plugin      = Echo
+port        = tcp:2049
+description = Echo back data received via tcp.
+enabled     = No
+
+[NFS_udp]
+plugin      = Echo_udp
+port        = udp:2049
+description = Echo back data received via udp.
+enabled     = No
+
+[X11]
+plugin      = Echo
+port        = tcp:6000
+description = Echo back data received via tcp.
+enabled     = No

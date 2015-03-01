@@ -1,0 +1,46 @@
+# HoneyPy Copyright (C) 2013-2015 foospidy
+# services.windows_iis.example
+# Important: service names must not contain spaces.
+# Important: use port redirecting for services that listen on ports below 1024 (see https://github.com/foospidy/ipt-kit).
+
+[SMTP]
+plugin      = Echo
+port        = tcp:30025
+description = Echo back data received via tcp.
+enabled     = No
+
+[FTP]
+plugin      = Echo
+port        = tcp:30021
+description = Echo back data received via tcp.
+enabled     = No
+
+[Telnet]
+plugin      = WindowsTelnet
+port        = tcp:30023
+description = Emulate Windows telnet via tcp.
+enabled     = No
+
+[HTTP]
+plugin      = Echo
+port        = tcp:30080
+description = Echo back data received via tcp.
+enabled     = No
+
+[HTTPS]
+plugin      = Random
+port        = tcp:30443
+description = Send random data received via tcp.
+enabled     = No
+
+[CIFS]
+plugin      = Echo
+port        = tcp:30445
+description = Echo back data received via tcp.
+enabled     = No
+
+[CIFS_udp]
+plugin      = Echo_udp
+port        = udp:30445
+description = Echo back data received via udp.
+enabled     = No
