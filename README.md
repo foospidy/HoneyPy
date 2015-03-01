@@ -8,9 +8,27 @@ A low interaction honeypot with the capability to be more of a medium interactio
 #### Usage
 **You should not run HoneyPy as root!** It is recommended to use a dedicated account to run under. HoneyPy is developed and run on Debain. There's no reason why it should not work on other Linux/Unix flavors as long as all Python dependencies are installed.
 
+##### Console Mode
 Run in console mode: `python Honey.py`
 
-In console mode type 'help' for a list of command options.
+In console mode type 'help' for a list of command options. Example of the console screen:
+
+```
+                                ___       
+  /\  /\___  _ __   ___ _   _  / _ \_   _ 
+ / /_/ / _ \| '_ \ / _ \ | | |/ /_)/ | | |
+/ __  / (_) | | | |  __/ |_| / ___/| |_| |
+\/ /_/ \___/|_| |_|\___|\__, \/     \__, |
+                        |___/       |___/ 
+
+
+[HoneyPy v0.1.0 Copyright (c) 2013-2015. foospidy]
+
+HoneyPy Console. For help type 'help'.
+HoneyPy>
+```
+
+##### Deamon Mode
 
 Run in deamon mode: `python Honey.py -d &`
 
