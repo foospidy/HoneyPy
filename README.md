@@ -92,7 +92,16 @@ def md5sum(self, data):
 ### END CUSTOM FUNCTIONS ############################################################
 ```
 
-#### Twitter API Support
+#### Dependencies
+
+##### Twisted
+HoneyPy is now completely dependent on the Twisted. Learn more about Twisted here https://twistedmatrix.com.
+
+To Install on Debian:
+
+`apt-get install python-twisted`
+
+##### Twitter API Support
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
 
 To install on Debian:
