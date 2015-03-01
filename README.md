@@ -11,7 +11,7 @@ A low interaction honeypot with the capability to be more of a medium interactio
 ##### Console Mode
 Run in console mode: `python Honey.py`
 
-In console mode type 'help' for a list of command options. Example of the console screen:
+In console mode services do not automatically start, use the `start` command. Type the `help` command for a list of command options. Example of the console screen:
 
 ```
                                 ___       
@@ -31,6 +31,8 @@ HoneyPy>
 ```
 
 ##### Deamon Mode
+
+In deamon mode all configured services will automatically start and listen for connections.
 
 Run in deamon mode: `python Honey.py -d &`
 
