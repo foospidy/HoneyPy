@@ -3,7 +3,7 @@ HoneyPy
 
 The latest updates significantly change how HoneyPy works, this readme is obsolete, it will be updated soon.
 
-A low interaction honeypot. Coded in Python and intended to be a very basic honeypot that is easy to deploy. By default HoneyPy simply opens ports to listen on, and only logs connections and data sent to it. It only responds with a message specified in the service config file for each service. Custom "scripts" or service emulators can be created to listen on those ports to provide more interaction. See the secton on custom service emulation below for more information.
+A low interaction honeypot with the capability to be more of a medium interaction honeypot. Coded in Python and intended to be a very basic honeypot that is easy to deploy. HoneyPy is now based on plugins, and the level of interaction is based on what plugins are configured to run. The default plugins are low interaction and all activity is logged. Plugins can be enhanced or created to emulate services to provide more interaction. 
 
 #### Usage
 **You should not run HoneyPy as root!** It is recommended to use a dedicated account to run under. HoneyPy is developed and run on Debain. There's no reason why it should not work on other Linux/Unix flavors as long as all Python dependencies are installed.
@@ -15,13 +15,13 @@ In console mode type 'help' for a list of command options.
 Run in deamon mode: `python Honey.py -d &`
 
 #### Service Config Files
-There are several configuration service.* files in the etc directory. The service config file is used to define what ports (services) you want to run on your honey pot. By default HoneyPy will use the service.cfg file. Each service defined in the file has an "enabled" option. This option can be set to Yes or No to determine which services run on start. You can also use one of the other service config files, or create your own. Initially the service.cfg file is the same as service.all.cfg. To use one of the other files simply copy the file over service.cfg. For example:
+In the `etc` directory there is a `service.cfg` file, this is the file HoneyPy uses to launch services. There are several example service configuration files located in the `etc/examples` directory. The service config file is used to define service names, ports, and plugins to run on your honeypot. Each service defined in the file has an "enabled" option. This option can be set to Yes or No to determine which services run on start. You can also use one of the example config files, or create your own. To use one of the other files simply copy the file over service.cfg. For example:
 
-`cp services.windows.iis.cfg service.cfg`
+`cp examples/services.windows_iis.example service.cfg`
 
 If you want to revert back to the default service config file simply run
 
-`cp service.all.cfg service.cfg`
+`cp examples/service.default.example service.cfg`
 
 #### Running Services on Low Ports
 While you should not run HoneyPy with the root user, this means HoneyPy will not be able to listen on ports 1 through 1024. As a work around you can use implement port redirection with IPTables. If you're not familiar with using IPTables you can try using ipt-kit (https://github.com/foospidy/ipt-kit). You will need to run ipt-kit as root to modify IPTables. Once the redirection rules are in place you won't need to run HoneyPy as root for low ports.
@@ -37,23 +37,21 @@ or if using sudo:
 `$sudo ./ipt_set_tcp 23 2300`
 
 #### Custom Service Emulation
-HoneyPy now supports custom service emulators. Service emulators can make the honeypot look more like a real system in order to invoke more interaction and capture more attack data. The emulator is a Python module that is loaded on start. HonePy simply opens a socket and hands it off to the service emulator. There are example service emulators included in the lib directory. These will be improved, and more added, in the future. To enable an emulator add the file name to the script parameter in the service config file. Example:
+HoneyPy now uses the concept of plugins for custom service emulators. Service emulators can make the honeypot look more like a real system in order to invoke more interaction and capture more attack data. The emulator is a Python module that is loaded on start. HonePy simply opens a socket and hands it off to the service emulator. There are example service emulators included in the plugins directory. These will be improved, and more added, in the future. Example:
 
 ```
-[ftp]
-port     = 21
-response = cookie!
-comment  = Possible ftp attacks
-enabled  = Yes
-script   = honeypy_ftp_proftpd.py
+[Echo]
+plugin      = Echo
+port        = tcp:10007
+description = Echo back data received via tcp.
+enabled     = Yes
 ```
-note: the response parameter is ignored when using the script parameter.
 
 #### Creating Custom Service Emulators
-Hopefully creating new emulators is now easy. HoneyPy takes care of sending/receiving data and logging, all you have to do is write the custom protocol/logic. The service emulators in the lib directory can be used as templates to create new emulators.
+Hopefully creating new plugins is now easy. HoneyPy takes care of sending/receiving data and logging, all you have to do is write the custom protocol/logic. The service emulators in the plugins directory can be used as templates to create new emulators.
 
 Example:
-https://github.com/foospidy/HoneyPy/blob/master/lib/honeypy_random_hashcount.py
+https://github.com/foospidy/HoneyPy/blob/master/plugins/HashCountRandom/HashCountRandom.py
 
 There are three sections to edit: custom import, custom protocol, and custom functions. To keep the template well organized, you should only make modifciaitons in the designated sections, note the comments that denote each section.
 
