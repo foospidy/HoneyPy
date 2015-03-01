@@ -24,8 +24,7 @@ class Random(protocol.Protocol):
 		self.connect()
 
 		### START CUSTOM CODE ####################################################################
-		data = "An apple a day keeps the doctor away\r\n"	
-		self.tx(data)
+		self.tx(str(os.urandom(99)) + '\n')
 		self.transport.loseConnection()
 
 		##########################################################################################
@@ -34,7 +33,7 @@ class Random(protocol.Protocol):
 		self.rx(data)
 		
 		### START CUSTOM CODE ####################################################################
-		self.transport.write(str(os.urandom(99)) + '\n')
+		self.tx(str(os.urandom(99)) + '\n')
 		
 		##########################################################################################
 
