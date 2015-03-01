@@ -3,7 +3,7 @@ HoneyPy
 
 The latest updates significantly change how HoneyPy works, this readme is obsolete, it will be updated soon.
 
-A low interaction honeypot with the capability to be more of a medium interaction honeypot. Coded in Python and intended to be a very basic honeypot that is easy to deploy. HoneyPy is now based on plugins, and the level of interaction is based on what plugins are configured to run. The default plugins are low interaction and all activity is logged. Plugins can be enhanced or created to emulate services to provide more interaction. 
+A low interaction honeypot with the capability to be more of a medium interaction honeypot. Coded in Python and intended to be a very basic honeypot that is easy to deploy. HoneyPy now supports TCP and UDP connections and is based on plugins. The level of interaction is determined by the functionality of a plugin. The default plugins are low interaction and all activity is logged. Plugins can be enhanced or created to emulate services to provide more interaction. 
 
 #### Usage
 **You should not run HoneyPy as root!** It is recommended to use a dedicated account to run under. HoneyPy is developed and run on Debain. There's no reason why it should not work on other Linux/Unix flavors as long as all Python dependencies are installed.
@@ -58,8 +58,8 @@ or if using sudo:
 
 `$sudo ./ipt_set_tcp 23 2300`
 
-#### Custom Service Emulation
-HoneyPy now uses the concept of plugins for custom service emulators. Service emulators can make the honeypot look more like a real system in order to invoke more interaction and capture more attack data. The emulator is a Python module that is loaded on start. HonePy simply opens a socket and hands it off to the service emulator. There are example service emulators included in the plugins directory. These will be improved, and more added, in the future. Example:
+#### Custom Service Emulation (Plugins)
+HoneyPy now uses the concept of plugins for custom service emulators. Plugins can make the honeypot look more like a real system in order to invoke more interaction and capture more attack data. Plugins are simply a Python module that is loaded when HoneyPy is started. HoneyPy now leverages the Twisted library to handle connections. There are example service emulators included in the plugins directory. These will be improved, and more added, in the future. Example:
 
 ```
 [Echo]
