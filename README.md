@@ -1,7 +1,7 @@
 HoneyPy
 =======
 
-The latest updates significantly change how HoneyPy works, this readme is obsolete, it will be updated soon.
+The latest updates significantly change how HoneyPy works, this readme has been updated, few more tweaks may be needed.
 
 A low interaction honeypot with the capability to be more of a medium interaction honeypot. Coded in Python and intended to be a very basic honeypot that is easy to deploy. HoneyPy now supports TCP and UDP connections and is based on plugins. The level of interaction is determined by the functionality of a plugin. The default plugins are low interaction and all activity is logged. Plugins can be enhanced or created to emulate services to provide more interaction. 
 
