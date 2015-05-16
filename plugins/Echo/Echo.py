@@ -4,6 +4,7 @@
 
 from twisted.internet import protocol, reactor, endpoints
 from twisted.python import log
+import uuid
 
 ### START CUSTOM IMPORTS ###
 
