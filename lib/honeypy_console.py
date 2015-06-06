@@ -3,6 +3,8 @@
 # See LICENSE for details
 # HoneyPy Console
 
+import os
+import shutil
 from twisted.internet import stdio, reactor
 from twisted.protocols import basic
 
@@ -65,10 +67,46 @@ class HoneyPyConsole(basic.LineReceiver):
 		self.sendLine(banner.decode("base64"))
 		self.sendLine('[HoneyPy v' + self.config.get('honeypy', 'version') + ' Copyright (c) 2013-2015. foospidy]\n')		
 	
-	def do_list(self):
-		"""list: List all configured services"""
+	def do_list(self, list='services'):
+		"""list: List information. Usage: list [services|profiles]"""
+		if 'profiles' == list:
+			self._list_profiles()
+		else:
+			self._list_services()
+
+	def _list_services(self):
+		"""list services: List all configured services"""
 		for i in range(len(self.services[0])):
 			self.sendLine(self.services[0][i] + '\t' + str(self.services[1][i]))
+
+	def _list_profiles(self):
+		"""list profiles: List all availible profiles"""
+		path  = 'etc/profiles/'
+		files = next(os.walk(path))[2]
+		
+		for f in files:
+			parts = f.split('.')
+			print parts[1]
+
+	def do_set(self, setting='profile', value='default'):
+		"""set: Change settings. Usage: set profile <profile>"""
+		if self._set_profile(value):
+			print 'Profile changed to ' + value
+			print 'Quit and restart HoneyPy for profile change to take effect!'
+		else:
+			print 'Error! No change.'
+
+	
+	def _set_profile(self, profile='default'):
+			changed = False
+			src     = 'etc/profiles/services.' + profile + '.profile'
+			dst     = 'etc/services.cfg'
+			
+			if os.path.isfile(dst):
+				shutil.copy2(src, dst)
+				changed = True
+			
+			return changed
 
 	def do_quit(self):
 		"""quit: Quit HoneyPy"""

@@ -68,12 +68,24 @@ services.append([])
 services.append([])
 
 # start enabled services
+display_low_port_message = True
+
 for service in service_config.sections():
 	if 'Yes' == service_config.get(service, 'enabled'):
-		[protocol, port] = service_config.get(service, 'port').split(':')
-		plugin_module    = 'plugins.' + service_config.get(service, 'plugin')
-		plugin           = importlib.import_module(plugin_module)
-		service_object   = None
+		[low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
+		[protocol, port]         = service_config.get(service, 'port').split(':')
+		plugin_module            = 'plugins.' + service_config.get(service, 'plugin')
+		plugin                   = importlib.import_module(plugin_module)
+		service_object           = None
+
+		if int(low_port) < 1024:
+			if display_low_port_message:
+				print 'Your service configuration suggests that you want to run on at least one low port!'
+				print 'To enable port redirection run the following ipt-kit (https://github.com/foospidy/ipt-kit) commands as root:'
+				print ''
+				display_low_port_message = False
+				
+			print './ipt_set_' + low_protocol + ' ' + low_port + ' ' + port	
 
 		try:
 			if 'tcp' == protocol.lower():

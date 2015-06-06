@@ -6,126 +6,147 @@
 
 [LDAP]
 plugin      = Echo
+low_port    = tcp:389
 port        = tcp:30389
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [LDAP_udp]
 plugin      = Echo_udp
+low_port    = udp:389
 port        = udp:30389
 description = Echo back data received via udp.
-enabled     = No
+enabled     = Yes
 
 [SLDAP]
 plugin      = Echo
+low_port    = tcp:636
 port        = tcp:30636
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [LDAP_GC]
 plugin      = Echo
+low_port    = tcp:3268
 port        = tcp:3268
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [SLDAP_GC]
 plugin      = Echo
+low_port    = tcp:3269
 port        = tcp:3269
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [Kerberos]
 plugin      = Echo
+low_port    = tcp:88
 port        = tcp:30088
 description = Echo back data received via tcp.
-enabled     = No 
+enabled     = Yes 
 
 [Kerberos_udp]
 plugin      = Echo_udp
+low_port    = udp:88
 port        = udp:30088
 description = Echo back data received via udp.
-enabled     = No 
+enabled     = Yes 
 
 [DNS]
 plugin      = Echo
+low_port    = tcp:53
 port        = tcp:30053
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [DNS_udp]
 plugin      = Echo_udp
+low_port    = udp:53
 port        = udp:30053
 description = Echo back data received via udp.
-enabled     = No
+enabled     = Yes
 
 [CIFS]
 plugin      = Echo
+low_port    = tcp:445
 port        = tcp:30445
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [CIFS_udp]
 plugin      = Echo_udp
+low_port    = udp:445
 port        = udp:30445
 description = Echo back data received via udp.
-enabled     = No
+enabled     = Yes
 
 [SMTP]
 plugin      = Echo
+low_port    = tcp:25
 port        = tcp:30025
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [RPC]
 plugin      = Echo
+low_port    = tcp:135
 port        = tcp:30135
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [NTP]
 plugin      = Echo_udp
+low_port    = udp:123
 port        = udp:30123
 description = Echo back data received via udp.
-enabled     = No
+enabled     = Yes
 
 [KerberosChangePassword]
 plugin      = Echo
+low_port    = tcp:464
 port        = tcp:30464
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [KerberosChangePassword_udp]
 plugin      = Echo_udp
+low_port    = udp:464
 port        = udp:30464
 description = Echo back data received via udp.
-enabled     = No
+enabled     = Yes
 
 [DFS]
 plugin      = Echo_udp
+low_port    = udp:138
 port        = udp:30138
 description = Echo back data received via udp.
-enabled     = No
+enabled     = Yes
 
 [AD_DS_WS]
 plugin      = Echo
-port        = tcp:39389
+low_port    = tcp:9389
+port        = tcp:9389
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
 
 [DHCP]
 plugin      = Echo_udp
+low_port    = udp:67
 port        = udp:30067
 description = Echo back data received via udp.
-enabled     = No
+enabled     = Yes
 
 [NetLogon]
 plugin      = Echo_udp
+low_port    = udp:137
 port        = udp:30137
 description = Echo back data received via udp.
-enabled     = No
+enabled     = Yes
 
 [DFSN]
 plugin      = Echo
+low_port    = tcp:139
 port        = tcp:30139
 description = Echo back data received via tcp.
-enabled     = No
+enabled     = Yes
