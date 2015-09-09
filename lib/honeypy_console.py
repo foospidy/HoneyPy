@@ -48,10 +48,13 @@ class HoneyPyConsole(basic.LineReceiver):
 
 	def do_start(self):
 		"""start: Start all configured services"""
-		for i in range(len(self.services[1])):
-			self.services[1][i].startListening()
-		
-		self.sendLine(str(i + 1) + ' service(s) started!')
+		if  0 == len(self.services[1]):
+                        self.sendLine('No services are enabled.')
+                else:
+                        for i in range(len(self.services[1])):
+                                self.services[1][i].startListening()
+
+                        self.sendLine(str(i + 1) + ' service(s) started!')
 
 	def do_stop(self):
 		"""stop: Stop all configured services"""
