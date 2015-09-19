@@ -28,8 +28,7 @@ class TelnetWindows(protocol.Protocol): ### Set custom protocol class name
 		self.connect()
 
 		### START CUSTOM CODE ####################################################################
-		self.tx('Welcome to Microsoft Telnet Service\n\n')
-		self.tx('login: ')
+		self.tx('Welcome to Microsoft Telnet Service\n\nlogin: ')
 		
 		##########################################################################################
 
