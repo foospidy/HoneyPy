@@ -10,7 +10,7 @@ port        = tcp:10007
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[Echo_udp]
+[Echo.udp]
 plugin      = Echo_udp
 low_port    = udp:7
 port        = udp:10007
@@ -24,7 +24,7 @@ port        = tcp:10008
 description = Send a message via tcp and close connection.
 enabled     = Yes
 
-[MOTD_udp]
+[MOTD.udp]
 plugin      = MOTD_udp
 low_port    = udp:8
 port        = udp:10008
