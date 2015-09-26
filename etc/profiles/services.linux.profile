@@ -11,7 +11,7 @@ port        = tcp:10007
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[Echo_udp]
+[Echo.udp]
 plugin      = Echo_udp
 low_port    = udp:7
 port        = udp:10007
@@ -25,7 +25,7 @@ port        = tcp:10008
 description = Send a message via tcp and close connection.
 enabled     = Yes
 
-[MOTD_udp]
+[MOTD.udp]
 plugin      = MOTD_udp
 low_port    = udp:8
 port        = udp:10008
@@ -67,7 +67,7 @@ port        = tcp:10053
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[DNS_udp]
+[DNS.udp]
 plugin      = Echo_udp
 low_port    = udp:53
 port        = udp:10053
@@ -102,7 +102,7 @@ port        = tcp:10088
 description = Echo back data received via tcp.
 enabled     = Yes 
 
-[Kerberos_udp]
+[Kerberos.udp]
 plugin      = Echo_udp
 low_port    = udp:88
 port        = udp:10088
@@ -123,7 +123,7 @@ port        = tcp:10111
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[SunRPC_udp]
+[SunRPC.udp]
 plugin      = Echo_udp
 low_port    = udp:111
 port        = udp:10111
@@ -172,7 +172,7 @@ port        = tcp:10389
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[LDAP_udp]
+[LDAP.udp]
 plugin      = Echo_udp
 low_port    = udp:389
 port        = udp:10389
@@ -200,7 +200,7 @@ port        = tcp:10636
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[SLDAP_udp]
+[SLDAP.udp]
 plugin      = Echo_udp
 low_port    = udp:636
 port        = udp:10636
@@ -228,7 +228,7 @@ port        = tcp:2049
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[NFS_udp]
+[NFS.udp]
 plugin      = Echo_udp
 low_port    = udp:2049
 port        = udp:2049
