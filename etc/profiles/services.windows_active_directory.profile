@@ -11,7 +11,7 @@ port        = tcp:30389
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[LDAP_udp]
+[LDAP.udp]
 plugin      = Echo_udp
 low_port    = udp:389
 port        = udp:30389
@@ -25,14 +25,14 @@ port        = tcp:30636
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[LDAP_GC]
+[LDAP.GC]
 plugin      = Echo
 low_port    = tcp:3268
 port        = tcp:3268
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[SLDAP_GC]
+[SLDAP.GC]
 plugin      = Echo
 low_port    = tcp:3269
 port        = tcp:3269
@@ -46,7 +46,7 @@ port        = tcp:30088
 description = Echo back data received via tcp.
 enabled     = Yes 
 
-[Kerberos_udp]
+[Kerberos.udp]
 plugin      = Echo_udp
 low_port    = udp:88
 port        = udp:30088
@@ -60,7 +60,7 @@ port        = tcp:30053
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[DNS_udp]
+[DNS.udp]
 plugin      = Echo_udp
 low_port    = udp:53
 port        = udp:30053
@@ -74,7 +74,7 @@ port        = tcp:30445
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[CIFS_udp]
+[CIFS.udp]
 plugin      = Echo_udp
 low_port    = udp:445
 port        = udp:30445
@@ -123,7 +123,7 @@ port        = udp:30138
 description = Echo back data received via udp.
 enabled     = Yes
 
-[AD_DS_WS]
+[AD.DS_WS]
 plugin      = Echo
 low_port    = tcp:9389
 port        = tcp:9389
