@@ -123,6 +123,9 @@ To Install on Debian:
 
 `apt-get install python-twisted`
 
+#### Plugins
+Plugins may have specific dependencies. For example the DnsUdp plugin requires dnslib. Plugins should include a readme.txt file in their directory to indicate what's required. Example: https://github.com/foospidy/HoneyPy/tree/master/plugins/DnsUdp
+
 ##### Twitter API Support
 Post CONNECT events to Twitter. Requires python twitter library, https://github.com/sixohsix/twitter. 
 
