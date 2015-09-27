@@ -68,7 +68,7 @@ description = Echo back data received via tcp.
 enabled     = Yes
 
 [DNS.udp]
-plugin      = Echo_udp
+plugin      = DnsUdp
 low_port    = udp:53
 port        = udp:10053
 description = Echo back data received via udp.
