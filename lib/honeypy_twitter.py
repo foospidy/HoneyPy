@@ -23,6 +23,6 @@ def post_tweet(honeypycfg, service, clientip):
 		animus = ' @threatbot'
 	
 	try:
-		t.statuses.update(status=nodename + ': #' + service + ' Possible '  + service + ' attack from ' + clientip + ' https://foospidy.com/opt/honeydb/view-ip/' + clientip + animus)
+		t.statuses.update(status=nodename + ': #' + service + ' Possible '  + service + ' attack from ' + clientip + ' https://riskdiscovery.com/honeydb/#host/' + clientip + animus)
 	except Exception, err:
 		log.msg('Error posting to Twitter: %s' % err)
