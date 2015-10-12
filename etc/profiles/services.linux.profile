@@ -54,7 +54,7 @@ description = Emulate Debian telnet login via tcp.
 enabled     = Yes
 
 [SMTP]
-plugin      = Echo
+plugin      = SmtpExim
 low_port    = tcp:25
 port        = tcp:10025
 description = Echo back data received via tcp.
