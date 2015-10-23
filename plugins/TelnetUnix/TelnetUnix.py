@@ -37,8 +37,6 @@ class TelnetUnix(Telnet): ### Set custom protocol class name
 		
 		### START CUSTOM CODE ####################################################################
 		Telnet.dataReceived(self, data)
-
-		#print "dataReceived " + str(data).encode('hex')
 		
 		##########################################################################################
 
