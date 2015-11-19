@@ -66,6 +66,7 @@ HoneyPy now uses the concept of plugins for custom service emulators. Plugins ca
 ```
 [Echo]
 plugin      = Echo
+low_port    = tcp:7
 port        = tcp:10007
 description = Echo back data received via tcp.
 enabled     = Yes
