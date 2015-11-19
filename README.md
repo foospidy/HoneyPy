@@ -62,7 +62,7 @@ or if using sudo:
 
 If you have low ports configured, when you run HoneyPy it will display a list of ipt-kit commands to run. For example:
 
-`
+```
 ./ipt_set_tcp 7 10007
 ./ipt_set_udp 7 10007
 ./ipt_set_tcp 8 10008
@@ -70,7 +70,7 @@ If you have low ports configured, when you run HoneyPy it will display a list of
 ./ipt_set_tcp 21 10021
 ./ipt_set_tcp 23 10009
 ./ipt_set_tcp 24 10010
-`
+```
 
 #### Custom Service Emulation (Plugins)
 HoneyPy uses the concept of plugins for custom service emulators. Plugins can make the honeypot look more like a real system in order to invoke more interaction and capture more attack data. Plugins are simply a Python module that is loaded when HoneyPy is started. HoneyPy leverages the Twisted library to handle connections. There are example service emulators included in the plugins directory. These will be improved, and more added, in the future. Example:
