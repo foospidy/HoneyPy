@@ -3,6 +3,8 @@ HoneyPy
 
 A low interaction honeypot with the capability to be more of a medium interaction honeypot. Coded in Python and intended to be a very basic honeypot that is easy to deploy. HoneyPy supports TCP and UDP connections and is based on plugins. The level of interaction is determined by the functionality of a plugin. The default plugins are low interaction and all activity is logged. Plugins can be enhanced or created to emulate services to provide more interaction. 
 
+HoneyPy can be configured to post data to Twitter, example: https://twitter.com/HoneyPyLog.
+
 #### Usage
 **You should not run HoneyPy as root!** It is recommended to use a dedicated account to run under. HoneyPy is developed and run on Debain. There's no reason why it should not work on other Linux/Unix flavors as long as all Python dependencies are installed.
 
