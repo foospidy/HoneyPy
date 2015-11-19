@@ -1,7 +1,7 @@
 HoneyPy
 =======
 
-A low interaction honeypot with the capability to be more of a medium interaction honeypot. HoneyPy is written in Python and is intended to be easy to: deploy, extend funtionality with plugins, and apply custom configurations. HoneyPy supports TCP and UDP connections and is based on plugins. The level of interaction is determined by the functionality of a plugin. Plugins can be created to emulate UDP or TCP based services to provide more interaction. All activity is logged to a file by defualt, but posting honeypot activity to Twitter or a web service endpoint can be configured as well. Examples:  
+A low interaction honeypot with the capability to be more of a medium interaction honeypot. HoneyPy is written in Python and is intended to be easy to: deploy, extend funtionality with plugins, and apply custom configurations. The level of interaction is determined by the functionality of a plugin. Plugins can be created to emulate UDP or TCP based services to provide more interaction. All activity is logged to a file by defualt, but posting honeypot activity to Twitter or a web service endpoint can be configured as well. Examples:  
 
 Live HoneyPy data posted to 
 - Twitter: https://twitter.com/HoneyPyLog
