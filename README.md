@@ -61,7 +61,7 @@ or if using sudo:
 `$sudo ./ipt_set_tcp 23 2300`
 
 #### Custom Service Emulation (Plugins)
-HoneyPy now uses the concept of plugins for custom service emulators. Plugins can make the honeypot look more like a real system in order to invoke more interaction and capture more attack data. Plugins are simply a Python module that is loaded when HoneyPy is started. HoneyPy now leverages the Twisted library to handle connections. There are example service emulators included in the plugins directory. These will be improved, and more added, in the future. Example:
+HoneyPy uses the concept of plugins for custom service emulators. Plugins can make the honeypot look more like a real system in order to invoke more interaction and capture more attack data. Plugins are simply a Python module that is loaded when HoneyPy is started. HoneyPy leverages the Twisted library to handle connections. There are example service emulators included in the plugins directory. These will be improved, and more added, in the future. Example:
 
 ```
 [Echo]
@@ -73,7 +73,7 @@ enabled     = Yes
 ```
 
 #### Creating Custom Service Emulators
-Hopefully creating new plugins is now easy. HoneyPy takes care of sending/receiving data and logging, all you have to do is write the custom protocol/logic. The service emulators in the plugins directory can be used as templates to create new emulators.
+Hopefully creating new plugins is easy. HoneyPy takes care of sending/receiving data and logging, all you have to do is write the custom protocol/logic. The service emulators in the plugins directory can be used as templates to create new emulators.
 
 Example:
 https://github.com/foospidy/HoneyPy/blob/master/plugins/HashCountRandom/HashCountRandom.py
@@ -120,7 +120,7 @@ def md5sum(self, data):
 #### Dependencies
 
 ##### Twisted
-HoneyPy is now completely dependent on the Twisted. Learn more about Twisted here https://twistedmatrix.com.
+HoneyPy is completely dependent on the Twisted. Learn more about Twisted here https://twistedmatrix.com.
 
 To Install on Debian:
 
