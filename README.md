@@ -39,13 +39,13 @@ In deamon mode all configured services will automatically start and listen for c
 Run in deamon mode: `python Honey.py -d &`
 
 #### Service Config Files
-In the `etc` directory there is a `service.cfg` file, this is the file HoneyPy uses to launch services. There are several example service configuration files located in the `etc/examples` directory. The service config file is used to define service names, ports, and plugins to run on your honeypot. Each service defined in the file has an "enabled" option. This option can be set to Yes or No to determine which services run on start. You can also use one of the example config files, or create your own. To use one of the other files simply copy the file over service.cfg. For example:
+In the `etc` directory there is a `service.cfg` file, this is the file HoneyPy uses to launch services. There are several additional service configuration files located in the `etc/profiles` directory. The service config file is used to define service names, ports, and plugins to run on your honeypot. Each service defined in the file has an "enabled" option. This option can be set to Yes or No to determine which services run on start. You can also use one of the provided config files, or create your own. To use one of the other files simply copy the file over service.cfg. For example:
 
-`cp examples/services.windows_iis.example service.cfg`
+`cp profiles/services.windows_iis.profile service.cfg`
 
 If you want to revert back to the default service config file simply run
 
-`cp examples/service.default.example service.cfg`
+`cp profiles/service.default.profile service.cfg`
 
 #### Running Services on Low Ports
 While you should not run HoneyPy with the root user, this means HoneyPy will not be able to listen on ports 1 through 1024. As a work around you can use implement port redirection with IPTables. If you're not familiar with using IPTables you can try using ipt-kit (https://github.com/foospidy/ipt-kit). You will need to run ipt-kit as root to modify IPTables. Once the redirection rules are in place you won't need to run HoneyPy as root for low ports.
