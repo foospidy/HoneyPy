@@ -7,7 +7,7 @@ Live HoneyPy data posted to
 - Twitter: https://twitter.com/HoneyPyLog
 - Web service endpoint and displayed via the HoneyDB web site: https://riskdiscovery.com/honeydb
 
-note: HoneyPy has primarily been tested and run on Debian.
+note: HoneyPy has primarily been tested and run on Debian with Python 2.7.9.
 
 #### Usage
 **You should not run HoneyPy as root!** It is recommended to use a dedicated account to run under. HoneyPy is developed and run on Debain. There's no reason why it should not work on other Linux/Unix flavors as long as all Python dependencies are installed.
