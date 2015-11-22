@@ -80,12 +80,12 @@ for service in service_config.sections():
 
 		if int(low_port) < 1024:
 			if display_low_port_message:
-				print 'Your service configuration suggests that you want to run on at least one low port!'
-				print 'To enable port redirection run the following ipt-kit (https://github.com/foospidy/ipt-kit) commands as root:'
-				print ''
+				print('Your service configuration suggests that you want to run on at least one low port!')
+				print('To enable port redirection run the following ipt-kit (https://github.com/foospidy/ipt-kit) commands as root:')
+				print('')
 				display_low_port_message = False
 				
-			print './ipt_set_' + low_protocol + ' ' + low_port + ' ' + port	
+			print('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port	)
 
 		try:
 			if 'tcp' == protocol.lower():
@@ -105,17 +105,17 @@ for service in service_config.sections():
 				services[1].append(service_object)
 
 		except Exception as e:
-			print str(e) + '\n'
+			print(str(e) + '\n')
 			
 			if -1 != str(e).find('Permission denied'):
-				print 'If you are attempting to use a low port (below 1024), do not.'
-				print 'Low ports require root privilege and you should not run HoneyPy as root.'
-				print 'Run the service on a high port and use IP Tables to redirect the low port'
-				print 'to a high port. This may help, https://github.com/foospidy/ipt-kit'
+				print('If you are attempting to use a low port (below 1024), do not.')
+				print('Low ports require root privilege and you should not run HoneyPy as root.')
+				print('Run the service on a high port and use IP Tables to redirect the low port')
+				print('to a high port. This may help, https://github.com/foospidy/ipt-kit')
 
 			if -1 != str(e).find('Address already in use'):
-				print 'A service (' + service + ') is configured to run on a port that is already'
-				print 'in use by another process. Kill the other process or use a different port.'
+				print('A service (' + service + ') is configured to run on a port that is already')
+				print('in use by another process. Kill the other process or use a different port.')
 
 			sys.exit()
 
