@@ -68,7 +68,7 @@ class HoneyPyConsole(basic.LineReceiver):
 		banner  = 'ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX18gICAgICAgCiAgL1wgIC9cX19fICBfIF9fICAgX19fIF8gICBfICAvIF8gXF8gICBfIAogLyAvXy8gLyBfIFx8ICdfIFwgLyBfIFwgfCB8IHwvIC9fKS8gfCB8IHwKLyBfXyAgLyAoXykgfCB8IHwgfCAgX18vIHxffCAvIF9fXy98IHxffCB8ClwvIC9fLyBcX19fL3xffCB8X3xcX19ffFxfXywgXC8gICAgIFxfXywgfAogICAgICAgICAgICAgICAgICAgICAgICB8X19fLyAgICAgICB8X19fLyAKCg=='
 
 		self.sendLine(banner.decode("base64"))
-		self.sendLine('[HoneyPy v' + self.config.get('honeypy', 'version') + ' Copyright (c) 2013-2015. foospidy]\n')		
+		self.sendLine('[HoneyPy Copyright (c) 2013-2015. foospidy]\n')		
 	
 	def do_list(self, list='services'):
 		"""list: List information. Usage: list [services|profiles]"""
