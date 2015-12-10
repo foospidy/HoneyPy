@@ -14,11 +14,11 @@ class HoneyPyConsole(basic.LineReceiver):
 	def connectionMade(self):
 		self.do_banner()
 		self.sendLine('HoneyPy Console. For help type \'help\'.')
-		self.transport.write('HoneyPy>')
+		self.transport.write('HoneyPy> ')
 	
 	def lineReceived(self, line):
 		if not line:
-			self.transport.write('HoneyPy>')
+			self.transport.write('HoneyPy> ')
 			return
 
 		# Parse command
@@ -35,8 +35,11 @@ class HoneyPyConsole(basic.LineReceiver):
 				method(*args)
 			except Exception, e:
 				self.sendLine('Error: ' + str(e))
-		
-		self.transport.write('HoneyPy>')
+
+		exit_commands = ['exit', 'quit']
+
+		if command not in exit_commands:
+			self.transport.write('HoneyPy> ')
 
 	def do_help(self, command=None):
 		"""help [command]: List commands, or show help on the given command"""
@@ -68,7 +71,7 @@ class HoneyPyConsole(basic.LineReceiver):
 		banner  = 'ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX18gICAgICAgCiAgL1wgIC9cX19fICBfIF9fICAgX19fIF8gICBfICAvIF8gXF8gICBfIAogLyAvXy8gLyBfIFx8ICdfIFwgLyBfIFwgfCB8IHwvIC9fKS8gfCB8IHwKLyBfXyAgLyAoXykgfCB8IHwgfCAgX18vIHxffCAvIF9fXy98IHxffCB8ClwvIC9fLyBcX19fL3xffCB8X3xcX19ffFxfXywgXC8gICAgIFxfXywgfAogICAgICAgICAgICAgICAgICAgICAgICB8X19fLyAgICAgICB8X19fLyAKCg=='
 
 		self.sendLine(banner.decode("base64"))
-		self.sendLine('[HoneyPy Copyright (c) 2013-2015. foospidy]\n')		
+		self.sendLine('[HoneyPy v' + self.config.get('honeypy', 'version') + ' Copyright (c) 2013-2015. foospidy]\n')		
 	
 	def do_list(self, list='services'):
 		"""list: List information. Usage: list [services|profiles]"""
@@ -110,6 +113,11 @@ class HoneyPyConsole(basic.LineReceiver):
 				changed = True
 			
 			return changed
+
+	def do_exit(self):
+		"""exit: Exit HoneyPy"""
+		self.sendLine('Goodbye.')
+		self.transport.loseConnection()
 
 	def do_quit(self):
 		"""quit: Quit HoneyPy"""
