@@ -235,6 +235,13 @@ port        = udp:2049
 description = Echo back data received via udp.
 enabled     = Yes
 
+[PostgreSQL]
+plugin      = Echo
+low_port    = tcp:5432
+port        = tcp:5432
+description = Echo back data received via tcp.
+enabled     = Yes
+
 [X11]
 plugin      = Echo
 low_port    = tcp:6000
