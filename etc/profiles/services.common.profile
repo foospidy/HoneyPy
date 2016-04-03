@@ -991,7 +991,7 @@ port        = tcp:5432
 description = PostgreSQL on port 5432
 enabled     = Yes
 
-[VNC_Server]
+[VNC]
 plugin      = Echo
 low_port    = tcp:5500
 port        = tcp:5500
@@ -1026,7 +1026,7 @@ port        = tcp:5800
 description = HTTP on port 5800
 enabled     = Yes
 
-[VNC_Server]
+[VNC]
 plugin      = Echo
 low_port    = tcp:5900
 port        = tcp:5900
