@@ -837,7 +837,7 @@ port        = tcp:3306
 description = MySQL on port 3306
 enabled     = Yes
 
-[Terminal_Server]
+[RDP]
 plugin      = Echo
 low_port    = tcp:3389
 port        = tcp:3389
