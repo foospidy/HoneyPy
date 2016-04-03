@@ -1019,7 +1019,7 @@ port        = tcp:5632
 description = pcAnywhere on port 5632
 enabled     = Yes
 
-[VNC_over_HTTP]
+[VNC.HTTP]
 plugin      = Echo
 low_port    = tcp:5800
 port        = tcp:5800
