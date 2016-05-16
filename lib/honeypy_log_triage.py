@@ -41,7 +41,7 @@ def triage(line):
 			# time_parts[2]: time zone
 			time_parts = parts[1].split(',')
 			
-			# Twitter intigration	
+			# Twitter integration	
 			if 'Yes' == honeypy_config.get('twitter', 'enabled'):
 				from lib.honeypy_twitter import post_tweet
 			
@@ -51,7 +51,7 @@ def triage(line):
 					# UDP splits differently (see comment section above)
 					post_tweet(honeypy_config, parts[9], parts[10])
 
-			# Slack intigration
+			# Slack integration
 			if 'Yes' == honeypy_config.get('slack', 'enabled'):
 				from lib.honeypy_slack import post_slack
 
@@ -61,7 +61,7 @@ def triage(line):
 					# UDP splits differently (see comment section above)
 					post_slack(honeypy_config, parts[9], parts[10])
 
-			# HoneyDB intigration
+			# HoneyDB integration
 			if 'Yes' == honeypy_config.get('honeydb', 'enabled'):
 				from lib.honeypy_honeydb import post_log
 				
