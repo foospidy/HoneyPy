@@ -291,7 +291,7 @@ port        = tcp:10412
 description = Connect on port 412
 enabled     = Yes
 
-[HTTP_over_SSL]
+[HTTPS]
 plugin      = Echo
 low_port    = tcp:443
 port        = tcp:10443
