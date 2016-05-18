@@ -12,7 +12,7 @@ sys.dont_write_bytecode = True
 
 def post_slack(honeypycfg, service, clientip):
     headers = { 'Content-type': 'application/json', 'User-Agent': honeypycfg.get('honeypy', 'useragent') }
-    data    = '{"text": "' + honeypycfg.get('honeypy', 'nodename') + ': Possible ' + service + ' attack from ' + clientip + ' <https://riskdiscovery.com/honeydb/#host/' + clientip + '>"}'
+    data    = '{"text": "' + honeypycfg.get('honeypy', 'nodename') + ': Possible *' + service + '* attack from ' + clientip + ' <https://riskdiscovery.com/honeydb/#host/' + clientip + '>"}'
 
     url     = honeypycfg.get('slack', 'webhook_url')
     r       = requests.post(url, headers=headers, data=data)
