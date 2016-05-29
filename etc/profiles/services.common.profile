@@ -312,7 +312,7 @@ port        = tcp:10464
 description = Kerberos on port 464
 enabled     = Yes
 
-[SMTP_over_SSL]
+[SMTPS]
 plugin      = Echo
 low_port    = tcp:465
 port        = tcp:10465
@@ -410,11 +410,11 @@ port        = tcp:10560
 description = rmonitor on port 560
 enabled     = Yes
 
-[NNTP_over_SSL]
+[NNTP.SSL]
 plugin      = Echo
 low_port    = tcp:563
 port        = tcp:10563
-description = SSL on port 563
+description = NNTP over SSL on port 563
 enabled     = Yes
 
 [SMTP]
@@ -508,14 +508,14 @@ port        = tcp:10990
 description = SSL on port 990
 enabled     = Yes
 
-[IMAP4_over_SSL]
+[IMAP4.SSL]
 plugin      = Echo
 low_port    = tcp:993
 port        = tcp:10993
 description = SSL on port 993
 enabled     = Yes
 
-[POP3_over_SSL]
+[POP3.SL]
 plugin      = Echo
 low_port    = tcp:995
 port        = tcp:10995
@@ -1138,133 +1138,133 @@ port        = tcp:6669
 description = IRC on port 6669
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6679
 port        = tcp:6679
 description = SSL on port 6679
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6680
 port        = tcp:6680
 description = SSL on port 6680
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6681
 port        = tcp:6681
 description = SSL on port 6681
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6682
 port        = tcp:6682
 description = SSL on port 6682
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6683
 port        = tcp:6683
 description = SSL on port 6683
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6684
 port        = tcp:6684
 description = SSL on port 6684
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6685
 port        = tcp:6685
 description = SSL on port 6685
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6686
 port        = tcp:6686
 description = SSL on port 6686
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6687
 port        = tcp:6687
 description = SSL on port 6687
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6688
 port        = tcp:6688
 description = SSL on port 6688
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6689
 port        = tcp:6689
 description = SSL on port 6689
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6690
 port        = tcp:6690
 description = SSL on port 6690
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6691
 port        = tcp:6691
 description = SSL on port 6691
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6692
 port        = tcp:6692
 description = SSL on port 6692
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6693
 port        = tcp:6693
 description = SSL on port 6693
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6694
 port        = tcp:6694
 description = SSL on port 6694
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6695
 port        = tcp:6695
 description = SSL on port 6695
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6696
 port        = tcp:6696
 description = SSL on port 6696
 enabled     = Yes
 
-[IRC_over_SSL]
+[IRC.SSL]
 plugin      = Echo
 low_port    = tcp:6697
 port        = tcp:6697
