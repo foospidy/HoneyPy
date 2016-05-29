@@ -109,7 +109,7 @@ port        = tcp:30464
 description = Echo back data received via tcp.
 enabled     = Yes
 
-[KerberosChangePassword_udp]
+[KerberosChangePassword.udp]
 plugin      = Echo_udp
 low_port    = udp:464
 port        = udp:30464

@@ -32,7 +32,7 @@ port        = tcp:10021
 description = FTP on port 21
 enabled     = Yes
 
-[SSH_SCP]
+[SSH]
 plugin      = Echo
 low_port    = tcp:22
 port        = tcp:10022
@@ -53,7 +53,7 @@ port        = tcp:10025
 description = SMTP on port 25
 enabled     = Yes
 
-[WINS_Replication]
+[WINS.Replication]
 plugin      = Echo
 low_port    = tcp:42
 port        = tcp:10042
@@ -81,14 +81,14 @@ port        = tcp:10053
 description = DNS on port 53
 enabled     = Yes
 
-[DHCP_BOOTP]
+[DHCP.BOOTP]
 plugin      = Echo
 low_port    = tcp:67
 port        = tcp:10067
 description = DHCP/BOOTP on port 67
 enabled     = Yes
 
-[DHCP_BOOTP]
+[DHCP.BOOTP]
 plugin      = Echo
 low_port    = tcp:68
 port        = tcp:10068
@@ -130,7 +130,7 @@ port        = tcp:10088
 description = Kerberos on port 88
 enabled     = Yes
 
-[MS_Exchange]
+[MSExchange]
 plugin      = Echo
 low_port    = tcp:102
 port        = tcp:10102
@@ -151,7 +151,7 @@ port        = tcp:10113
 description = Ident on port 113
 enabled     = Yes
 
-[NNTP_Usenet]
+[NNTP.Usenet]
 plugin      = Echo
 low_port    = tcp:119
 port        = tcp:10119
@@ -165,7 +165,7 @@ port        = tcp:10123
 description = NTP on port 123
 enabled     = Yes
 
-[Microsoft_RPC]
+[Microsoft.RPC]
 plugin      = Echo
 low_port    = tcp:135
 port        = tcp:10135
@@ -249,21 +249,21 @@ port        = tcp:10318
 description = TSP on port 318
 enabled     = Yes
 
-[HP_Openview]
+[HP.Openview]
 plugin      = Echo
 low_port    = tcp:381
 port        = tcp:10381
 description = Openview on port 381
 enabled     = Yes
 
-[HP_Openview]
+[HP.Openview]
 plugin      = Echo
 low_port    = tcp:382
 port        = tcp:10382
 description = Openview on port 382
 enabled     = Yes
 
-[HP_Openview]
+[HP.Openview]
 plugin      = Echo
 low_port    = tcp:383
 port        = tcp:10383
@@ -298,7 +298,7 @@ port        = tcp:10443
 description = SSL on port 443
 enabled     = Yes
 
-[Microsoft_DS]
+[Microsoft.DS]
 plugin      = Echo
 low_port    = tcp:445
 port        = tcp:10445
@@ -368,7 +368,7 @@ port        = tcp:10520
 description = RIP on port 520
 enabled     = Yes
 
-[RIPng_IPv6]
+[RIPng.IPv6]
 plugin      = Echo
 low_port    = tcp:521
 port        = tcp:10521
@@ -445,28 +445,28 @@ port        = tcp:10631
 description = Printing on port 631
 enabled     = Yes
 
-[LDAP_over_SSL]
+[LDAPS]
 plugin      = Echo
 low_port    = tcp:636
 port        = tcp:10636
 description = SSL on port 636
 enabled     = Yes
 
-[MSDP_PIM]
+[MSDP.PIM]
 plugin      = Echo
 low_port    = tcp:639
 port        = tcp:10639
 description = (PIM) on port 639
 enabled     = Yes
 
-[LDP_MPLS]
+[LDP.MPLS]
 plugin      = Echo
 low_port    = tcp:646
 port        = tcp:10646
 description = (MPLS) on port 646
 enabled     = Yes
 
-[MS_Exchange]
+[MSExchange]
 plugin      = Echo
 low_port    = tcp:691
 port        = tcp:10691
@@ -487,21 +487,21 @@ port        = tcp:10873
 description = rsync on port 873
 enabled     = Yes
 
-[VMware_Server]
+[VMware.Server]
 plugin      = Echo
 low_port    = tcp:902
 port        = tcp:10902
 description = Server on port 902
 enabled     = Yes
 
-[FTP_over_SSL]
+[SFTP]
 plugin      = Echo
 low_port    = tcp:989
 port        = tcp:10989
 description = SSL on port 989
 enabled     = Yes
 
-[FTP_over_SSL]
+[SFTP]
 plugin      = Echo
 low_port    = tcp:990
 port        = tcp:10990
@@ -522,7 +522,7 @@ port        = tcp:10995
 description = SSL on port 995
 enabled     = Yes
 
-[Microsoft_RPC]
+[Microsoft.RPC]
 plugin      = Echo
 low_port    = tcp:1025
 port        = tcp:1025
