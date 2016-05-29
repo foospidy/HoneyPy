@@ -26,6 +26,7 @@ sys.dont_write_bytecode = True
 # handle and process command line arguments
 parser = argparse.ArgumentParser(description='Process command line arguments.')
 parser.add_argument('-d', help='run in daemon mode (no console).', default=False, action="store_true")
+parser.add_argument('-ipt', help='generate ipt-kit script in /tmp.', default=False, action="store_true")
 args = parser.parse_args()
 
 # get path for config files
@@ -33,6 +34,7 @@ honeypy_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/honeypy
 service_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/services.cfg'
 log_path            = os.path.dirname(os.path.abspath(__file__)) + '/log/'
 log_file_name       = 'honeypy.log'
+ipt_file_name       = '/tmp/honeypy-ipt.sh'
 
 # setup config parsers
 honeypy_config  = ConfigParser.ConfigParser()
@@ -46,6 +48,25 @@ service_config.read(service_config_file)
 if not os.path.exists(os.path.dirname(log_path)):
 	# if log directory does not exist, create it.
 	os.makedirs(os.path.dirname(log_path))
+
+if args.ipt:
+	# generate ipt-kit script in /tmp and quit.
+	ipt_file = open(ipt_file_name,'w')
+	ipt_file.write('# copy this file to your ipt-kit directory and execute.\n')
+	
+	for service in service_config.sections():
+		if 'Yes' == service_config.get(service, 'enabled'):
+			[low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
+			[protocol, port]         = service_config.get(service, 'port').split(':')
+			
+			if int(low_port) < 1024:
+				ipt_file.write('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port + '\n')
+	
+	# set file permissin, close, and quit
+	os.chmod(ipt_file_name, 0744)
+	ipt_file.close()
+	quit()
+	
 
 log_file                     = DailyLogFile(log_file_name, log_path)
 file_log_observer            = FileLogObserver(log_file)
