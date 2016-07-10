@@ -135,10 +135,20 @@ def md5sum(self, data):
 
 #### Dependencies
 
+##### Requests
+
+To install on Debian:
+
+`apt-get install python-requests`
+
+or
+
+`pip install reqeusts`
+
 ##### Twisted
 HoneyPy is completely dependent on the Twisted. Learn more about Twisted here https://twistedmatrix.com.
 
-To Install on Debian:
+To install on Debian:
 
 `apt-get install python-twisted`
 
