@@ -135,6 +135,12 @@ def md5sum(self, data):
 
 #### Dependencies
 
+You can now use the `requirements.txt` file to install all dependicies. Use the following command:
+
+`pip install -r requirements.txt`
+
+If the command above does not work you can try installing the individual dependencies listed below.
+
 ##### Requests
 
 To install on Debian:
