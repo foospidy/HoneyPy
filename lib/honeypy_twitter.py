@@ -15,7 +15,7 @@ def post_tweet(honeypycfg, service, clientip):
 	os = honeypycfg.get('twitter', 'oauthsecret')
 
 	t        = Twitter(auth=OAuth(ot, os, ck, cs))
-	nodename = honeypycfg.get('twitter', 'nodename')
+	nodename = honeypycfg.get('honeypy', 'nodename')
 	
 	try:
 		t.statuses.update(status=nodename + ': #' + service + ' Possible '  + service + ' attack from ' + clientip + ' https://riskdiscovery.com/honeydb/#host/' + clientip)
