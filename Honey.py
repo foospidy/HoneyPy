@@ -76,7 +76,10 @@ file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
 # start logging
 log.startLoggingWithObserver(file_log_observer.emit, False)
 
-if 'Yes' == honeypy_config.get('twitter', 'enabled') or 'Yes' == honeypy_config.get('honeydb', 'enabled') or 'Yes' == honeypy_config.get('slack', 'enabled'):
+if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
+   'Yes' == honeypy_config.get('honeydb', 'enabled') or \
+   'Yes' == honeypy_config.get('slack', 'enabled') or \
+   'Yes' == honeypy_config.get('logstash', 'enabled'):
 	# tail log file when reactor runs
 	triageConfig(honeypy_config)
 	tailer = lib.followtail.FollowTail(log_path + log_file_name)
