@@ -149,7 +149,7 @@ To install on Debian:
 
 or
 
-`pip install reqeusts`
+`pip install requests`
 
 ##### Twisted
 HoneyPy is completely dependent on the Twisted. Learn more about Twisted here https://twistedmatrix.com.
