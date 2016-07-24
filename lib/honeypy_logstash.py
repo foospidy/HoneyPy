@@ -41,6 +41,7 @@ def post_logstash(useragent, host, port, date, time, date_time, millisecond, ses
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 		sock.connect((host, int(port)))
+		
 		bytes_sent = sock.send(json.dumps(data))
 
 		sock.close()
