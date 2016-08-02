@@ -92,6 +92,22 @@ def triage(line):
 						parts.append('') # no data sent
 
 					post_log(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('logstash', 'host'), honeypy_config.get('logstash', 'port'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+			
+			# Elasticsearch integration
+			if 'Yes' == honeypy_config.get('elasticsearch', 'enabled'):
+				from lib.honeypy_logstash import post_logstash
+				
+				if 'TCP' == parts[4]:
+					if 11 == len(parts):
+						parts.append('') # no data for CONNECT events
+
+					post_logstash(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('elasticsearch', 'es_url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+				else:
+					# UDP splits differently (see comment section above)
+					if 12 == len(parts):
+						parts.append('') # no data sent
+
+					post_log(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('elasticsearch', 'es_url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
 def triageConfig(config):
 	global honeypy_config
