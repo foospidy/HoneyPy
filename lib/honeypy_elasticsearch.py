@@ -24,8 +24,6 @@ def post_elasticsearch(useragent, url, date, time, date_time, millisecond, sessi
 		'time': time,
 		'date_time': date_time,
 		'millisecond': str(millisecond)[:-3],
-		'api_id': api_id,
-		'api_key': api_key,
 		'session': session,
 		'protocol': protocol,
 		'event': event,
