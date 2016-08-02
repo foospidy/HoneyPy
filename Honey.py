@@ -79,7 +79,8 @@ log.startLoggingWithObserver(file_log_observer.emit, False)
 if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
    'Yes' == honeypy_config.get('honeydb', 'enabled') or \
    'Yes' == honeypy_config.get('slack', 'enabled') or \
-   'Yes' == honeypy_config.get('logstash', 'enabled'):
+   'Yes' == honeypy_config.get('logstash', 'enabled') or \
+   'Yes' == honeypy_config.get('elasticsearch', 'enabled'):
 	# tail log file when reactor runs
 	triageConfig(honeypy_config)
 	tailer = lib.followtail.FollowTail(log_path + log_file_name)
