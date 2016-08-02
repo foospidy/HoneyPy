@@ -12,7 +12,7 @@ from twisted.python import log
 # prevent creation of compiled bytecode files
 sys.dont_write_bytecode = True
 
-def post_log(useragent, url, api_id, api_key, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+def post_elasticsearch(useragent, url, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
 	# post events to honeydb logger
 	h = hashlib.md5()
 	h.update(data)
