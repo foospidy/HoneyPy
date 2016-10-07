@@ -2,7 +2,6 @@
 # services.peer_to_peer.profile
 # Important: service names must not contain spaces.
 # Important: use port redirecting for services that listen on ports below 1024 (see https://github.com/foospidy/ipt-kit).
-# Peer to Peer related ports as noted by http://packetlife.net/media/library/23/common_ports.pdf
 
 [MSSQL]
 plugin      = Echo
