@@ -75,7 +75,7 @@ def triage(line):
 					if 12 == len(parts):
 						parts.append('') # no data sent
 
-					post_log(honeypy_config.get('honeydb', 'url'), honeypy_config.get('honeydb', 'api_id'), honeypy_config.get('honeydb', 'api_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+					post_log(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('honeydb', 'url'), honeypy_config.get('honeydb', 'api_id'), honeypy_config.get('honeydb', 'api_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 			
 			# Logstash integration
 			if 'Yes' == honeypy_config.get('logstash', 'enabled'):
