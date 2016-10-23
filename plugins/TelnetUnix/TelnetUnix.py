@@ -97,6 +97,8 @@ class TelnetUnix(Telnet): ### Set custom protocol class name
 				self.tx(self.username + self.prompt + ' ')
 			else:
 				command = commandParts[0].lower()
+				# if using path, get last element (the command)
+				command = command.split('/')[-1:]
 				args    = commandParts[1:]
 	
 				try:
