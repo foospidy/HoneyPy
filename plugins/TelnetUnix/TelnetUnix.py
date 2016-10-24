@@ -102,9 +102,9 @@ class TelnetUnix(Telnet): ### Set custom protocol class name
 				args    = commandParts[1:]
 	
 				try:
-					method = getattr(self, 'do_' + command)
+					method = getattr(self, 'do_' + command[0])
 				except AttributeError, e:
-					self.tx('- bash: ' + command + ': command not found\r\n')
+					self.tx('- bash: ' + command[0] + ': command not found\r\n')
 					self.tx(self.username + self.prompt + ' ')
 				else:
 					try:
@@ -156,7 +156,7 @@ class TelnetUnix(Telnet): ### Set custom protocol class name
 		self.tx(cd())
 	
 	def do_busybox(self, *args):
-		self.tx(busybox())
+		self.tx(busybox(*args))
 	
 	def do_wget(self, *args):
 		self.tx(wget())
