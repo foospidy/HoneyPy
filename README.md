@@ -12,6 +12,9 @@ note: HoneyPy has primarily been tested and run on Debian with Python 2.7.9.
 **Pull requests are welcome!** If you would like to create new plugins or improve existing plugins, please do. 
 
 #### Usage
+
+For a more detailed introduction and overview see [HoneyPy, Getting Started Series] )https://medium.com/@foospidy/honeypy-getting-started-series-a49291e41a8e)
+
 **You should not run HoneyPy as root!** It is recommended to use a dedicated account to run under. HoneyPy is developed and run on Debian. There's no reason why it should not work on other Linux/Unix flavors as long as all Python dependencies are installed.
 
 ##### Console Mode
