@@ -1,4 +1,4 @@
-# HoneyPy Copyright (C) 2013-2015 foospidy
+# HoneyPy Copyright (C) 2013-2016 foospidy
 # https://github.com/foospidy/HoneyPy
 # See LICENSE for details
 # HoneyPy HoneyDB logger

@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# HoneyPy Copyright (C) 2013-2015 foospidy
+# HoneyPy Copyright (C) 2013-2016 foospidy
 # GNU GENERAL PUBLIC LICENSE
 # https://github.com/foospidy/HoneyPy/blob/master/LICENSE
 

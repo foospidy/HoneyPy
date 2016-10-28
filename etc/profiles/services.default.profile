@@ -1,4 +1,4 @@
-# HoneyPy Copyright (C) 2013-2015 foospidy
+# HoneyPy Copyright (C) 2013-2016 foospidy
 # services.default.profile
 # Important: service names must not contain spaces.
 # Important: use port redirecting for services that listen on ports below 1024 (see https://github.com/foospidy/ipt-kit).

@@ -31,7 +31,7 @@ In console mode services do not automatically start, use the `start` command. Ty
                         |___/       |___/ 
 
 
-[HoneyPy v0.1.0 Copyright (c) 2013-2015. foospidy]
+[HoneyPy v0.1.0 Copyright (c) 2013-2016. foospidy]
 
 HoneyPy Console. For help type 'help'.
 HoneyPy>start
