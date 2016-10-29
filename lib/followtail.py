@@ -31,14 +31,21 @@ class FollowTail:
   def stop( self ):
     self.keeprunning = False
 
-  def followTail( self, fileobj = None, fstat = None ):
+  def followTail( self, fileobj = None, fstat = None, offset = 0 ):
     if fileobj is None:
       fileobj = open( self.filename )
       if self.seekend: fileobj.seek( 0, 2 )
+      # Save offset of reference pointer
+      offset = fileobj.tell()
+
+    # Seek to the reference pointer
+    fileobj.seek(offset)
 
     line = fileobj.read()
-
     if line: self.dataReceived( line )
+
+    # Save new reference pointer after read
+    offset = fileobj.tell()
 
     if fstat is None: fstat = os.fstat( fileobj.fileno() )
 
@@ -47,11 +54,12 @@ class FollowTail:
 
     if self.fileIdentity( stat ) != self.fileIdentity( fstat ):
       fileobj = open( self.filename )
+      offset = 0
       fstat = os.fstat( fileobj.fileno() )
       self.fileReset()
 
     if self.keeprunning:
-      reactor.callLater( self.delay, lambda: self.followTail( fileobj, fstat ) )
+      reactor.callLater( self.delay, lambda: self.followTail( fileobj, fstat, offset ) )
 
   def dataReceived( self, data ):
     # Fill buffer
