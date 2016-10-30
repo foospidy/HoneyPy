@@ -7,6 +7,7 @@ import sys
 import hashlib
 import urllib
 import requests
+from datetime import datetime
 from twisted.python import log
 
 # prevent creation of compiled bytecode files
@@ -17,6 +18,9 @@ def post_elasticsearch(useragent, url, date, time, date_time, millisecond, sessi
 	h = hashlib.md5()
 	h.update(data)
 
+	#formatting date_time as iso format so that Kibana will recognize it as a date field
+	date_time = datetime.strptime(date_time,"%Y-%m-%d %H:%M:%S").isoformat()
+	
 	headers = { 'User-Agent': useragent, "Content-Type": "application/json" }
 	# applying [:-3] to time to truncate millisecond
 	data    = {
