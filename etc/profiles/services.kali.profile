@@ -11,14 +11,14 @@ port        = udp:10068
 description = bootp client
 enabled     = Yes
 
-[Beef-XSS]
+[Beef.XSS]
 plugin      = Echo
 low_port    = tcp:2000
 port        = tcp:2000
 description = Beef related port
 enabled     = Yes
 
-[Beef-XSS]
+[Beef.XSS]
 plugin      = Echo
 low_port    = tcp:3000
 port        = tcp:3000
