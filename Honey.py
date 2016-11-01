@@ -53,20 +53,20 @@ if args.ipt:
 	# generate ipt-kit script in /tmp and quit.
 	ipt_file = open(ipt_file_name,'w')
 	ipt_file.write('# copy this file to your ipt-kit directory and execute.\n')
-	
+
 	for service in service_config.sections():
 		if 'Yes' == service_config.get(service, 'enabled'):
 			[low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
 			[protocol, port]         = service_config.get(service, 'port').split(':')
-			
+
 			if int(low_port) < 1024:
 				ipt_file.write('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port + '\n')
-	
+
 	# set file permissin, close, and quit
 	os.chmod(ipt_file_name, 0744)
 	ipt_file.close()
 	quit()
-	
+
 
 log_file                     = DailyLogFile(log_file_name, log_path)
 file_log_observer            = FileLogObserver(log_file)
@@ -80,7 +80,8 @@ if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
    'Yes' == honeypy_config.get('honeydb', 'enabled') or \
    'Yes' == honeypy_config.get('slack', 'enabled') or \
    'Yes' == honeypy_config.get('logstash', 'enabled') or \
-   'Yes' == honeypy_config.get('elasticsearch', 'enabled'):
+   'Yes' == honeypy_config.get('elasticsearch', 'enabled') or \
+   'Yes' == honeypy_config.get('telegram', 'enabled'):
 	# tail log file when reactor runs
 	triageConfig(honeypy_config)
 	tailer = lib.followtail.FollowTail(log_path + log_file_name)
@@ -109,7 +110,7 @@ for service in service_config.sections():
 				print('To enable port redirection run the following ipt-kit (https://github.com/foospidy/ipt-kit) commands as root:')
 				print('')
 				display_low_port_message = False
-				
+
 			print('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port	)
 
 		try:
@@ -131,7 +132,7 @@ for service in service_config.sections():
 
 		except Exception as e:
 			print(str(e) + '\n')
-			
+
 			if -1 != str(e).find('Permission denied'):
 				print('If you are attempting to use a low port (below 1024), do not.')
 				print('Low ports require root privilege and you should not run HoneyPy as root.')
