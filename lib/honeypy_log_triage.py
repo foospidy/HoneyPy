@@ -32,7 +32,7 @@ def triage(line):
 	#	parts[10]: remote_host
 	#	parts[11]: remote_port
 	#	parts[12]: data
-	
+
 	# only process actual events
 	if len(parts) > 10:
 		if '[-]' != parts[2]:
@@ -40,11 +40,11 @@ def triage(line):
 			# time_parts[1]: millisecond
 			# time_parts[2]: time zone
 			time_parts = parts[1].split(',')
-			
-			# Twitter integration	
+
+			# Twitter integration
 			if 'Yes' == honeypy_config.get('twitter', 'enabled'):
 				from lib.honeypy_twitter import post_tweet
-			
+
 				if 'TCP' == parts[4]:
 					post_tweet(honeypy_config, parts[8], parts[9])
 				else:
@@ -64,11 +64,11 @@ def triage(line):
 			# HoneyDB integration
 			if 'Yes' == honeypy_config.get('honeydb', 'enabled'):
 				from lib.honeypy_honeydb import post_log
-				
+
 				if 'TCP' == parts[4]:
 					if 11 == len(parts):
 						parts.append('') # no data for CONNECT events
-	
+
 					post_log(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('honeydb', 'url'), honeypy_config.get('honeydb', 'api_id'), honeypy_config.get('honeydb', 'api_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
 				else:
 					# UDP splits differently (see comment section above)
@@ -76,11 +76,11 @@ def triage(line):
 						parts.append('') # no data sent
 
 					post_log(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('honeydb', 'url'), honeypy_config.get('honeydb', 'api_id'), honeypy_config.get('honeydb', 'api_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-			
+
 			# Logstash integration
 			if 'Yes' == honeypy_config.get('logstash', 'enabled'):
 				from lib.honeypy_logstash import post_logstash
-				
+
 				if 'TCP' == parts[4]:
 					if 11 == len(parts):
 						parts.append('') # no data for CONNECT events
@@ -92,11 +92,11 @@ def triage(line):
 						parts.append('') # no data sent
 
 					post_logstash(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('logstash', 'host'), honeypy_config.get('logstash', 'port'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-			
+
 			# Elasticsearch integration
 			if 'Yes' == honeypy_config.get('elasticsearch', 'enabled'):
 				from lib.honeypy_elasticsearch import post_elasticsearch
-				
+
 				if 'TCP' == parts[4]:
 					if 11 == len(parts):
 						parts.append('') # no data for CONNECT events
@@ -108,6 +108,15 @@ def triage(line):
 						parts.append('') # no data sent
 
 					post_elasticsearch(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('elasticsearch', 'es_url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+
+			# Telegram integration
+			if 'Yes' == honeypy_config.get('telegram', 'enabled'):
+				from lib.honeypy_telegram import send_telegram_message
+				if 'TCP' == parts[4]:
+					send_telegram_message(honeypy_config, parts[8], parts[9])
+				else:
+					# UDP splits differently (see comment section above)
+					send_telegram_message(honeypy_config, parts[9], parts[10])
 
 def triageConfig(config):
 	global honeypy_config
