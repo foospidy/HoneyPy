@@ -1,0 +1,660 @@
+2016-11-04 23:05:29,226518,+0100 [-] Log opened.
+2016-11-04 23:05:29,242212,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:05:29,242334,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x104cbd638>
+2016-11-04 23:05:29,244896,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:05:29,245040,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x104cbd5a8>
+2016-11-04 23:05:29,247658,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:05:29,247797,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x104cd2560>
+2016-11-04 23:05:29,250215,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:05:29,250358,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x104cd0e60>
+2016-11-04 23:05:29,254348,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:05:29,254486,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x104cd5a28>
+2016-11-04 23:05:29,257051,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:05:29,257146,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x104cd5e60>
+2016-11-04 23:05:29,259291,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:05:29,259402,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x104ce9320>
+2016-11-04 23:05:29,262195,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:05:29,262296,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x104ce98c0>
+2016-11-04 23:05:29,264038,+0100 [-] (TCP Port 10007 Closed)
+2016-11-04 23:05:29,264290,+0100 [-] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x104cbd638>
+2016-11-04 23:05:29,264363,+0100 [-] (UDP Port 10007 Closed)
+2016-11-04 23:05:29,264425,+0100 [-] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x104cbd5a8>
+2016-11-04 23:05:29,264539,+0100 [-] (TCP Port 10008 Closed)
+2016-11-04 23:05:29,264647,+0100 [-] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x104cd2560>
+2016-11-04 23:05:29,264723,+0100 [-] (UDP Port 10008 Closed)
+2016-11-04 23:05:29,264767,+0100 [-] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x104cd0e60>
+2016-11-04 23:05:29,264857,+0100 [-] (TCP Port 10009 Closed)
+2016-11-04 23:05:29,264960,+0100 [-] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x104cd5a28>
+2016-11-04 23:05:29,265023,+0100 [-] (TCP Port 10010 Closed)
+2016-11-04 23:05:29,265111,+0100 [-] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x104cd5e60>
+2016-11-04 23:05:29,265172,+0100 [-] (TCP Port 2048 Closed)
+2016-11-04 23:05:29,265260,+0100 [-] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x104ce9320>
+2016-11-04 23:05:29,265320,+0100 [-] (TCP Port 4096 Closed)
+2016-11-04 23:05:29,265406,+0100 [-] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x104ce98c0>
+2016-11-04 23:05:33,364703,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:05:33,364851,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x104cbd638>
+2016-11-04 23:05:33,365048,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:05:33,365144,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x104cbd5a8>
+2016-11-04 23:05:33,365343,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:05:33,365428,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x104cd2560>
+2016-11-04 23:05:33,365598,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:05:33,365685,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x104cd0e60>
+2016-11-04 23:05:33,365973,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:05:33,366086,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x104cd5a28>
+2016-11-04 23:05:33,366398,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:05:33,366522,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x104cd5e60>
+2016-11-04 23:05:33,366792,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:05:33,366885,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x104ce9320>
+2016-11-04 23:05:33,367082,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:05:33,367167,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x104ce98c0>
+2016-11-04 23:07:08,151852,+0100 [pluginMain (UDP)] (UDP Port 10007 Closed)
+2016-11-04 23:07:08,152012,+0100 [pluginMain (UDP)] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x104cbd5a8>
+2016-11-04 23:07:08,152347,+0100 [plugins.Echo.Echo.pluginFactory] (TCP Port 10007 Closed)
+2016-11-04 23:07:08,152563,+0100 [plugins.Echo.Echo.pluginFactory] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x104cbd638>
+2016-11-04 23:07:08,152696,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] (TCP Port 4096 Closed)
+2016-11-04 23:07:08,152852,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x104ce98c0>
+2016-11-04 23:07:08,152990,+0100 [plugins.Random.Random.pluginFactory] (TCP Port 2048 Closed)
+2016-11-04 23:07:08,153143,+0100 [plugins.Random.Random.pluginFactory] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x104ce9320>
+2016-11-04 23:07:08,153256,+0100 [plugins.MOTD.MOTD.pluginFactory] (TCP Port 10008 Closed)
+2016-11-04 23:07:08,153420,+0100 [plugins.MOTD.MOTD.pluginFactory] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x104cd2560>
+2016-11-04 23:07:08,153548,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] (TCP Port 10009 Closed)
+2016-11-04 23:07:08,153757,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x104cd5a28>
+2016-11-04 23:07:08,153874,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] (TCP Port 10010 Closed)
+2016-11-04 23:07:08,154029,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x104cd5e60>
+2016-11-04 23:07:08,154222,+0100 [pluginMain (UDP)] (UDP Port 10008 Closed)
+2016-11-04 23:07:08,154311,+0100 [pluginMain (UDP)] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x104cd0e60>
+2016-11-04 23:07:08,154512,+0100 [-] Main loop terminated.
+2016-11-04 23:16:53,362044,+0100 [-] Log opened.
+2016-11-04 23:16:53,375591,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:16:53,375725,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x10d4e27e8>
+2016-11-04 23:16:53,378015,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:16:53,378138,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10d4e2cf8>
+2016-11-04 23:16:53,380201,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:16:53,380330,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10d4f5cb0>
+2016-11-04 23:16:53,382198,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:16:53,382324,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10d4f87a0>
+2016-11-04 23:16:53,385191,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:16:53,385300,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10d4f9bd8>
+2016-11-04 23:16:53,387448,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:16:53,387564,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10d612050>
+2016-11-04 23:16:53,389232,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:16:53,389330,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x10d6124d0>
+2016-11-04 23:16:53,391872,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:16:53,392025,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10d612a70>
+2016-11-04 23:16:53,393935,+0100 [-] (TCP Port 10007 Closed)
+2016-11-04 23:16:53,394184,+0100 [-] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x10d4e27e8>
+2016-11-04 23:16:53,394274,+0100 [-] (UDP Port 10007 Closed)
+2016-11-04 23:16:53,394339,+0100 [-] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10d4e2cf8>
+2016-11-04 23:16:53,394454,+0100 [-] (TCP Port 10008 Closed)
+2016-11-04 23:16:53,394568,+0100 [-] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10d4f5cb0>
+2016-11-04 23:16:53,394630,+0100 [-] (UDP Port 10008 Closed)
+2016-11-04 23:16:53,394685,+0100 [-] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10d4f87a0>
+2016-11-04 23:16:53,394786,+0100 [-] (TCP Port 10009 Closed)
+2016-11-04 23:16:53,394877,+0100 [-] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10d4f9bd8>
+2016-11-04 23:16:53,394931,+0100 [-] (TCP Port 10010 Closed)
+2016-11-04 23:16:53,395015,+0100 [-] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10d612050>
+2016-11-04 23:16:53,395068,+0100 [-] (TCP Port 2048 Closed)
+2016-11-04 23:16:53,395151,+0100 [-] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x10d6124d0>
+2016-11-04 23:16:53,395213,+0100 [-] (TCP Port 4096 Closed)
+2016-11-04 23:16:53,395305,+0100 [-] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10d612a70>
+2016-11-04 23:17:44,322971,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:17:44,323100,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x10d4e27e8>
+2016-11-04 23:17:44,323243,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:17:44,323310,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10d4e2cf8>
+2016-11-04 23:17:44,323448,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:17:44,323504,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10d4f5cb0>
+2016-11-04 23:17:44,323615,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:17:44,323671,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10d4f87a0>
+2016-11-04 23:17:44,323795,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:17:44,323848,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10d4f9bd8>
+2016-11-04 23:17:44,323967,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:17:44,324019,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10d612050>
+2016-11-04 23:17:44,324139,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:17:44,324190,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x10d6124d0>
+2016-11-04 23:17:44,324307,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:17:44,324358,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10d612a70>
+2016-11-04 23:17:50,772288,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP CONNECT 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092
+2016-11-04 23:17:50,773560,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 57656c636f6d6520746f204d6963726f736f66742054656c6e657420536572766963650a0a6c6f67696e3a20
+2016-11-04 23:17:51,757623,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "Honey.py", line 153, in <module>
+	    reactor.run()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1192, in run
+	    self.mainLoop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1201, in mainLoop
+	    self.runUntilCurrent()
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 62, in <lambda>
+	    reactor.callLater( self.delay, lambda: self.followTail( fileobj, fstat, offset ) )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 45, in followTail
+	    if line: self.dataReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 77, in dataReceived
+	    self.lineReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/honeypy_log_triage.py", line 46, in triage
+	    from loggers.twitter.honeypy_twitter import post_tweet
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/twitter/honeypy_twitter.py", line 6, in <module>
+	    from twitter import Twitter
+	exceptions.ImportError: cannot import name Twitter
+	
+2016-11-04 23:17:52,085109,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 610a
+2016-11-04 23:17:52,085263,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 70617373776f72643a20
+2016-11-04 23:17:52,576175,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 610a
+2016-11-04 23:17:52,576332,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 0a
+2016-11-04 23:17:52,576432,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 6c6f67696e3a20
+2016-11-04 23:17:52,854982,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 610a
+2016-11-04 23:17:52,855138,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 70617373776f72643a20
+2016-11-04 23:17:53,174949,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 610a
+2016-11-04 23:17:53,175106,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 0a
+2016-11-04 23:17:53,175207,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 6c6f67696e3a20
+2016-11-04 23:17:53,439146,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 610a
+2016-11-04 23:17:53,439304,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 70617373776f72643a20
+2016-11-04 23:17:53,799124,+0100 [TelnetWindows,0,127.0.0.1] 8617fe2e-a2dc-11e6-9309-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64092 610a
+2016-11-04 23:18:11,665466,+0100 [-] Received SIGINT, shutting down.
+2016-11-04 23:18:11,666846,+0100 [plugins.MOTD.MOTD.pluginFactory] (TCP Port 10008 Closed)
+2016-11-04 23:18:11,667180,+0100 [plugins.MOTD.MOTD.pluginFactory] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10d4f5cb0>
+2016-11-04 23:18:11,667306,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] (TCP Port 4096 Closed)
+2016-11-04 23:18:11,667464,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10d612a70>
+2016-11-04 23:18:11,667577,+0100 [pluginMain (UDP)] (UDP Port 10007 Closed)
+2016-11-04 23:18:11,667662,+0100 [pluginMain (UDP)] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10d4e2cf8>
+2016-11-04 23:18:11,667821,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] (TCP Port 10009 Closed)
+2016-11-04 23:18:11,667973,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10d4f9bd8>
+2016-11-04 23:18:11,668078,+0100 [plugins.Echo.Echo.pluginFactory] (TCP Port 10007 Closed)
+2016-11-04 23:18:11,668221,+0100 [plugins.Echo.Echo.pluginFactory] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x10d4e27e8>
+2016-11-04 23:18:11,668512,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 118, in callWithContext
+	    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 81, in callWithContext
+	    return func(*args,**kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/process.py", line 275, in connectionLost
+	    self.proc.childConnectionLost(self.name, reason)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 89, in childConnectionLost
+	    self.connectionLost(reason)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 108, in connectionLost
+	    protocol.connectionLost(reason)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/honeypy_console.py", line 133, in connectionLost
+	    reactor.stop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 580, in stop
+	    "Can't stop reactor that isn't running.")
+	twisted.internet.error.ReactorNotRunning: Can't stop reactor that isn't running.
+	
+2016-11-04 23:18:11,671421,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] (TCP Port 10010 Closed)
+2016-11-04 23:18:11,671673,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10d612050>
+2016-11-04 23:18:11,671791,+0100 [pluginMain (UDP)] (UDP Port 10008 Closed)
+2016-11-04 23:18:11,671873,+0100 [pluginMain (UDP)] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10d4f87a0>
+2016-11-04 23:18:11,672036,+0100 [plugins.Random.Random.pluginFactory] (TCP Port 2048 Closed)
+2016-11-04 23:18:11,672189,+0100 [plugins.Random.Random.pluginFactory] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x10d6124d0>
+2016-11-04 23:18:11,672364,+0100 [-] Main loop terminated.
+2016-11-04 23:18:17,814602,+0100 [-] Log opened.
+2016-11-04 23:18:17,827828,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:18:17,827963,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x1014d77e8>
+2016-11-04 23:18:17,830216,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:18:17,830351,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x1014d7cf8>
+2016-11-04 23:18:17,832472,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:18:17,832604,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x1014eacb0>
+2016-11-04 23:18:17,834646,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:18:17,834767,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x1014ed7a0>
+2016-11-04 23:18:17,837910,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:18:17,838020,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x1014eebd8>
+2016-11-04 23:18:17,840074,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:18:17,840173,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x101607050>
+2016-11-04 23:18:17,841969,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:18:17,842067,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x1016074d0>
+2016-11-04 23:18:17,845038,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:18:17,845172,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x101607a70>
+2016-11-04 23:18:17,846777,+0100 [-] (TCP Port 10007 Closed)
+2016-11-04 23:18:17,847021,+0100 [-] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x1014d77e8>
+2016-11-04 23:18:17,847092,+0100 [-] (UDP Port 10007 Closed)
+2016-11-04 23:18:17,847151,+0100 [-] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x1014d7cf8>
+2016-11-04 23:18:17,847258,+0100 [-] (TCP Port 10008 Closed)
+2016-11-04 23:18:17,847365,+0100 [-] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x1014eacb0>
+2016-11-04 23:18:17,847423,+0100 [-] (UDP Port 10008 Closed)
+2016-11-04 23:18:17,847473,+0100 [-] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x1014ed7a0>
+2016-11-04 23:18:17,847588,+0100 [-] (TCP Port 10009 Closed)
+2016-11-04 23:18:17,847693,+0100 [-] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x1014eebd8>
+2016-11-04 23:18:17,847832,+0100 [-] (TCP Port 10010 Closed)
+2016-11-04 23:18:17,848024,+0100 [-] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x101607050>
+2016-11-04 23:18:17,848138,+0100 [-] (TCP Port 2048 Closed)
+2016-11-04 23:18:17,848302,+0100 [-] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x1016074d0>
+2016-11-04 23:18:17,848457,+0100 [-] (TCP Port 4096 Closed)
+2016-11-04 23:18:17,848640,+0100 [-] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x101607a70>
+2016-11-04 23:18:18,742353,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:18:18,742494,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x1014d77e8>
+2016-11-04 23:18:18,742684,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:18:18,742779,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x1014d7cf8>
+2016-11-04 23:18:18,742970,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:18:18,743050,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x1014eacb0>
+2016-11-04 23:18:18,743208,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:18:18,743289,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x1014ed7a0>
+2016-11-04 23:18:18,743466,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:18:18,743544,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x1014eebd8>
+2016-11-04 23:18:18,743718,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:18:18,743793,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x101607050>
+2016-11-04 23:18:18,743965,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:18:18,744040,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x1016074d0>
+2016-11-04 23:18:18,744209,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:18:18,744284,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x101607a70>
+2016-11-04 23:18:21,429807,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP CONNECT 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099
+2016-11-04 23:18:21,430853,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 57656c636f6d6520746f204d6963726f736f66742054656c6e657420536572766963650a0a6c6f67696e3a20
+2016-11-04 23:18:22,035287,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "Honey.py", line 153, in <module>
+	    reactor.run()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1192, in run
+	    self.mainLoop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1201, in mainLoop
+	    self.runUntilCurrent()
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 62, in <lambda>
+	    reactor.callLater( self.delay, lambda: self.followTail( fileobj, fstat, offset ) )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 45, in followTail
+	    if line: self.dataReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 77, in dataReceived
+	    self.lineReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/honeypy_log_triage.py", line 46, in triage
+	    from loggers.twitter.honeypy_twitter import post_tweet
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/twitter/honeypy_twitter.py", line 6, in <module>
+	    from twitter import Twitter
+	exceptions.ImportError: cannot import name Twitter
+	
+2016-11-04 23:18:22,083246,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 610a
+2016-11-04 23:18:22,083426,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 70617373776f72643a20
+2016-11-04 23:18:25,602066,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 610a
+2016-11-04 23:18:25,602220,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 0a
+2016-11-04 23:18:25,602319,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 6c6f67696e3a20
+2016-11-04 23:18:25,830906,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 610a
+2016-11-04 23:18:25,831061,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 70617373776f72643a20
+2016-11-04 23:18:26,088204,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 610a
+2016-11-04 23:18:26,088361,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 0a
+2016-11-04 23:18:26,088462,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 6c6f67696e3a20
+2016-11-04 23:18:26,513226,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 610a
+2016-11-04 23:18:26,513380,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 70617373776f72643a20
+2016-11-04 23:18:26,880232,+0100 [TelnetWindows,0,127.0.0.1] 985dc4c2-a2dc-11e6-a035-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64099 610a
+2016-11-04 23:19:26,850888,+0100 [-] Received SIGINT, shutting down.
+2016-11-04 23:19:26,851267,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] (TCP Port 10009 Closed)
+2016-11-04 23:19:26,851570,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x1014eebd8>
+2016-11-04 23:19:26,851697,+0100 [pluginMain (UDP)] (UDP Port 10007 Closed)
+2016-11-04 23:19:26,851785,+0100 [pluginMain (UDP)] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x1014d7cf8>
+2016-11-04 23:19:26,851958,+0100 [plugins.Echo.Echo.pluginFactory] (TCP Port 10007 Closed)
+2016-11-04 23:19:26,852117,+0100 [plugins.Echo.Echo.pluginFactory] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x1014d77e8>
+2016-11-04 23:19:26,852226,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] (TCP Port 10010 Closed)
+2016-11-04 23:19:26,852373,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x101607050>
+2016-11-04 23:19:26,852479,+0100 [plugins.MOTD.MOTD.pluginFactory] (TCP Port 10008 Closed)
+2016-11-04 23:19:26,852623,+0100 [plugins.MOTD.MOTD.pluginFactory] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x1014eacb0>
+2016-11-04 23:19:26,852727,+0100 [plugins.Random.Random.pluginFactory] (TCP Port 2048 Closed)
+2016-11-04 23:19:26,852869,+0100 [plugins.Random.Random.pluginFactory] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x1016074d0>
+2016-11-04 23:19:26,853152,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 118, in callWithContext
+	    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 81, in callWithContext
+	    return func(*args,**kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/process.py", line 275, in connectionLost
+	    self.proc.childConnectionLost(self.name, reason)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 89, in childConnectionLost
+	    self.connectionLost(reason)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 108, in connectionLost
+	    protocol.connectionLost(reason)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/honeypy_console.py", line 133, in connectionLost
+	    reactor.stop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 580, in stop
+	    "Can't stop reactor that isn't running.")
+	twisted.internet.error.ReactorNotRunning: Can't stop reactor that isn't running.
+	
+2016-11-04 23:19:26,854020,+0100 [pluginMain (UDP)] (UDP Port 10008 Closed)
+2016-11-04 23:19:26,854114,+0100 [pluginMain (UDP)] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x1014ed7a0>
+2016-11-04 23:19:26,854291,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] (TCP Port 4096 Closed)
+2016-11-04 23:19:26,854454,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x101607a70>
+2016-11-04 23:19:26,854624,+0100 [-] Main loop terminated.
+2016-11-04 23:19:27,661910,+0100 [-] Log opened.
+2016-11-04 23:19:27,667547,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:19:27,667630,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x10e7b37e8>
+2016-11-04 23:19:27,669236,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:19:27,669512,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10e7b3cf8>
+2016-11-04 23:19:27,671093,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:19:27,671188,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10e7c6cb0>
+2016-11-04 23:19:27,672197,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:19:27,672284,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10e7c97a0>
+2016-11-04 23:19:27,673656,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:19:27,673712,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10e7cabd8>
+2016-11-04 23:19:27,674604,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:19:27,674658,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10e7e2050>
+2016-11-04 23:19:27,675412,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:19:27,675466,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x10e7e24d0>
+2016-11-04 23:19:27,676493,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:19:27,676547,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10e7e2a70>
+2016-11-04 23:19:27,677520,+0100 [-] (TCP Port 10007 Closed)
+2016-11-04 23:19:27,677757,+0100 [-] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x10e7b37e8>
+2016-11-04 23:19:27,677825,+0100 [-] (UDP Port 10007 Closed)
+2016-11-04 23:19:27,677869,+0100 [-] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10e7b3cf8>
+2016-11-04 23:19:27,677968,+0100 [-] (TCP Port 10008 Closed)
+2016-11-04 23:19:27,678074,+0100 [-] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10e7c6cb0>
+2016-11-04 23:19:27,678131,+0100 [-] (UDP Port 10008 Closed)
+2016-11-04 23:19:27,678169,+0100 [-] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10e7c97a0>
+2016-11-04 23:19:27,678257,+0100 [-] (TCP Port 10009 Closed)
+2016-11-04 23:19:27,678359,+0100 [-] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10e7cabd8>
+2016-11-04 23:19:27,678419,+0100 [-] (TCP Port 10010 Closed)
+2016-11-04 23:19:27,678504,+0100 [-] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10e7e2050>
+2016-11-04 23:19:27,678563,+0100 [-] (TCP Port 2048 Closed)
+2016-11-04 23:19:27,678646,+0100 [-] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x10e7e24d0>
+2016-11-04 23:19:27,678704,+0100 [-] (TCP Port 4096 Closed)
+2016-11-04 23:19:27,678798,+0100 [-] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10e7e2a70>
+2016-11-04 23:19:49,169516,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:19:49,169656,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x10e7b37e8>
+2016-11-04 23:19:49,169845,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:19:49,169939,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10e7b3cf8>
+2016-11-04 23:19:49,170129,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:19:49,170210,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10e7c6cb0>
+2016-11-04 23:19:49,170367,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:19:49,170450,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10e7c97a0>
+2016-11-04 23:19:49,170626,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:19:49,170704,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10e7cabd8>
+2016-11-04 23:19:49,170877,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:19:49,170954,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10e7e2050>
+2016-11-04 23:19:49,171124,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:19:49,171200,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x10e7e24d0>
+2016-11-04 23:19:49,171370,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:19:49,171444,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10e7e2a70>
+2016-11-04 23:19:51,677987,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] ce28c123-a2dc-11e6-b58f-b8e856074282 TCP CONNECT 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64116
+2016-11-04 23:19:51,678616,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] ce28c123-a2dc-11e6-b58f-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64116 57656c636f6d6520746f204d6963726f736f66742054656c6e657420536572766963650a0a6c6f67696e3a20
+2016-11-04 23:19:51,812324,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "Honey.py", line 153, in <module>
+	    reactor.run()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1192, in run
+	    self.mainLoop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1201, in mainLoop
+	    self.runUntilCurrent()
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 62, in <lambda>
+	    reactor.callLater( self.delay, lambda: self.followTail( fileobj, fstat, offset ) )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 45, in followTail
+	    if line: self.dataReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 77, in dataReceived
+	    self.lineReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/honeypy_log_triage.py", line 47, in triage
+	    from loggers.twitter.honeypy_twitter import post_tweet
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/twitter/honeypy_twitter.py", line 6, in <module>
+	    from twitter import Twitter
+	exceptions.ImportError: cannot import name Twitter
+	
+2016-11-04 23:20:23,834959,+0100 [-] Received SIGINT, shutting down.
+2016-11-04 23:20:23,835371,+0100 [plugins.Echo.Echo.pluginFactory] (TCP Port 10007 Closed)
+2016-11-04 23:20:23,835703,+0100 [plugins.Echo.Echo.pluginFactory] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x10e7b37e8>
+2016-11-04 23:20:23,836227,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] (TCP Port 10009 Closed)
+2016-11-04 23:20:23,836509,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10e7cabd8>
+2016-11-04 23:20:23,836679,+0100 [pluginMain (UDP)] (UDP Port 10007 Closed)
+2016-11-04 23:20:23,836809,+0100 [pluginMain (UDP)] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10e7b3cf8>
+2016-11-04 23:20:23,837063,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] (TCP Port 4096 Closed)
+2016-11-04 23:20:23,837294,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10e7e2a70>
+2016-11-04 23:20:23,837492,+0100 [plugins.MOTD.MOTD.pluginFactory] (TCP Port 10008 Closed)
+2016-11-04 23:20:23,837741,+0100 [plugins.MOTD.MOTD.pluginFactory] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10e7c6cb0>
+2016-11-04 23:20:23,838342,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 118, in callWithContext
+	    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 81, in callWithContext
+	    return func(*args,**kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/process.py", line 275, in connectionLost
+	    self.proc.childConnectionLost(self.name, reason)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 89, in childConnectionLost
+	    self.connectionLost(reason)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 108, in connectionLost
+	    protocol.connectionLost(reason)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/honeypy_console.py", line 133, in connectionLost
+	    reactor.stop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 580, in stop
+	    "Can't stop reactor that isn't running.")
+	twisted.internet.error.ReactorNotRunning: Can't stop reactor that isn't running.
+	
+2016-11-04 23:20:23,840350,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] (TCP Port 10010 Closed)
+2016-11-04 23:20:23,840737,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10e7e2050>
+2016-11-04 23:20:23,840905,+0100 [pluginMain (UDP)] (UDP Port 10008 Closed)
+2016-11-04 23:20:23,841155,+0100 [pluginMain (UDP)] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10e7c97a0>
+2016-11-04 23:20:23,841479,+0100 [plugins.Random.Random.pluginFactory] (TCP Port 2048 Closed)
+2016-11-04 23:20:23,841693,+0100 [plugins.Random.Random.pluginFactory] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x10e7e24d0>
+2016-11-04 23:20:23,841938,+0100 [-] Main loop terminated.
+2016-11-04 23:20:24,954182,+0100 [-] Log opened.
+2016-11-04 23:20:24,960836,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:20:24,961017,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x10f6f37e8>
+2016-11-04 23:20:24,962948,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:20:24,963076,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10f6f3cf8>
+2016-11-04 23:20:24,964452,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:20:24,964522,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10f706cb0>
+2016-11-04 23:20:24,965458,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:20:24,965569,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10f7097a0>
+2016-11-04 23:20:24,967900,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:20:24,968023,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10f70abd8>
+2016-11-04 23:20:24,969695,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:20:24,969796,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10f823050>
+2016-11-04 23:20:24,971232,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:20:24,971298,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x10f8234d0>
+2016-11-04 23:20:24,972489,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:20:24,972551,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10f823a70>
+2016-11-04 23:20:24,974494,+0100 [-] (TCP Port 10007 Closed)
+2016-11-04 23:20:24,975232,+0100 [-] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x10f6f37e8>
+2016-11-04 23:20:24,975359,+0100 [-] (UDP Port 10007 Closed)
+2016-11-04 23:20:24,975467,+0100 [-] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10f6f3cf8>
+2016-11-04 23:20:24,975718,+0100 [-] (TCP Port 10008 Closed)
+2016-11-04 23:20:24,975939,+0100 [-] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10f706cb0>
+2016-11-04 23:20:24,976041,+0100 [-] (UDP Port 10008 Closed)
+2016-11-04 23:20:24,976228,+0100 [-] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10f7097a0>
+2016-11-04 23:20:24,976460,+0100 [-] (TCP Port 10009 Closed)
+2016-11-04 23:20:24,976651,+0100 [-] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10f70abd8>
+2016-11-04 23:20:24,976782,+0100 [-] (TCP Port 10010 Closed)
+2016-11-04 23:20:24,976964,+0100 [-] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10f823050>
+2016-11-04 23:20:24,977075,+0100 [-] (TCP Port 2048 Closed)
+2016-11-04 23:20:24,977252,+0100 [-] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x10f8234d0>
+2016-11-04 23:20:24,977352,+0100 [-] (TCP Port 4096 Closed)
+2016-11-04 23:20:24,977521,+0100 [-] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10f823a70>
+2016-11-04 23:20:27,569938,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:20:27,570091,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x10f6f37e8>
+2016-11-04 23:20:27,570286,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:20:27,570381,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10f6f3cf8>
+2016-11-04 23:20:27,570576,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:20:27,570658,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10f706cb0>
+2016-11-04 23:20:27,570822,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:20:27,570905,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10f7097a0>
+2016-11-04 23:20:27,571086,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:20:27,571166,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10f70abd8>
+2016-11-04 23:20:27,571343,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:20:27,571421,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10f823050>
+2016-11-04 23:20:27,571598,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:20:27,571675,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x10f8234d0>
+2016-11-04 23:20:27,571850,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:20:27,571925,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10f823a70>
+2016-11-04 23:20:29,742362,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] e4d941a3-a2dc-11e6-bdc1-b8e856074282 TCP CONNECT 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64130
+2016-11-04 23:20:29,743007,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] e4d941a3-a2dc-11e6-bdc1-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64130 57656c636f6d6520746f204d6963726f736f66742054656c6e657420536572766963650a0a6c6f67696e3a20
+2016-11-04 23:20:30,064010,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "Honey.py", line 153, in <module>
+	    reactor.run()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1192, in run
+	    self.mainLoop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1201, in mainLoop
+	    self.runUntilCurrent()
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 62, in <lambda>
+	    reactor.callLater( self.delay, lambda: self.followTail( fileobj, fstat, offset ) )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 45, in followTail
+	    if line: self.dataReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 77, in dataReceived
+	    self.lineReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/honeypy_log_triage.py", line 46, in triage
+	    from loggers.twitter.honeypy_twitter import post_tweet
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/twitter/honeypy_twitter.py", line 6, in <module>
+	    from twitter import Twitter
+	exceptions.ImportError: cannot import name Twitter
+	
+2016-11-04 23:21:05,274276,+0100 [-] Received SIGINT, shutting down.
+2016-11-04 23:21:05,274669,+0100 [plugins.Echo.Echo.pluginFactory] (TCP Port 10007 Closed)
+2016-11-04 23:21:05,275002,+0100 [plugins.Echo.Echo.pluginFactory] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x10f6f37e8>
+2016-11-04 23:21:05,275279,+0100 [plugins.MOTD.MOTD.pluginFactory] (TCP Port 10008 Closed)
+2016-11-04 23:21:05,275491,+0100 [plugins.MOTD.MOTD.pluginFactory] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x10f706cb0>
+2016-11-04 23:21:05,275617,+0100 [pluginMain (UDP)] (UDP Port 10007 Closed)
+2016-11-04 23:21:05,275706,+0100 [pluginMain (UDP)] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x10f6f3cf8>
+2016-11-04 23:21:05,275878,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] (TCP Port 4096 Closed)
+2016-11-04 23:21:05,276041,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x10f823a70>
+2016-11-04 23:21:05,276153,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] (TCP Port 10009 Closed)
+2016-11-04 23:21:05,276313,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x10f70abd8>
+2016-11-04 23:21:05,276604,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 118, in callWithContext
+	    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 81, in callWithContext
+	    return func(*args,**kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/process.py", line 275, in connectionLost
+	    self.proc.childConnectionLost(self.name, reason)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 89, in childConnectionLost
+	    self.connectionLost(reason)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 108, in connectionLost
+	    protocol.connectionLost(reason)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/honeypy_console.py", line 133, in connectionLost
+	    reactor.stop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 580, in stop
+	    "Can't stop reactor that isn't running.")
+	twisted.internet.error.ReactorNotRunning: Can't stop reactor that isn't running.
+	
+2016-11-04 23:21:05,277466,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] (TCP Port 10010 Closed)
+2016-11-04 23:21:05,277643,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x10f823050>
+2016-11-04 23:21:05,277759,+0100 [pluginMain (UDP)] (UDP Port 10008 Closed)
+2016-11-04 23:21:05,277840,+0100 [pluginMain (UDP)] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x10f7097a0>
+2016-11-04 23:21:05,278003,+0100 [plugins.Random.Random.pluginFactory] (TCP Port 2048 Closed)
+2016-11-04 23:21:05,278163,+0100 [plugins.Random.Random.pluginFactory] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x10f8234d0>
+2016-11-04 23:21:05,278339,+0100 [-] Main loop terminated.
+2016-11-04 23:21:06,048714,+0100 [-] Log opened.
+2016-11-04 23:21:06,055913,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:21:06,056020,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x105d977a0>
+2016-11-04 23:21:06,057040,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:21:06,057100,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x105d97cb0>
+2016-11-04 23:21:06,057929,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:21:06,057983,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x105daafc8>
+2016-11-04 23:21:06,058736,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:21:06,058793,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x105dad680>
+2016-11-04 23:21:06,060025,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:21:06,060086,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x105daeb90>
+2016-11-04 23:21:06,061060,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:21:06,061119,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x105daefc8>
+2016-11-04 23:21:06,061930,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:21:06,061984,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x105ec7488>
+2016-11-04 23:21:06,062999,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:21:06,063053,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x105ec7a28>
+2016-11-04 23:21:06,063991,+0100 [-] (TCP Port 10007 Closed)
+2016-11-04 23:21:06,064210,+0100 [-] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x105d977a0>
+2016-11-04 23:21:06,064343,+0100 [-] (UDP Port 10007 Closed)
+2016-11-04 23:21:06,064393,+0100 [-] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x105d97cb0>
+2016-11-04 23:21:06,064497,+0100 [-] (TCP Port 10008 Closed)
+2016-11-04 23:21:06,064607,+0100 [-] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x105daafc8>
+2016-11-04 23:21:06,064665,+0100 [-] (UDP Port 10008 Closed)
+2016-11-04 23:21:06,064703,+0100 [-] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x105dad680>
+2016-11-04 23:21:06,064808,+0100 [-] (TCP Port 10009 Closed)
+2016-11-04 23:21:06,064915,+0100 [-] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x105daeb90>
+2016-11-04 23:21:06,064979,+0100 [-] (TCP Port 10010 Closed)
+2016-11-04 23:21:06,065080,+0100 [-] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x105daefc8>
+2016-11-04 23:21:06,065143,+0100 [-] (TCP Port 2048 Closed)
+2016-11-04 23:21:06,065241,+0100 [-] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x105ec7488>
+2016-11-04 23:21:06,065302,+0100 [-] (TCP Port 4096 Closed)
+2016-11-04 23:21:06,065397,+0100 [-] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x105ec7a28>
+2016-11-04 23:21:07,008770,+0100 [-] pluginFactory starting on 10007
+2016-11-04 23:21:07,008910,+0100 [-] Starting factory <plugins.Echo.Echo.pluginFactory instance at 0x105d977a0>
+2016-11-04 23:21:07,009101,+0100 [-] pluginMain starting on 10007
+2016-11-04 23:21:07,009194,+0100 [-] Starting protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x105d97cb0>
+2016-11-04 23:21:07,009385,+0100 [-] pluginFactory starting on 10008
+2016-11-04 23:21:07,009466,+0100 [-] Starting factory <plugins.MOTD.MOTD.pluginFactory instance at 0x105daafc8>
+2016-11-04 23:21:07,009625,+0100 [-] pluginMain starting on 10008
+2016-11-04 23:21:07,009706,+0100 [-] Starting protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x105dad680>
+2016-11-04 23:21:07,009885,+0100 [-] pluginFactory starting on 10009
+2016-11-04 23:21:07,009960,+0100 [-] Starting factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x105daeb90>
+2016-11-04 23:21:07,010134,+0100 [-] pluginFactory starting on 10010
+2016-11-04 23:21:07,010212,+0100 [-] Starting factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x105daefc8>
+2016-11-04 23:21:07,010384,+0100 [-] pluginFactory starting on 2048
+2016-11-04 23:21:07,011290,+0100 [-] Starting factory <plugins.Random.Random.pluginFactory instance at 0x105ec7488>
+2016-11-04 23:21:07,011484,+0100 [-] pluginFactory starting on 4096
+2016-11-04 23:21:07,011561,+0100 [-] Starting factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x105ec7a28>
+2016-11-04 23:21:09,128571,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] fc531133-a2dc-11e6-9c62-b8e856074282 TCP CONNECT 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139
+2016-11-04 23:21:09,129223,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] fc531133-a2dc-11e6-9c62-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 57656c636f6d6520746f204d6963726f736f66742054656c6e657420536572766963650a0a6c6f67696e3a20
+2016-11-04 23:21:10,143742,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "Honey.py", line 153, in <module>
+	    reactor.run()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1192, in run
+	    self.mainLoop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 1201, in mainLoop
+	    self.runUntilCurrent()
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 62, in <lambda>
+	    reactor.callLater( self.delay, lambda: self.followTail( fileobj, fstat, offset ) )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 45, in followTail
+	    if line: self.dataReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/lib/followtail.py", line 77, in dataReceived
+	    self.lineReceived( line )
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/honeypy_log_triage.py", line 46, in triage
+	    from twitter.honeypy_twitter import post_tweet
+	  File "/Users/mrtn/Hack/HoneyPy/loggers/twitter/honeypy_twitter.py", line 6, in <module>
+	    from twitter import Twitter
+	exceptions.ImportError: cannot import name Twitter
+	
+2016-11-04 23:21:10,220761,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 610a
+2016-11-04 23:21:10,220970,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 70617373776f72643a20
+2016-11-04 23:21:10,511692,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 610a
+2016-11-04 23:21:10,511855,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 0a
+2016-11-04 23:21:10,511953,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 6c6f67696e3a20
+2016-11-04 23:21:10,736404,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 610a
+2016-11-04 23:21:10,736565,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 70617373776f72643a20
+2016-11-04 23:21:10,937621,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 610a
+2016-11-04 23:21:10,937788,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 0a
+2016-11-04 23:21:10,937984,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 6c6f67696e3a20
+2016-11-04 23:21:11,287570,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 610a
+2016-11-04 23:21:11,287726,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP TX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 70617373776f72643a20
+2016-11-04 23:21:11,546743,+0100 [TelnetWindows,0,127.0.0.1] fc531133-a2dc-11e6-9c62-b8e856074282 TCP RX 127.0.0.1 10010 Telnet.Windows 127.0.0.1 64139 610a
+2016-11-04 23:56:55,096534,+0100 [-] Received SIGINT, shutting down.
+2016-11-04 23:56:55,097946,+0100 [pluginMain (UDP)] (UDP Port 10008 Closed)
+2016-11-04 23:56:55,098100,+0100 [pluginMain (UDP)] Stopping protocol <plugins.MOTD_udp.MOTD.pluginMain instance at 0x105dad680>
+2016-11-04 23:56:55,098528,+0100 [plugins.Echo.Echo.pluginFactory] (TCP Port 10007 Closed)
+2016-11-04 23:56:55,098869,+0100 [plugins.Echo.Echo.pluginFactory] Stopping factory <plugins.Echo.Echo.pluginFactory instance at 0x105d977a0>
+2016-11-04 23:56:55,099082,+0100 [plugins.Random.Random.pluginFactory] (TCP Port 2048 Closed)
+2016-11-04 23:56:55,099286,+0100 [plugins.Random.Random.pluginFactory] Stopping factory <plugins.Random.Random.pluginFactory instance at 0x105ec7488>
+2016-11-04 23:56:55,099406,+0100 [pluginMain (UDP)] (UDP Port 10007 Closed)
+2016-11-04 23:56:55,099488,+0100 [pluginMain (UDP)] Stopping protocol <plugins.Echo_udp.Echo.pluginMain instance at 0x105d97cb0>
+2016-11-04 23:56:55,099668,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] (TCP Port 4096 Closed)
+2016-11-04 23:56:55,099842,+0100 [plugins.HashCountRandom.HashCountRandom.pluginFactory] Stopping factory <plugins.HashCountRandom.HashCountRandom.pluginFactory instance at 0x105ec7a28>
+2016-11-04 23:56:55,099951,+0100 [plugins.MOTD.MOTD.pluginFactory] (TCP Port 10008 Closed)
+2016-11-04 23:56:55,100114,+0100 [plugins.MOTD.MOTD.pluginFactory] Stopping factory <plugins.MOTD.MOTD.pluginFactory instance at 0x105daafc8>
+2016-11-04 23:56:55,100218,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] (TCP Port 10009 Closed)
+2016-11-04 23:56:55,100377,+0100 [plugins.TelnetDebian7.TelnetDebian7.pluginFactory] Stopping factory <plugins.TelnetDebian7.TelnetDebian7.pluginFactory instance at 0x105daeb90>
+2016-11-04 23:56:55,100696,+0100 [-] Unhandled Error
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 118, in callWithContext
+	    return self.currentContext().callWithContext(ctx, func, *args, **kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/python/context.py", line 81, in callWithContext
+	    return func(*args,**kw)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/process.py", line 275, in connectionLost
+	    self.proc.childConnectionLost(self.name, reason)
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 89, in childConnectionLost
+	    self.connectionLost(reason)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/_posixstdio.py", line 108, in connectionLost
+	    protocol.connectionLost(reason)
+	  File "/Users/mrtn/Hack/HoneyPy/lib/honeypy_console.py", line 133, in connectionLost
+	    reactor.stop()
+	  File "/usr/local/lib/python2.7/site-packages/twisted/internet/base.py", line 580, in stop
+	    "Can't stop reactor that isn't running.")
+	twisted.internet.error.ReactorNotRunning: Can't stop reactor that isn't running.
+	
+2016-11-04 23:56:55,103868,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] (TCP Port 10010 Closed)
+2016-11-04 23:56:55,104199,+0100 [plugins.TelnetWindows.TelnetWindows.pluginFactory] Stopping factory <plugins.TelnetWindows.TelnetWindows.pluginFactory instance at 0x105daefc8>
+2016-11-04 23:56:55,104394,+0100 [-] Main loop terminated.
