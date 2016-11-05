@@ -13,7 +13,7 @@ import argparse
 import importlib
 import lib.followtail
 from lib.honeypy_console import HoneyPyConsole
-from lib.honeypy_log_triage import triage, triageConfig
+from loggers.honeypy_log_triage import triage, triageConfig
 from twisted.internet import protocol, reactor, endpoints, stdio
 from twisted.protocols import basic
 from twisted.python import log

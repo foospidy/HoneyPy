@@ -43,7 +43,7 @@ def triage(line):
 
 			# Twitter integration
 			if 'Yes' == honeypy_config.get('twitter', 'enabled'):
-				from lib.honeypy_twitter import post_tweet
+				from loggers.twitter.honeypy_twitter import post_tweet
 
 				if 'TCP' == parts[4]:
 					post_tweet(honeypy_config, parts[8], parts[9])
@@ -53,7 +53,7 @@ def triage(line):
 
 			# Slack integration
 			if 'Yes' == honeypy_config.get('slack', 'enabled'):
-				from lib.honeypy_slack import post_slack
+				from loggers.slack.honeypy_slack import post_slack
 
 				if 'TCP' == parts[4] and 'CONNECT' == parts[5]:
 					post_slack(honeypy_config, parts[8], parts[9])
@@ -63,7 +63,7 @@ def triage(line):
 
 			# HoneyDB integration
 			if 'Yes' == honeypy_config.get('honeydb', 'enabled'):
-				from lib.honeypy_honeydb import post_log
+				from loggers.honeydb.honeypy_honeydb import post_log
 
 				if 'TCP' == parts[4]:
 					if 11 == len(parts):
@@ -79,7 +79,7 @@ def triage(line):
 
 			# Logstash integration
 			if 'Yes' == honeypy_config.get('logstash', 'enabled'):
-				from lib.honeypy_logstash import post_logstash
+				from loggers.logstash.honeypy_logstash import post_logstash
 
 				if 'TCP' == parts[4]:
 					if 11 == len(parts):
@@ -95,7 +95,7 @@ def triage(line):
 
 			# Elasticsearch integration
 			if 'Yes' == honeypy_config.get('elasticsearch', 'enabled'):
-				from lib.honeypy_elasticsearch import post_elasticsearch
+				from loggers.elasticsearch.honeypy_elasticsearch import post_elasticsearch
 
 				if 'TCP' == parts[4]:
 					if 11 == len(parts):
@@ -111,7 +111,7 @@ def triage(line):
 
 			# Telegram integration
 			if 'Yes' == honeypy_config.get('telegram', 'enabled'):
-				from lib.honeypy_telegram import send_telegram_message
+				from loggers.telegram.honeypy_telegram import send_telegram_message
 				if 'TCP' == parts[4]:
 					send_telegram_message(honeypy_config, parts[8], parts[9])
 				else:

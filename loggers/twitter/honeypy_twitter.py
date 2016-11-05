@@ -7,7 +7,7 @@ from twitter import Twitter
 from twitter.oauth import OAuth
 from twisted.python import log
 
-def post_tweet(honeypycfg, service, clientip):
+def post_tweet(honeypycfg, service, clientip):"
 
 	ck = honeypycfg.get('twitter', 'consumerkey')
 	cs = honeypycfg.get('twitter', 'consumersecret')
@@ -16,7 +16,7 @@ def post_tweet(honeypycfg, service, clientip):
 
 	t        = Twitter(auth=OAuth(ot, os, ck, cs))
 	nodename = honeypycfg.get('honeypy', 'nodename')
-	
+
 	try:
 		t.statuses.update(status=nodename + ': #' + service + ' Possible '  + service + ' attack from ' + clientip + ' https://riskdiscovery.com/honeydb/#host/' + clientip)
 	except Exception, err:
