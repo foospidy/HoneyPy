@@ -118,6 +118,24 @@ def triage(line):
 					# UDP splits differently (see comment section above)
 					send_telegram_message(honeypy_config, parts[9], parts[10])
 
+			# Splunk integration
+			if 'Yes' == honeypy_config.get('splunk', 'enabled'):
+				from lib.honeypy_splunk import post_splunk
+				username = honeypy_config.get('splunk', 'username')
+				password = honeypy_config.get('splunk', 'password')
+				if 'TCP' == parts[4]:
+					if 11 == len(parts):
+						parts.append('') # no data for CONNECT events
+
+					post_splunk(username, password, honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('splunk', 'url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+				else:
+					# UDP splits differently (see comment section above)
+					if 12 == len(parts):
+						parts.append('') # no data sent
+
+					post_splunk(username, password, honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('splunk', 'url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+
+
 def triageConfig(config):
 	global honeypy_config
 	honeypy_config = config
