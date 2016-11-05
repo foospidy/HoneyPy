@@ -7,7 +7,7 @@ from twitter import Twitter
 from twitter.oauth import OAuth
 from twisted.python import log
 
-def post_tweet(honeypycfg, service, clientip):"
+def post_tweet(honeypycfg, service, clientip):
 
 	ck = honeypycfg.get('twitter', 'consumerkey')
 	cs = honeypycfg.get('twitter', 'consumersecret')
