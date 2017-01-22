@@ -7,7 +7,6 @@ from twisted.python import log
 import uuid
 
 ### START CUSTOM IMPORTS ###
-import time
 ############################
 
 class pluginMain(DatagramProtocol):
