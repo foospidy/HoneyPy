@@ -40,6 +40,13 @@ port        = tcp:8080
 description = Alternative port for web services
 enabled     = Yes
 
+[SIP]
+plugin      = SIP
+low_port    = tcp:5060
+port        = tcp:5060
+description = The Session Initiation Protocol (SIP) is a communications protocol for signaling and controlling multimedia communication session such as voice and video calls.
+enabled     = Yes
+
 [Cactus]
 plugin      = Web
 low_port    = tcp:49115
