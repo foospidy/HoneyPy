@@ -1,5 +1,5 @@
 dnslib == 0.9.4
-requests == 2.4.3
+requests == 2.6.0
 Twisted == 14.0.2
 python_twitter == 3.1
 certifi
