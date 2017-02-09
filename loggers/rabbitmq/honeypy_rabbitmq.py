@@ -9,7 +9,7 @@ import socket
 import json
 from twisted.python import log
 
-
+#pika==0.10.0
 import pika
 
 # prevent creation of compiled bytecode files
@@ -18,7 +18,7 @@ sys.dont_write_bytecode = True
 
 def post_rabbitmq(url_param, exchange, routing_key, date, time, date_time, millisecond, session,
                   protocol, event, local_host, local_port, service, remote_host, remote_port, data):
-    # post events to honeydb logger
+
     h = hashlib.md5()
     h.update(data)
 
@@ -50,11 +50,8 @@ def post_rabbitmq(url_param, exchange, routing_key, date, time, date_time, milli
         channel.basic_publish(exchange=exchange,
                               routing_key=routing_key,
                               body=str(logtosend))
-        # print ' [x] Sent %s' %body
 
         connection.close()
-
-        # log.msg('Post event to rabbitmq! %s, %s, %s, \'%s\' (%s)' % (url_param,exchange,routing_key,seperator,logtosend)) # Debug ONLY
 
         log.msg('Post event to rabbitmq! {%s} (%s bytes)' % (logtosend, len(logtosend)))
 
