@@ -138,6 +138,29 @@ def triage(line):
 
 					post_splunk(username, password, honeypy_config.get('honeypy', 'useragent'), url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
+			# Rabbitmq integration.
+			if 'Yes' == honeypy_config.get('rabbitmq', 'enabled'):
+				from loggers.rabbitmq.honeypy_rabbitmq import post_rabbitmq
+
+				if 'TCP' == parts[4]:
+					if 11 == len(parts):
+						parts.append('')  # no data for CONNECT events
+
+					post_rabbitmq(honeypy_config.get('rabbitmq', 'url_param'), honeypy_config.get('rabbitmq', 'exchange'),
+								  honeypy_config.get('rabbitmq', 'routing_key'),parts[0],
+								  time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5],
+								  parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+
+				else:
+					# UDP splits differently (see comment section above)
+					if 12 == len(parts):
+						parts.append('')  # no data sent
+
+					post_rabbitmq(honeypy_config.get('rabbitmq', 'url_param'), honeypy_config.get('rabbitmq', 'exchange'),
+								  honeypy_config.get('rabbitmq', 'routing_key'),parts[0],
+								  time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6],
+								  parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+
 
 def triageConfig(config):
 	global honeypy_config
