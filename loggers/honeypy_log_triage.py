@@ -147,8 +147,7 @@ def triage(line):
 						parts.append('')  # no data for CONNECT events
 
 					post_rabbitmq(honeypy_config.get('rabbitmq', 'url_param'), honeypy_config.get('rabbitmq', 'exchange'),
-								  honeypy_config.get('rabbitmq', 'routing_key'), honeypy_config.get('rabbitmq', 'seperator'),
-                                  honeypy_config.get('honeypy', 'nodename'), parts[0],
+								  honeypy_config.get('rabbitmq', 'routing_key'),parts[0],
 								  time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5],
 								  parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
 
@@ -158,8 +157,7 @@ def triage(line):
 						parts.append('')  # no data sent
 
 					post_rabbitmq(honeypy_config.get('rabbitmq', 'url_param'), honeypy_config.get('rabbitmq', 'exchange'),
-								  honeypy_config.get('rabbitmq', 'routing_key'), honeypy_config.get('rabbitmq', 'seperator'),
-								  honeypy_config.get('honeypy', 'nodename'), parts[0],
+								  honeypy_config.get('rabbitmq', 'routing_key'),parts[0],
 								  time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6],
 								  parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 

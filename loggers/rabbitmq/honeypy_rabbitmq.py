@@ -16,7 +16,7 @@ import pika
 sys.dont_write_bytecode = True
 
 
-def post_rabbitmq(url_param, exchange, routing_key, seperator, host, date, time, date_time, millisecond, session,
+def post_rabbitmq(url_param, exchange, routing_key, date, time, date_time, millisecond, session,
                   protocol, event, local_host, local_port, service, remote_host, remote_port, data):
     # post events to honeydb logger
     h = hashlib.md5()
