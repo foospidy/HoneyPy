@@ -85,10 +85,10 @@ if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
    'Yes' == honeypy_config.get('rabbitmq', 'enabled') or \
    'Yes' == honeypy_config.get('splunk', 'enabled'):
 	# tail log file when reactor runs
-		triageConfig(honeypy_config)
-		tailer = lib.followtail.FollowTail(log_path + log_file_name)
-		tailer.lineReceived = triage
-		tailer.start()
+	triageConfig(honeypy_config)
+	tailer = lib.followtail.FollowTail(log_path + log_file_name)
+	tailer.lineReceived = triage
+	tailer.start()
 
 # services object array
 services = []
