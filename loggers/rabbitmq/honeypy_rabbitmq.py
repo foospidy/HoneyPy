@@ -9,7 +9,7 @@ import socket
 import json
 from twisted.python import log
 
-#pika==0.10.0
+
 import pika
 
 # prevent creation of compiled bytecode files
