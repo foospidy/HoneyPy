@@ -66,6 +66,13 @@ port        = tcp:5432
 description = PostgreSQL port 5432
 enabled     = Yes
 
+[Elasticsearch]
+plugin      = Elasticsearch
+low_port    = tcp:9200
+port        = tcp:9200
+description = Send basic elasticsearch like replies
+enabled     = No
+
 [DB2]
 plugin      = Echo
 low_port    = tcp:50000
