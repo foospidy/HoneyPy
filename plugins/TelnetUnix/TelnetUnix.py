@@ -132,6 +132,9 @@ class TelnetUnix(Telnet): ### Set custom protocol class name
 	def do_echo(self, *args):
 		self.tx(echo(*args))
 	
+	def do_enable(self, *args):
+		self.tx(enable())
+
 	def do_uname(self, *args):
 		self.tx(uname(*args))
 	
