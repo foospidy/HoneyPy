@@ -7,6 +7,7 @@ import sys
 import hashlib
 import urllib
 import requests
+from uuid import getnode
 from twisted.python import log
 
 # prevent creation of compiled bytecode files
@@ -36,7 +37,8 @@ def post_log(useragent, url, api_id, api_key, date, time, date_time, millisecond
 		'remote_port': remote_port,
 		'data': data,
 		'bytes': str(len(data)),
-		'data_hash': h.hexdigest()
+		'data_hash': h.hexdigest(),
+		'node': getnode()
 	}
 
 	try:
