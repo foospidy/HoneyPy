@@ -7,6 +7,8 @@ import sys
 import hashlib
 import urllib
 import requests
+import itertools
+import operator
 from uuid import getnode
 from twisted.python import log
 
@@ -17,6 +19,8 @@ def post_log(useragent, url, api_id, api_key, date, time, date_time, millisecond
 	# post events to honeydb logger
 	h = hashlib.md5()
 	h.update(data)
+
+	mac_addr = ':'.join((itertools.starmap(operator.add, zip(*([iter("%012X" % getnode())] * 2)))))
 
 	headers = { 'User-Agent': useragent }
 	# applying [:-3] to time to truncate millisecond
@@ -38,7 +42,7 @@ def post_log(useragent, url, api_id, api_key, date, time, date_time, millisecond
 		'data': data,
 		'bytes': str(len(data)),
 		'data_hash': h.hexdigest(),
-		'node': getnode()
+		'node': mac_addr
 	}
 
 	try:
