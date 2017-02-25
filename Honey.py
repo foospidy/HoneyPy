@@ -106,14 +106,15 @@ for service in service_config.sections():
 		plugin                   = importlib.import_module(plugin_module)
 		service_object           = None
 
-		if int(low_port) < 1024:
-			if display_low_port_message:
-				print('Your service configuration suggests that you want to run on at least one low port!')
-				print('To enable port redirection run the following ipt-kit (https://github.com/foospidy/ipt-kit) commands as root:')
-				print('')
-				display_low_port_message = False
+		if False == args.d:
+			if int(low_port) < 1024:
+				if display_low_port_message:
+					print('Your service configuration suggests that you want to run on at least one low port!')
+					print('To enable port redirection run the following ipt-kit (https://github.com/foospidy/ipt-kit) commands as root:')
+					print('')
+					display_low_port_message = False
 
-			print('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port	)
+				print('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port	)
 
 		try:
 			if 'tcp' == protocol.lower():
