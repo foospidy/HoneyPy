@@ -98,6 +98,13 @@ services.append([])
 # start enabled services
 display_low_port_message = True
 
+# function to ensure we get external IP (rather than hostname) for udp connections.
+# http://stackoverflow.com/questions/24196932/how-can-i-get-the-ip-address-of-eth0-in-python/24196955
+def get_ip_address():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    return s.getsockname()[0]
+
 for service in service_config.sections():
 	if 'Yes' == service_config.get(service, 'enabled'):
 		[low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
@@ -122,7 +129,7 @@ for service in service_config.sections():
 				service_object = reactor.listenTCP(int(port), plugin.pluginFactory(service))
 			else:
 				# run udp service
-				service_object = reactor.listenUDP(int(port), plugin.pluginMain(service, socket.gethostname(), port))
+				service_object = reactor.listenUDP(int(port), plugin.pluginMain(service, get_ip_address(), port))
 
 			if service_object:
 				# stop services from listening immediately if not starting in daemon mode.
