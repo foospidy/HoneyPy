@@ -46,7 +46,7 @@ def post_log(useragent, url, api_id, api_key, date, time, date_time, millisecond
 	}
 
 	try:
-		r       = requests.post(url, headers=headers, data=data)
+		r       = requests.post(url, headers=headers, data=data, timeout=3)
 		page    = r.text
 		
 		log.msg('Post event to honeydb, response: %s' % (str(page).strip()))
