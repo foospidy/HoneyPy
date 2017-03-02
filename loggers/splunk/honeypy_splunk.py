@@ -39,7 +39,7 @@ def post_splunk(username, password, useragent, url, date, time, date_time, milli
 	}
 
 	try:
-		r       = requests.post(url, headers=headers, data=data, auth=(username, password), verify=False)
+		r       = requests.post(url, headers=headers, data=data, auth=(username, password), verify=False, timeout=3)
 		page    = r.text
 
 		log.msg('Post event to splunk, response: %s' % (str(page).strip()))

@@ -42,7 +42,7 @@ def post_elasticsearch(useragent, url, date, time, date_time, millisecond, sessi
 	}
 
 	try:
-		r       = requests.post(url, headers=headers, json=data)
+		r       = requests.post(url, headers=headers, json=data, timeout=3)
 		page    = r.text
 		
 		log.msg('Post event to elasticsearch, response: %s' % (str(page).strip()))

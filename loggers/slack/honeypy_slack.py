@@ -15,7 +15,7 @@ def post_slack(honeypycfg, service, clientip):
     data    = '{"text": "' + honeypycfg.get('honeypy', 'nodename') + ': Possible *' + service + '* attack from ' + clientip + ' <https://riskdiscovery.com/honeydb/#host/' + clientip + '>"}'
 
     url     = honeypycfg.get('slack', 'webhook_url')
-    r       = requests.post(url, headers=headers, data=data)
+    r       = requests.post(url, headers=headers, data=data, timeout=3)
 
     if r.status_code != requests.codes.ok:
         log.msg('Error posting to Slack: %s' % str(r.status_code))
