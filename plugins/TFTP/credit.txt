@@ -1,0 +1,204 @@
+Giving credit to reference implementation:
+http://www.codefu.org/people/darkness/tptftpserver.py
+
+tptftpserver.py
+========================================================================
+#!/usr/bin/python
+#
+# tptftpserver: a minimal TFTP server made to get to DRAC cards behind
+# The Planet's firewalls.
+# $Id: tptftpserver.py,v 1.3 2005/01/03 17:13:39 darkness Exp $
+#
+# Copyright (c) 2005, darkness@codefu.org
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials
+#       provided with the distribution.
+#     * The names of the contributors may not be used to endorse or
+#       promote products derived from this software without specific
+#       prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# Some notes:
+#
+# * This script was written under Python 2.3.  For the maximum chance
+#   of working, I suggest you use 2.3 or later.
+#
+# * To use this script, start it like "tptftpserver.py <filename>"
+#   where "filename" is the only file that will be served up.  For any
+#   file that is requested, this file will be the only one served up.
+#
+# * To start the server on a different port, use "tptftpserver.py
+#   <filename> <port number>" where <port number> is the port you want
+#   it to run on.  You will get some extra debugging information when
+#   you supply the port number, as well.  If you want this debugging
+#   information on the standard port, start with "tptftpserver.py
+#   <filename> 69" (69 being the well-known TFTP port).
+#
+# * If a file transfer is aborted before it is finished, you will need
+#   to restart this TFTP server.  Once a file transmission has begun,
+#   the server doesn't recognize anything until it finishes.  In
+#   general, it never hurts to restart the server before/after
+#   transfers, successful or otherwise.
+#
+# * This server is far, far from a complete implementation of TFTP.  I
+#   doubt it even compiles with the RFC in the functionality it does
+#   implement.  All that said, I have used this to successfully send a
+#   remote floppy image to a Dell RAC III card.  I implemented TFTP as
+#   described in RFC 1350.
+
+import logging
+import struct
+import sys
+from StringIO import StringIO
+import socket as socketlib
+from os import path
+
+# This is the TFTP port.
+DEFAULT_PORT = 69
+
+# I chose this to be the maximum size for a UDP packet, but I might
+# not have chosen big enough.  I'm too lazy to look up the IP header
+# format.
+RECVFROM_BUFSIZE = 65536
+
+# TRANSMISSION_TIMEOUT is measured in seconds.
+TRANSMISSION_TIMEOUT = 2.0
+
+OPCODE_RRQ = 1
+OPCODE_DATA = 3
+OPCODE_ACK = 4
+
+log = logging.getLogger("tptftpserver")
+
+class Transmitter:
+    # send aFile to client over socket
+    def __init__(self, aFile, client, socket):
+        self.__file = aFile
+        self.__client = client
+        self.__socket = socket
+        self.__blockNumber = 1
+        self.__data = self.__file.read(512)
+
+    def transmit(self):
+        log.debug("transmitting block number %d" % self.__blockNumber)
+        self.__socket.sendto(struct.pack("!HH%ds" % len(self.__data),
+                                         OPCODE_DATA, self.__blockNumber,
+                                         self.__data),
+                             self.__client)
+
+    def ack(self, blockNumber):
+        if blockNumber == self.__blockNumber:
+            if len(self.__data) < 512:
+                # EOF, transmission complete
+                return True
+            else:
+                self.__data = self.__file.read(512)
+                self.__blockNumber += 1
+        else:
+            log.warning("unknown ack block number %d" % blockNumber)
+
+    def isSameClient(self, client):
+        return client == self.__client
+
+WAIT_FOR_RRQ = 1
+WAIT_FOR_ACK = 2
+
+def main(path, port=DEFAULT_PORT):
+    theFile = open(path, "r")
+    socket = __makeServerSocket(port)
+    while True:
+        client = __waitForRRQ(socket)
+        log.debug("transmitting to %r" % (client,))
+        __rewindFile(theFile)
+        __transmitFile(theFile, client, socket)
+        log.debug("transmission complete")
+
+def __waitForRRQ(socket):
+    socket.settimeout(None)
+    while True:
+        packet, client = socket.recvfrom(RECVFROM_BUFSIZE)
+        log.debug("received packet=%r" % packet)
+        opcode = __getOpcode(packet)
+        if opcode == OPCODE_RRQ:
+            mode = __getRRQMode(packet)
+            if mode == "octet":
+                break
+            else:
+                log.warning("request has unsupported mode %r, ignoring"
+                            % mode)
+    return client
+
+def __transmitFile(theFile, client, socket):
+    transmitter = Transmitter(theFile, client, socket)
+    socket.settimeout(TRANSMISSION_TIMEOUT)
+    while True:
+        try:
+            packet, client = socket.recvfrom(RECVFROM_BUFSIZE)
+        except socketlib.timeout:
+            log.debug("ACK timeout")
+            transmitter.transmit()
+            continue
+        if not transmitter.isSameClient(client):
+            log.warning("Packet from %r received while transmitting elsewhere"
+                        % client)
+            continue
+        log.debug("received possible ack %r" % (packet,))
+        opcode = __getOpcode(packet)
+        if opcode == OPCODE_ACK:
+            if transmitter.ack(struct.unpack("!H", packet[2:4])[0]):
+                break
+            transmitter.transmit()
+        else:
+            log.warning("unknown opcode %#x, expected ACK" % opcode)
+
+def __rewindFile(theFile):
+    theFile.seek(0, 0)
+
+def __getRRQMode(packet):
+    return packet[packet[2:].index("\0") + 3:-1].lower()
+
+def __getOpcode(packet):
+    return struct.unpack("!H", packet[0:2])[0]
+
+def __makeServerSocket(port):
+    socket = socketlib.socket(socketlib.AF_INET, socketlib.SOCK_DGRAM)
+    socket.bind(('', port))
+    return socket
+
+def __checkNumberOfArgumentsToProgram():
+    if len(sys.argv) < 2:
+        log.error("expected path to file to serve as first argument")
+        sys.exit(1)
+    elif len(sys.argv) > 3:
+        log.error("too many arguments given")
+        sys.exit(1)
+        
+if __name__ == "__main__":
+    logging.basicConfig()
+    __checkNumberOfArgumentsToProgram()
+    path = sys.argv[1]
+    if len(sys.argv) == 3:
+        logging.getLogger().setLevel(logging.DEBUG)
+        main(path, int(sys.argv[2]))
+    else:
+        main(path)

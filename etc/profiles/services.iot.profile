@@ -12,6 +12,13 @@ port        = tcp:10023
 description = Telnet port
 enabled     = Yes
 
+[TFTP]
+plugin      = TFTP
+low_port    = udp:69
+port        = udp:10069
+description = Emulate TFTP service
+enabled     = Yes
+
 [Telnet.IoT]
 plugin      = TelnetUnix
 low_port    = tcp:2323
