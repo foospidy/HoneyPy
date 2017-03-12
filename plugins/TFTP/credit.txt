@@ -1,4 +1,7 @@
-Giving credit to reference implementation:
+Giving credit to reference implementations:
+
+https://mail.python.org/pipermail/python-list/2001-January/104857.html
+
 http://www.codefu.org/people/darkness/tptftpserver.py
 
 tptftpserver.py
