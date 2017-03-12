@@ -9,7 +9,6 @@ import uuid
 ### START CUSTOM IMPORTS ###
 import struct
 import os
-import pprint
 ############################
 
 OPCODE_RRQ  = 1
