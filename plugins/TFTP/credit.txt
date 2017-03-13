@@ -1,4 +1,6 @@
-Giving credit to reference implementations:
+Giving credit to references:
+
+http://www.pcvr.nl/tcpip/tftp_tri.htm
 
 https://mail.python.org/pipermail/python-list/2001-January/104857.html
 
