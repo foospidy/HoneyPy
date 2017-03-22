@@ -82,7 +82,7 @@ description = Echo back data received via tcp.
 enabled     = Yes
 
 [TFTP]
-plugin      = Echo_udp
+plugin      = TFTP
 low_port    = udp:69
 port        = udp:10069
 description = Echo back data received via udp.
