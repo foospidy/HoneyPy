@@ -1,0 +1,40 @@
+#!/bin/sh
+# honeypyd
+#
+# This script can be used to start HoneyPy in daemon mode when your system boots.
+# Note: this has been tested on Debian (Jessie). 
+#
+# Instructions (need to be executed with root):
+# - Copy this file to /etc/init.d/honeypyd
+# - Set the HONEYPY_USER variable below to a user account to run HoneyPy as (do not use root!).
+# - Run update-rc.d honeypyd defaults
+# HoneyPy will now start in daemon mode on boot.
+#
+# Manually start/stop
+# - /etc/init.d/honeypyd start
+# - /etc/init.d/honeypyd stop
+#
+# To remove honeypyd from starting on boot:
+# - update-rc.d -f honeypyd remove
+#
+
+HONEYPY_USER='<Enter run user here>'
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting HoneyPy..."
+    su -c '/home/honey/HoneyPy/Honey.py -d &' ${HONEYPY_USER}
+    ;;
+  stop)
+    echo "Stopping HoneyPy"
+    pid=`ps -ef | grep "Honey.py -d" | grep -v grep | awk '{ print $2 }'`
+    kill -9 $pid
+    ;;
+  *)
+    echo "Usage: /etc/init.d/honeypy {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
