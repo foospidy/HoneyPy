@@ -62,7 +62,7 @@ if args.ipt:
 			if int(low_port) < 1024:
 				ipt_file.write('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port + '\n')
 
-	# set file permissin, close, and quit
+	# set file permission, close, and quit
 	os.chmod(ipt_file_name, 0744)
 	ipt_file.close()
 	quit()
