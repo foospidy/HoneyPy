@@ -7,7 +7,8 @@ from twisted.python import log
 import uuid
 
 ### START CUSTOM IMPORTS ###
-
+from BaseHTTPServer import BaseHTTPRequestHandler
+from StringIO import StringIO
 ############################
 
 class Web(protocol.Protocol): ### Set custom protocol class name
@@ -31,6 +32,8 @@ class Web(protocol.Protocol): ### Set custom protocol class name
 		self.rx(data)
 
 		### START CUSTOM CODE ####################################################################
+		#request = HTTPRequest(data)
+		
 		response = 'HTTP/1.1 200 OK\nServer: Apache/2.4.10 (Debian)\nConnection: close\nContent-Type: text/html\n\nOK!'
 		self.tx(response)
 
@@ -58,3 +61,17 @@ class pluginFactory(protocol.Factory):
 	
 	def __init__(self, name=None):
 		self.name = name or 'HoneyPy'
+
+### START CUSTOM CLASSES ###################################################################
+# from https://stackoverflow.com/questions/2115410/does-python-have-a-module-for-parsing-http-requests-and-responses
+class HTTPRequest(BaseHTTPRequestHandler):
+	def __init__(self, request_text):
+		self.rfile = StringIO(request_text)
+		self.raw_requestline = self.rfile.readline()
+		self.error_code = self.error_message = None
+		self.parse_request()
+
+	def send_error(self, code, message):
+		self.error_code = code
+		self.error_message = message
+##############################################################################################
