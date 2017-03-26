@@ -32,10 +32,16 @@ class Web(protocol.Protocol): ### Set custom protocol class name
 		self.rx(data)
 
 		### START CUSTOM CODE ####################################################################
-		#request = HTTPRequest(data)
-		
-		response = 'HTTP/1.1 200 OK\nServer: Apache/2.4.10 (Debian)\nConnection: close\nContent-Type: text/html\n\nOK!'
+		request = HTTPRequest(data)
+
+		if '/robots.txt' == request.path:
+			response = 'HTTP/1.1 200 OK\nServer: Apache/2.4.10 (Debian)\nConnection: close\nContent-Type: text/plain\n\nUser-agent: *\nDisallow: /customers\nDisallow: /users.txt\n'
+		else:
+			response = 'HTTP/1.1 200 OK\nServer: Apache/2.4.10 (Debian)\nConnection: close\nContent-Type: text/html\n\nOK!\n\n'
+	
 		self.tx(response)
+		# need to lose connect after each response.
+		self.transport.loseConnection()
 
 		##########################################################################################
 
