@@ -40,7 +40,7 @@ class Web(protocol.Protocol): ### Set custom protocol class name
 			response = 'HTTP/1.1 200 OK\nServer: Apache/2.4.10 (Debian)\nConnection: close\nContent-Type: text/html\n\nOK!\n\n'
 	
 		self.tx(response)
-		# need to lose connect after each response.
+		# need to lose connection after each response.
 		self.transport.loseConnection()
 
 		##########################################################################################
@@ -55,6 +55,9 @@ class Web(protocol.Protocol): ### Set custom protocol class name
 		self.session     = uuid.uuid1()
 		log.msg('%s %s CONNECT %s %s %s %s %s' % (self.session, self.remote_host.type, self.local_host.host, self.local_host.port, self.factory.name, self.remote_host.host, self.remote_host.port))
 
+	def clientConnectionLost(self):
+		self.transport.loseConnection()
+	
 	def tx(self, data):
 		log.msg('%s %s TX %s %s %s %s %s %s' % (self.session, self.remote_host.type, self.local_host.host, self.local_host.port, self.factory.name, self.remote_host.host, self.remote_host.port, data.encode("hex")))
 		self.transport.write(data)
