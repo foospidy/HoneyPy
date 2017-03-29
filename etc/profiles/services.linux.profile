@@ -1,4 +1,4 @@
-# HoneyPy Copyright (C) 2013-2016 foospidy
+# HoneyPy Copyright (C) 2013-2017 foospidy
 # services.linux.profile
 # Important: service names must not contain spaces.
 # Important: use port redirecting for services that listen on ports below 1024 (see https://github.com/foospidy/ipt-kit).
@@ -47,7 +47,7 @@ description = Send random data via tcp.
 enabled     = Yes
 
 [Telnet]
-plugin      = TelnetDebian7
+plugin      = TelnetUnix
 low_port    = tcp:23
 port        = tcp:10023
 description = Emulate Debian telnet login via tcp.
@@ -61,7 +61,7 @@ description = Echo back data received via tcp.
 enabled     = Yes
 
 [DNS]
-plugin      = Echo
+plugin      = DnsUdp
 low_port    = tcp:53
 port        = tcp:10053
 description = Echo back data received via tcp.
@@ -89,7 +89,7 @@ description = Echo back data received via udp.
 enabled     = Yes
 
 [HTTP]
-plugin      = Echo
+plugin      = Web
 low_port    = tcp:80
 port        = tcp:10080
 description = Echo back data received via tcp.
@@ -131,7 +131,7 @@ description = Echo back data received via udp.
 enabled     = Yes
 
 [NTP]
-plugin      = Echo_udp
+plugin      = NtpUdp
 low_port    = udp:123
 port        = udp:10123
 description = Echo back data received via udp.

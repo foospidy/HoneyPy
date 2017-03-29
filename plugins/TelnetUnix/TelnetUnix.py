@@ -1,4 +1,4 @@
-# HoneyPy Copyright (C) 2013-2016 foospidy
+# HoneyPy Copyright (C) 2013-2017 foospidy
 # https://github.com/foospidy/HoneyPy
 # See LICENSE for details
 
@@ -172,6 +172,9 @@ class TelnetUnix(Telnet): ### Set custom protocol class name
 		self.session     = uuid.uuid1()
 		log.msg('%s %s CONNECT %s %s %s %s %s' % (self.session, self.remote_host.type, self.local_host.host, self.local_host.port, self.factory.name, self.remote_host.host, self.remote_host.port))
 
+	def clientConnectionLost(self):
+		self.transport.loseConnection()
+	
 	def tx(self, data):
 		log.msg('%s %s TX %s %s %s %s %s %s' % (self.session, self.remote_host.type, self.local_host.host, self.local_host.port, self.factory.name, self.remote_host.host, self.remote_host.port, data.encode("hex")))
 		self.transport.write(data)
