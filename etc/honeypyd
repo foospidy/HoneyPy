@@ -24,7 +24,7 @@ HONEYPY_USER='<Enter run user here>'
 case "$1" in
   start)
     echo "Starting HoneyPy..."
-    su -c '/home/honey/HoneyPy/Honey.py -d &' ${HONEYPY_USER}
+    su -c '/opt/HoneyPy/Honey.py -d &' ${HONEYPY_USER}
     ;;
   stop)
     echo "Stopping HoneyPy"
