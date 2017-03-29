@@ -140,6 +140,9 @@ class Elasticsearch(protocol.Protocol):  ### Set custom protocol class name
         self.session, self.remote_host.type, self.local_host.host, self.local_host.port, self.factory.name,
         self.remote_host.host, self.remote_host.port))
 
+    def clientConnectionLost(self):
+		self.transport.loseConnection()
+        
     def tx(self, data):
         # log.msg('%s %s TX %s %s %s %s %s %s' % (self.session, self.remote_host.type, self.local_host.host, self.local_host.port, self.factory.name, self.remote_host.host, self.remote_host.port, data.encode("hex")))
         log.msg('%s %s TX %s %s %s %s %s %s' % (
