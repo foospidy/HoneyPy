@@ -20,7 +20,14 @@ class pluginMain(DatagramProtocol):
 		
 		recvTimestamp = system_to_ntp_time(time.time())		
 		recvPacket = NTPPacket()
-		recvPacket.from_data(data)
+
+		# catch invalid ntp packets
+		try:
+			recvPacket.from_data(data)
+		except NTPException as ntp_error:
+			self.log(host, port, str(ntp_error) + ' : ' + str(data)
+
+
 		timeStamp_high,timeStamp_low = recvPacket.GetTxTimeStamp()
 		sendPacket = NTPPacket(version=3,mode=4)
 		sendPacket.stratum = 2
@@ -35,7 +42,9 @@ class pluginMain(DatagramProtocol):
 		##########################################################################################
 
 	### START CUSTOM FUNCTIONS ###################################################################
-
+	def log(self. host, port, data):
+		"""Log data already received"""
+		log.msg('%s UDP RX %s %s %s %s %s %s' % (self.session, self.host, self.port, self.name, host, port, data.encode("hex")))
 	##############################################################################################
 	
 	def tx(self, host, port, data):
