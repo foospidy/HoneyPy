@@ -25,7 +25,8 @@ class pluginMain(DatagramProtocol):
 		try:
 			recvPacket.from_data(data)
 		except NTPException as ntp_error:
-			self.log(host, port, str(ntp_error) + ' : ' + str(data))
+			error_data = str(ntp_error) + ' : ' + str(data)
+			self.log(host, port, error_data)
 
 
 		timeStamp_high,timeStamp_low = recvPacket.GetTxTimeStamp()
