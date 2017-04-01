@@ -164,7 +164,7 @@ def triage(line):
 									time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6],
 									parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 			except Exception as e:
-				log.msg('Exception: %s: %s' % str(e), str(parts))
+				log.msg('Exception: {}: {}'.format(str(e), str(parts)))
 
 def triageConfig(config):
 	global honeypy_config
