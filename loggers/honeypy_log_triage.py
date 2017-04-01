@@ -3,6 +3,8 @@
 # See LICENSE for details
 # HoneyPy log triage module
 
+from twisted.python import log
+
 def triage(line):
 	parts = line.split()
 	# TCP
@@ -41,126 +43,128 @@ def triage(line):
 			# time_parts[2]: time zone
 			time_parts = parts[1].split(',')
 
-			# Twitter integration
-			if 'Yes' == honeypy_config.get('twitter', 'enabled'):
-				from loggers.twitter.honeypy_twitter import post_tweet
+			try: 
+				# Twitter integration
+				if 'Yes' == honeypy_config.get('twitter', 'enabled'):
+					from loggers.twitter.honeypy_twitter import post_tweet
 
-				if 'TCP' == parts[4]:
-					post_tweet(honeypy_config, parts[8], parts[9])
-				else:
-					# UDP splits differently (see comment section above)
-					post_tweet(honeypy_config, parts[9], parts[10])
+					if 'TCP' == parts[4]:
+						post_tweet(honeypy_config, parts[8], parts[9])
+					else:
+						# UDP splits differently (see comment section above)
+						post_tweet(honeypy_config, parts[9], parts[10])
 
-			# Slack integration
-			if 'Yes' == honeypy_config.get('slack', 'enabled'):
-				from loggers.slack.honeypy_slack import post_slack
+				# Slack integration
+				if 'Yes' == honeypy_config.get('slack', 'enabled'):
+					from loggers.slack.honeypy_slack import post_slack
 
-				if 'TCP' == parts[4] and 'CONNECT' == parts[5]:
-					post_slack(honeypy_config, parts[8], parts[9])
-				elif 'RX' == parts[6]:
-					# UDP splits differently (see comment section above)
-					post_slack(honeypy_config, parts[9], parts[10])
+					if 'TCP' == parts[4] and 'CONNECT' == parts[5]:
+						post_slack(honeypy_config, parts[8], parts[9])
+					elif 'RX' == parts[6]:
+						# UDP splits differently (see comment section above)
+						post_slack(honeypy_config, parts[9], parts[10])
 
-			# HoneyDB integration
-			if 'Yes' == honeypy_config.get('honeydb', 'enabled'):
-				from loggers.honeydb.honeypy_honeydb import post_log
+				# HoneyDB integration
+				if 'Yes' == honeypy_config.get('honeydb', 'enabled'):
+					from loggers.honeydb.honeypy_honeydb import post_log
 
-				if 'TCP' == parts[4]:
-					if 11 == len(parts):
-						parts.append('') # no data for CONNECT events
+					if 'TCP' == parts[4]:
+						if 11 == len(parts):
+							parts.append('') # no data for CONNECT events
 
-					post_log(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('honeydb', 'url'), honeypy_config.get('honeydb', 'api_id'), honeypy_config.get('honeydb', 'api_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-				else:
-					# UDP splits differently (see comment section above)
-					if 12 == len(parts):
-						parts.append('') # no data sent
+						post_log(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('honeydb', 'url'), honeypy_config.get('honeydb', 'api_id'), honeypy_config.get('honeydb', 'api_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+					else:
+						# UDP splits differently (see comment section above)
+						if 12 == len(parts):
+							parts.append('') # no data sent
 
-					post_log(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('honeydb', 'url'), honeypy_config.get('honeydb', 'api_id'), honeypy_config.get('honeydb', 'api_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+						post_log(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('honeydb', 'url'), honeypy_config.get('honeydb', 'api_id'), honeypy_config.get('honeydb', 'api_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
-			# Logstash integration
-			if 'Yes' == honeypy_config.get('logstash', 'enabled'):
-				from loggers.logstash.honeypy_logstash import post_logstash
+				# Logstash integration
+				if 'Yes' == honeypy_config.get('logstash', 'enabled'):
+					from loggers.logstash.honeypy_logstash import post_logstash
 
-				if 'TCP' == parts[4]:
-					if 11 == len(parts):
-						parts.append('') # no data for CONNECT events
+					if 'TCP' == parts[4]:
+						if 11 == len(parts):
+							parts.append('') # no data for CONNECT events
 
-					post_logstash(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('logstash', 'host'), honeypy_config.get('logstash', 'port'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-				else:
-					# UDP splits differently (see comment section above)
-					if 12 == len(parts):
-						parts.append('') # no data sent
+						post_logstash(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('logstash', 'host'), honeypy_config.get('logstash', 'port'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+					else:
+						# UDP splits differently (see comment section above)
+						if 12 == len(parts):
+							parts.append('') # no data sent
 
-					post_logstash(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('logstash', 'host'), honeypy_config.get('logstash', 'port'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+						post_logstash(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('logstash', 'host'), honeypy_config.get('logstash', 'port'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
-			# Elasticsearch integration
-			if 'Yes' == honeypy_config.get('elasticsearch', 'enabled'):
-				from loggers.elasticsearch.honeypy_elasticsearch import post_elasticsearch
+				# Elasticsearch integration
+				if 'Yes' == honeypy_config.get('elasticsearch', 'enabled'):
+					from loggers.elasticsearch.honeypy_elasticsearch import post_elasticsearch
 
-				if 'TCP' == parts[4]:
-					if 11 == len(parts):
-						parts.append('') # no data for CONNECT events
+					if 'TCP' == parts[4]:
+						if 11 == len(parts):
+							parts.append('') # no data for CONNECT events
 
-					post_elasticsearch(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('elasticsearch', 'es_url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-				else:
-					# UDP splits differently (see comment section above)
-					if 12 == len(parts):
-						parts.append('') # no data sent
+						post_elasticsearch(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('elasticsearch', 'es_url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+					else:
+						# UDP splits differently (see comment section above)
+						if 12 == len(parts):
+							parts.append('') # no data sent
 
-					post_elasticsearch(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('elasticsearch', 'es_url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+						post_elasticsearch(honeypy_config.get('honeypy', 'useragent'), honeypy_config.get('elasticsearch', 'es_url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
-			# Telegram integration
-			if 'Yes' == honeypy_config.get('telegram', 'enabled'):
-				from loggers.telegram.honeypy_telegram import send_telegram_message
-				if 'TCP' == parts[4]:
-					send_telegram_message(honeypy_config, parts[8], parts[9])
-				else:
-					# UDP splits differently (see comment section above)
-					send_telegram_message(honeypy_config, parts[9], parts[10])
+				# Telegram integration
+				if 'Yes' == honeypy_config.get('telegram', 'enabled'):
+					from loggers.telegram.honeypy_telegram import send_telegram_message
+					if 'TCP' == parts[4]:
+						send_telegram_message(honeypy_config, parts[8], parts[9])
+					else:
+						# UDP splits differently (see comment section above)
+						send_telegram_message(honeypy_config, parts[9], parts[10])
 
-			# Elasticsearch integration
-			if 'Yes' == honeypy_config.get('splunk', 'enabled'):
-				from loggers.splunk.honeypy_splunk import post_splunk
+				# Elasticsearch integration
+				if 'Yes' == honeypy_config.get('splunk', 'enabled'):
+					from loggers.splunk.honeypy_splunk import post_splunk
 
-				url 		= honeypy_config.get('splunk', 'url')
-				username 	= honeypy_config.get('splunk', 'username')
-				password 	= honeypy_config.get('splunk', 'password')
+					url 		= honeypy_config.get('splunk', 'url')
+					username 	= honeypy_config.get('splunk', 'username')
+					password 	= honeypy_config.get('splunk', 'password')
 
-				if 'TCP' == parts[4]:
-					if 11 == len(parts):
-						parts.append('') # no data for CONNECT events
+					if 'TCP' == parts[4]:
+						if 11 == len(parts):
+							parts.append('') # no data for CONNECT events
 
-					post_splunk(username, password, honeypy_config.get('honeypy', 'useragent'), url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-				else:
-					# UDP splits differently (see comment section above)
-					if 12 == len(parts):
-						parts.append('') # no data sent
+						post_splunk(username, password, honeypy_config.get('honeypy', 'useragent'), url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+					else:
+						# UDP splits differently (see comment section above)
+						if 12 == len(parts):
+							parts.append('') # no data sent
 
-					post_splunk(username, password, honeypy_config.get('honeypy', 'useragent'), url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+						post_splunk(username, password, honeypy_config.get('honeypy', 'useragent'), url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
-			# Rabbitmq integration.
-			if 'Yes' == honeypy_config.get('rabbitmq', 'enabled'):
-				from loggers.rabbitmq.honeypy_rabbitmq import post_rabbitmq
+				# Rabbitmq integration.
+				if 'Yes' == honeypy_config.get('rabbitmq', 'enabled'):
+					from loggers.rabbitmq.honeypy_rabbitmq import post_rabbitmq
 
-				if 'TCP' == parts[4]:
-					if 11 == len(parts):
-						parts.append('')  # no data for CONNECT events
+					if 'TCP' == parts[4]:
+						if 11 == len(parts):
+							parts.append('')  # no data for CONNECT events
 
-					post_rabbitmq(honeypy_config.get('rabbitmq', 'url_param'), honeypy_config.get('rabbitmq', 'exchange'),
-								  honeypy_config.get('rabbitmq', 'routing_key'),parts[0],
-								  time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5],
-								  parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+						post_rabbitmq(honeypy_config.get('rabbitmq', 'url_param'), honeypy_config.get('rabbitmq', 'exchange'),
+									honeypy_config.get('rabbitmq', 'routing_key'),parts[0],
+									time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5],
+									parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
 
-				else:
-					# UDP splits differently (see comment section above)
-					if 12 == len(parts):
-						parts.append('')  # no data sent
+					else:
+						# UDP splits differently (see comment section above)
+						if 12 == len(parts):
+							parts.append('')  # no data sent
 
-					post_rabbitmq(honeypy_config.get('rabbitmq', 'url_param'), honeypy_config.get('rabbitmq', 'exchange'),
-								  honeypy_config.get('rabbitmq', 'routing_key'),parts[0],
-								  time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6],
-								  parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-
+						post_rabbitmq(honeypy_config.get('rabbitmq', 'url_param'), honeypy_config.get('rabbitmq', 'exchange'),
+									honeypy_config.get('rabbitmq', 'routing_key'),parts[0],
+									time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6],
+									parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+			except Exception as e:
+				log.msg('Exception: %s' % (str(e))
 
 def triageConfig(config):
 	global honeypy_config
