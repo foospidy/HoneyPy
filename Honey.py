@@ -47,11 +47,6 @@ service_config  = ConfigParser.ConfigParser()
 honeypy_config.read(honeypy_config_file)
 service_config.read(service_config_file)
 
-# setup log file and formatting
-if not os.path.exists(os.path.dirname(log_path)):
-	# if log directory does not exist, create it.
-	os.makedirs(os.path.dirname(log_path))
-
 if args.ipt:
 	# generate ipt-kit script in /tmp and quit.
 	ipt_file = open(ipt_file_name,'w')
@@ -70,6 +65,10 @@ if args.ipt:
 	ipt_file.close()
 	quit()
 
+# setup log file and formatting
+if not os.path.exists(os.path.dirname(log_path)):
+	# if log directory does not exist, create it.
+	os.makedirs(os.path.dirname(log_path))
 
 log_file                     = DailyLogFile(log_file_name, log_path)
 file_log_observer            = FileLogObserver(log_file)
