@@ -44,8 +44,8 @@ class pluginMain(DatagramProtocol):
 
 	### START CUSTOM FUNCTIONS ###################################################################
 	def log(self, host, port, data):
-		"""Log data already received"""
-		log.msg('%s UDP RX %s %s %s %s %s %s' % (self.session, self.host, self.port, self.name, host, port, data.encode("hex")))
+		"""Log info message"""
+		log.msg('%s UDP INFO %s %s %s %s %s %s' % (self.session, self.host, self.port, self.name, host, port, data.encode("hex")))
 	##############################################################################################
 	
 	def tx(self, host, port, data):
