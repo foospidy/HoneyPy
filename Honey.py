@@ -123,8 +123,6 @@ for service in service_config.sections():
 					print('')
 					display_low_port_message = False
 
-				print('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port	)
-
 		try:
 			if 'tcp' == protocol.lower():
 				# run tcp service
