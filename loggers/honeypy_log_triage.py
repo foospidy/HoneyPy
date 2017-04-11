@@ -37,7 +37,8 @@ def triage(line):
 
 	# only process actual events
 	if len(parts) > 10:
-		if '[-]' != parts[2]:
+		# this is a bit hacky - need to handle log message parsing better.
+		if '[-]' != parts[2] and 'details:' != parts[0]:
 			# time_parts[0]: time
 			# time_parts[1]: millisecond
 			# time_parts[2]: time zone
