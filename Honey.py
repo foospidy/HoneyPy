@@ -36,6 +36,9 @@ log_path            = os.path.dirname(os.path.abspath(__file__)) + '/log/'
 log_file_name       = 'honeypy.log'
 ipt_file_name       = '/tmp/honeypy-ipt.sh'
 
+# get version
+version = file(os.path.dirname(os.path.abspath(__file__)) + '/VERSION').read().strip()
+
 # setup config parsers
 honeypy_config  = ConfigParser.ConfigParser()
 service_config  = ConfigParser.ConfigParser()
@@ -85,7 +88,7 @@ if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
    'Yes' == honeypy_config.get('rabbitmq', 'enabled') or \
    'Yes' == honeypy_config.get('splunk', 'enabled'):
 	# tail log file when reactor runs
-	triageConfig(honeypy_config)
+	triageConfig(honeypy_config, version)
 	tailer = lib.followtail.FollowTail(log_path + log_file_name)
 	tailer.lineReceived = triage
 	tailer.start()
