@@ -79,7 +79,7 @@ If you have low ports configured, when you run HoneyPy it will display a list of
 ./ipt_set_tcp 24 10010
 ```
 
-Alternativley, you can use authbind to enabled the usage of low ports by HoneyPy's run user. More on authbind here:
+Alternatively, you can use authbind to enabled the usage of low ports by HoneyPy's run user. More on authbind here:
 https://debian-administration.org/article/386/Running_network_services_as_a_non-root_user
 
 #### Custom Service Emulation (Plugins)
