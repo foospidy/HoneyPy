@@ -8,7 +8,7 @@ import uuid
 
 ### START CUSTOM IMPORTS ###
 from twisted.protocols.telnet import *
-from clilib import *
+from lib.clilib import *
 
 ############################
 
