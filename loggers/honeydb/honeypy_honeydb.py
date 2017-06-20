@@ -9,28 +9,50 @@ import urllib
 import requests
 import itertools
 import operator
+import json
 from uuid import getnode
 from twisted.python import log
 
 # prevent creation of compiled bytecode files
 sys.dont_write_bytecode = True
 
-def post_log(useragent, url, api_id, api_key, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+def get_hmac(useragent, url, api_id, api_key):
+	headers = { 'User-Agent': useragent }
+	data    = {
+		'api_id': api_id,
+		'api_key': api_key
+	}
+
+	try:
+		r = requests.post(url, headers=headers, data=data, timeout=3)
+		j = json.loads(r.text)
+		
+		if 'Success' == j['status']:
+			log.msg('Retrieved hmac.')
+			return True, j['hmac_hash'], j['hmac_message']
+		else:
+			raise Exception(j['status'])
+		
+	except Exception as e:
+		log.msg('Error retrieving hmac: %s' % (str(e.message).strip()))
+		return False, None, None
+
+def post_log(useragent, url, hmac_hash, hmac_message, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
 	# post events to honeydb logger
 	h = hashlib.md5()
 	h.update(data)
 
 	mac_addr = ':'.join((itertools.starmap(operator.add, zip(*([iter("%012X" % getnode())] * 2)))))
 
-	headers = { 'User-Agent': useragent }
+	headers = { 'User-Agent': useragent, "Content-Type": "application/json" }
 	# applying [:-3] to time to truncate millisecond
 	data    = {
 		'date': date,
 		'time': time,
 		'date_time': date_time,
 		'millisecond': str(millisecond)[:-3],
-		'api_id': api_id,
-		'api_key': api_key,
+		'hmac_hash': hmac_hash,
+		'hmac_message': hmac_message,
 		'session': session,
 		'protocol': protocol,
 		'event': event,
@@ -46,9 +68,14 @@ def post_log(useragent, url, api_id, api_key, date, time, date_time, millisecond
 	}
 
 	try:
-		r       = requests.post(url, headers=headers, data=data, timeout=3)
-		page    = r.text
-		
-		log.msg('Post event to honeydb, response: %s' % (str(page).strip()))
+		r        = requests.post(url, headers=headers, json=data, timeout=6)
+		response = json.loads(r.text)
+
+		log.msg('Post event to honeydb, response: %s' % (str(response).strip().replace('\n', ' ')))
+
+		return response['status']
+
 	except Exception as e:
-		log.msg('Error posting to honeydb: %s' % (str(e.message).strip()))
+		log.msg('HoneyDB logger, post error: %s' % (str(e.message).strip().replace('\n', ' ')))
+
+		return 'Error'

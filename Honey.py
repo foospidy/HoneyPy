@@ -11,9 +11,9 @@ import threading
 import ConfigParser
 import argparse
 import importlib
-import lib.followtail
+
+from lib.honeypy_logtail import HoneyPyLogTail
 from lib.honeypy_console import HoneyPyConsole
-from loggers.honeypy_log_triage import triage, triageConfig
 from twisted.internet import protocol, reactor, endpoints, stdio
 from twisted.protocols import basic
 from twisted.python import log
@@ -86,10 +86,13 @@ if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
    'Yes' == honeypy_config.get('telegram', 'enabled') or \
    'Yes' == honeypy_config.get('rabbitmq', 'enabled') or \
    'Yes' == honeypy_config.get('splunk', 'enabled'):
+
 	# tail log file when reactor runs
-	triageConfig(honeypy_config, version)
-	tailer = lib.followtail.FollowTail(log_path + log_file_name)
-	tailer.lineReceived = triage
+	tailer        = HoneyPyLogTail(log_path + log_file_name)
+	tailer.config = honeypy_config
+	tailer.useragent = 'HoneyPy (' + version + ')'
+	tailer.hmac_hash    = None
+	tailer.hmac_message = None
 	tailer.start()
 
 # services object array
