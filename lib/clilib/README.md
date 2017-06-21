@@ -15,4 +15,4 @@ or
 
 `print uname('-a')`
 
-more examples are in the test script here: https://github.com/foospidy/clilib/blob/master/test.py
+more examples are in the test script here: https://github.com/foospidy/HoneyPy/blob/master/lib/clilib/test.py
