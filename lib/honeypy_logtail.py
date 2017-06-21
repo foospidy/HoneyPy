@@ -47,20 +47,20 @@ class HoneyPyLogTail(FollowTail):
                         from loggers.twitter.honeypy_twitter import post_tweet
 
                         if 'TCP' == parts[4]:
-                            post_tweet(honeypy_config, parts[8], parts[9])
+                            post_tweet(self.config, parts[8], parts[9])
                         else:
                             # UDP splits differently (see comment section above)
-                            post_tweet(honeypy_config, parts[9], parts[10])
+                            post_tweet(self.config, parts[9], parts[10])
 
                     # Slack integration
                     if 'Yes' == self.config.get('slack', 'enabled'):
                         from loggers.slack.honeypy_slack import post_slack
 
                         if 'TCP' == parts[4] and 'CONNECT' == parts[5]:
-                            post_slack(honeypy_config, parts[8], parts[9])
+                            post_slack(self.config, parts[8], parts[9])
                         elif 'RX' == parts[6]:
                             # UDP splits differently (see comment section above)
-                            post_slack(honeypy_config, parts[9], parts[10])
+                            post_slack(self.config, parts[9], parts[10])
 
                     # HoneyDB integration
                     if 'Yes' == self.config.get('honeydb', 'enabled'):
@@ -133,10 +133,10 @@ class HoneyPyLogTail(FollowTail):
                     if 'Yes' == self.config.get('telegram', 'enabled'):
                         from loggers.telegram.honeypy_telegram import send_telegram_message
                         if 'TCP' == parts[4]:
-                            send_telegram_message(honeypy_config, parts[8], parts[9])
+                            send_telegram_message(self.config, parts[8], parts[9])
                         else:
                             # UDP splits differently (see comment section above)
-                            send_telegram_message(honeypy_config, parts[9], parts[10])
+                            send_telegram_message(self.config, parts[9], parts[10])
 
                     # Elasticsearch integration
                     if 'Yes' == self.config.get('splunk', 'enabled'):
