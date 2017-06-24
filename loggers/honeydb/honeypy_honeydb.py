@@ -17,7 +17,7 @@ from twisted.python import log
 sys.dont_write_bytecode = True
 
 def get_hmac(useragent, url, api_id, api_key):
-	headers = { 'User-Agent': useragent, 'api_id': api_id, 'api_key': api_key }
+	headers = { 'User-Agent': useragent, 'X-HoneyDb-ApiId': api_id, 'X-HoneyDb-ApiKey': api_key }
 
 	try:
 		r = requests.get(url, headers=headers, timeout=3)
