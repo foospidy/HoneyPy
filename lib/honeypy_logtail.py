@@ -89,7 +89,7 @@ class HoneyPyLogTail(FollowTail):
                     
                             if 'Invalid HMAC' == response:
                                 log.msg('HoneyDB logger, hmac invalid, retrieving new hmac.')
-                                got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
+                                got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
                                 
                             elif 'Error' == response:
                                 log.msg('HoneyDB logger, error, make another attempt.')
