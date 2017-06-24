@@ -17,14 +17,10 @@ from twisted.python import log
 sys.dont_write_bytecode = True
 
 def get_hmac(useragent, url, api_id, api_key):
-	headers = { 'User-Agent': useragent }
-	data    = {
-		'api_id': api_id,
-		'api_key': api_key
-	}
+	headers = { 'User-Agent': useragent, 'api_id': api_id, 'api_key': api_key }
 
 	try:
-		r = requests.post(url, headers=headers, data=data, timeout=3)
+		r = requests.get(url, headers=headers, data=data, timeout=3)
 		j = json.loads(r.text)
 		
 		if 'Success' == j['status']:
