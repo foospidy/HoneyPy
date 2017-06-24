@@ -24,7 +24,7 @@ def get_hmac(useragent, url, api_id, api_key):
 		j = json.loads(r.text)
 		
 		if 'Success' == j['status']:
-			log.msg('Retrieved hmac.')
+			log.msg('hmac received with message: {}'.format(j['hmac_message']))
 			return True, j['hmac_hash'], j['hmac_message']
 		else:
 			raise Exception(j['status'])
