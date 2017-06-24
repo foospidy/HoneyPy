@@ -19,6 +19,13 @@ port        = udp:10069
 description = Emulate TFTP service
 enabled     = Yes
 
+[SNMP]
+plugin      = Echo_udp
+low_port    = 161
+port        = 10161
+description = dumb snmp
+enabled     = Yes
+
 [Telnet.IoT]
 plugin      = TelnetUnix
 low_port    = tcp:2323
