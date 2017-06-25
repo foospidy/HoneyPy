@@ -3,6 +3,7 @@ from lib.followtail import FollowTail
 
 class HoneyPyLogTail(FollowTail):
     # class varaibles for HoneyDB
+    got_hmac     = False
     hmac_hash    = None
     hmac_message = None
 
@@ -69,8 +70,6 @@ class HoneyPyLogTail(FollowTail):
                     # HoneyDB integration
                     if 'Yes' == self.config.get('honeydb', 'enabled'):
                         from loggers.honeydb.honeypy_honeydb import post_log, get_hmac
-
-                        got_hmac = False
 
                         if None == self.hmac_hash:
                             log.msg('HoneyDB logger: retrieving initial hmac.')
