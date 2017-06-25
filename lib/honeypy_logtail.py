@@ -1,7 +1,11 @@
 from twisted.python import log
 from lib.followtail import FollowTail
 
-class HoneyPyLogTail(FollowTail):    
+class HoneyPyLogTail(FollowTail):
+    # class varaibles for HoneyDB
+    hmac_hash    = None
+    hmac_message = None
+
     def lineReceived(self, line):
         parts = line.split()
         # TCP

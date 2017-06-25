@@ -91,8 +91,6 @@ if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
 	tailer        = HoneyPyLogTail(log_path + log_file_name)
 	tailer.config = honeypy_config
 	tailer.useragent = 'HoneyPy (' + version + ')'
-	tailer.hmac_hash    = None
-	tailer.hmac_message = None
 	tailer.start()
 
 # services object array
