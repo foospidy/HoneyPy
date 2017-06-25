@@ -88,8 +88,8 @@ if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
    'Yes' == honeypy_config.get('splunk', 'enabled'):
 
 	# tail log file when reactor runs
-	tailer        = HoneyPyLogTail(log_path + log_file_name)
-	tailer.config = honeypy_config
+	tailer           = HoneyPyLogTail(log_path + log_file_name)
+	tailer.config    = honeypy_config
 	tailer.useragent = 'HoneyPy (' + version + ')'
 	tailer.start()
 

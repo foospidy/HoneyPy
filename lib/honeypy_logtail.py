@@ -73,12 +73,12 @@ class HoneyPyLogTail(FollowTail):
 
                         if None == self.hmac_hash:
                             log.msg('HoneyDB logger: retrieving initial hmac.')
-                            got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
+                            self.got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
 
                         for i in range(1,4):
                             log.msg('HoneyDB logger: post attempt {}.'.format(i))
 
-                            if got_hmac:
+                            if self.got_hmac:
                                 response = None
 
                                 if 'TCP' == parts[4]:
@@ -100,7 +100,7 @@ class HoneyPyLogTail(FollowTail):
                                 else:
                                     if 'Invalid HMAC' == response and i < 3:
                                         log.msg('HoneyDB logger: hmac invalid, retrieving new hmac.')
-                                        got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
+                                        self.got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
                                     
                                     elif 'Invalid HMAC' == response and i == 3:
                                         log.msg('HoneyDB logger: hmac invalid, 3 failed attempts, giving up.')
