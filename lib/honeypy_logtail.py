@@ -66,36 +66,40 @@ class HoneyPyLogTail(FollowTail):
                     if 'Yes' == self.config.get('honeydb', 'enabled'):
                         from loggers.honeydb.honeypy_honeydb import post_log, get_hmac
 
+                        got_hmac = False
+
                         if None == self.hmac_hash:
                             log.msg('HoneyDB logger retrieving initial hmac.')
                             got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
 
-                        for i in range(1,3):
-                            response = None
-
+                        for i in range(1,4):
                             log.msg('HoneyDB logger post attempt {}.'.format(i))
-                            if 'TCP' == parts[4]:
-                                if 11 == len(parts):
-                                    parts.append('') # no data for CONNECT events
+                            
+                            if got_hmac:
+                                response = None
 
-                                response = post_log(self.useragent, self.config.get('honeydb', 'url'), self.hmac_hash, self.hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-                                
-                            else:
-                                # UDP splits differently (see comment section above)
-                                if 12 == len(parts):
-                                    parts.append('') # no data sent
+                                if 'TCP' == parts[4]:
+                                    if 11 == len(parts):
+                                        parts.append('') # no data for CONNECT events
 
-                                response = post_log(self.useragent, self.config.get('honeydb', 'url'), self.hmac_hash, self.hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-                    
-                            if 'Invalid HMAC' == response:
-                                log.msg('HoneyDB logger, hmac invalid, retrieving new hmac.')
-                                got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
-                                
-                            elif 'Error' == response:
-                                log.msg('HoneyDB logger, error, make another attempt.')
-                                
-                            else:
-                                break
+                                    response = post_log(self.useragent, self.config.get('honeydb', 'url'), self.hmac_hash, self.hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+                                    
+                                else:
+                                    # UDP splits differently (see comment section above)
+                                    if 12 == len(parts):
+                                        parts.append('') # no data sent
+
+                                    response = post_log(self.useragent, self.config.get('honeydb', 'url'), self.hmac_hash, self.hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+                        
+                                if 'Invalid HMAC' == response:
+                                    log.msg('HoneyDB logger, hmac invalid, retrieving new hmac.')
+                                    got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
+                                    
+                                elif 'Error' == response:
+                                    log.msg('HoneyDB logger, error, make another attempt.')
+                                    
+                                else:
+                                    break
 
                     # Logstash integration
                     if 'Yes' == self.config.get('logstash', 'enabled'):
