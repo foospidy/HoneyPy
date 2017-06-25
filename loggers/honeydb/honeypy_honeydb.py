@@ -24,13 +24,13 @@ def get_hmac(useragent, url, api_id, api_key):
 		j = json.loads(r.text)
 		
 		if 'Success' == j['status']:
-			log.msg('hmac received with message: {}'.format(j['hmac_message']))
+			log.msg('HoneyDB logger: hmac received with message: {}'.format(j['hmac_message']))
 			return True, j['hmac_hash'], j['hmac_message']
 		else:
 			raise Exception(j['status'])
 		
 	except Exception as e:
-		log.msg('Error retrieving hmac: %s' % (str(e.message).strip()))
+		log.msg('HoneyDB logger: Error retrieving hmac: %s' % (str(e.message).strip()))
 		return False, None, None
 
 def post_log(useragent, url, hmac_hash, hmac_message, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
