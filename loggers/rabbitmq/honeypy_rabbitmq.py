@@ -1,7 +1,7 @@
 # HoneyPy Copyright (C) 2013-2017 foospidy
 # https://github.com/foospidy/HoneyPy
 # See LICENSE for details
-# HoneyPy logstash logger
+# HoneyPy rabbitmq logger
 
 import sys
 import hashlib
