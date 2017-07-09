@@ -10,6 +10,7 @@ import requests
 import itertools
 import operator
 import json
+import random
 from uuid import getnode
 from twisted.python import log
 
@@ -42,6 +43,7 @@ def post_log(useragent, url, hmac_hash, hmac_message, date, time, date_time, mil
 	mac_addr = ':'.join((itertools.starmap(operator.add, zip(*([iter("%012X" % getnode())] * 2)))))
 	urls     = ('https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/046b612677d0c8b57420ea0e9b3cc4960a21b6bfea00a0a22a63ddb81aae64ab/honeydb/collector',
 				'https://z17veyvn82.execute-api.us-east-1.amazonaws.com/prod/collector')
+	url      = random.choice(urls)
 
 	headers = { 'User-Agent': useragent, "Content-Type": "application/json" }
 	# applying [:-3] to time to truncate millisecond
