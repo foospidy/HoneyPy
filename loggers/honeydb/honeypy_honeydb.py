@@ -18,7 +18,7 @@ sys.dont_write_bytecode = True
 
 def get_hmac(useragent, url, api_id, api_key):
 	headers = { 'User-Agent': useragent, 'X-HoneyDb-ApiId': api_id, 'X-HoneyDb-ApiKey': api_key }
-	url     = "https://riskdiscovery.com/honeydb/api/hmac"
+	url     = 'https://riskdiscovery.com/honeydb/api/hmac'
 
 	try:
 		r = requests.get(url, headers=headers, timeout=3)
