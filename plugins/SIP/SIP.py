@@ -36,8 +36,8 @@ class pluginMain(DatagramProtocol):
                                 sipheaders['Expires']=header
                         elif "Allow:" in header:
                                 sipheaders['Allow']=header
-                        elif "Content-Lenght:" in header:
-                                sipheaders['Lenght']=header
+                        elif "Content-Length:" in header:
+                                sipheaders['Length']=header
                         elif "Authorization:" in header:
                                 sipheaders['Authorization']=header
 
