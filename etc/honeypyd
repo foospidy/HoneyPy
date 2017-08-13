@@ -41,7 +41,7 @@ case "$1" in
     fi
     ;;
   *)
-    echo "Usage: /etc/init.d/honeypy {start|stop}"
+    echo "Usage: /etc/init.d/honeypyd {start|stop|status}"
     exit 1
     ;;
 esac
