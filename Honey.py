@@ -58,7 +58,7 @@ if args.ipt:
 			[protocol, port]         = service_config.get(service, 'port').split(':')
 
 			if int(low_port) < 1024:
-				ipt_file.write('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port + '\n')
+				ipt_file.write('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port + ' $1\n')
 
 	# set file permission, close, and quit
 	os.chmod(ipt_file_name, 0744)
