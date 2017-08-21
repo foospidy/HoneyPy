@@ -21,8 +21,8 @@ enabled     = Yes
 
 [SNMP]
 plugin      = Echo_udp
-low_port    = 161
-port        = 10161
+low_port    = udp:161
+port        = udp:10161
 description = dumb snmp
 enabled     = Yes
 
