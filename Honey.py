@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # HoneyPy Copyright (C) 2013-2017 foospidy
 # GNU GENERAL PUBLIC LICENSE
 # https://github.com/foospidy/HoneyPy/blob/master/LICENSE
