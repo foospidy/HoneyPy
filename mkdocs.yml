@@ -3,3 +3,6 @@ pages:
 - Home: index.md
 - Installing: installing.md
 - Configuring: configuring.md
+- Plugins: plugins.md
+- Loggers: loggers.md
+- References: references.md
