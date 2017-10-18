@@ -1,5 +1,4 @@
 site_name: HoneyPy Docs
-docs_dir: HoneyPy/docs
 pages:
   - Home: index.md
   - Installing: installing.md
