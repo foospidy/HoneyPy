@@ -51,7 +51,7 @@ __NOTE:__ Installing dependencies on your base system will require root access. 
 
 ## Running
 
-There are several options for how you can launch and run HoneyPy, [console(#console) mode, daemon mode, and on boot (also daemon mode).
+There are several options for how you can launch and run HoneyPy, [console](#console) mode, daemon mode, and on boot (also daemon mode).
 
 __WARNING:__ It is highly recommended to __NOT__ run HoneyPy as root. It is recommended to create a dedicated user account for running HoneyPy.
 
