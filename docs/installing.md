@@ -42,6 +42,7 @@ Before you can run HoneyPy you must ensure you have all required Python module d
 
 To install dependencies with pip and the requirements.txt file run:
 
+
 ```
 cd /opt/HoneyPy
 sudo pip install -r reqirements.txt
