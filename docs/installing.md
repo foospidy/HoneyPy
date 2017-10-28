@@ -1,6 +1,11 @@
 # Installing HoneyPy
 
-## 1. Download HoneyPy
+## System Requirements
+
+- Linux
+- Python 2.7
+
+## Downloading
 
 __NOTE:__ You can run HoneyPy from any directory on your file system. For the purposes of this documentaiton `/opt/HoneyPy` will be referenced.
 
@@ -29,4 +34,19 @@ cd /opt
 git clone https://github.com/foospidy/HoneyPy.git
 ```
 
-__WARNING:__ Cloning the repository will pull any development changes that may be a work in progress. This could result you may experience bugs or breaks.
+__WARNING:__ Cloning the repository will pull any development changes that may be a work in progress. As a result you may experience bugs or breaks.
+
+## Dependencies
+
+Before you can run HoneyPy you must ensure you have all required Python module dependencies installed. For a list of the dependencies see the [requirements.txt](https://raw.githubusercontent.com/foospidy/HoneyPy/master/requirements.txt) file. It is recommended to install dependencies using [pip](https://pypi.python.org/pypi/pip).
+
+## Running
+
+There are several options in how you can launch and run HoneyPy.
+
+### Console
+
+You can run HoneyPy in console mode. From any terminal run the command 
+### Daemon
+
+### On Boot
