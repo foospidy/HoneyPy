@@ -40,16 +40,30 @@ __WARNING:__ Cloning the repository will pull any development changes that may b
 
 Before you can run HoneyPy you must ensure you have all required Python module dependencies installed. For a list of the dependencies see the [requirements.txt](https://raw.githubusercontent.com/foospidy/HoneyPy/master/requirements.txt) file. It is recommended to install dependencies using [pip](https://pypi.python.org/pypi/pip).
 
+To install dependencies with pip and the requirements.txt file run:
+
+```
+cd /opt/HoneyPy
+sudo pip install -r reqirements.txt`
+```
+
 ## Running
 
 There are several options in how you can launch and run HoneyPy.
 
 ### Console
 
-You can run HoneyPy in console mode. From any terminal run the command `./Honey.py`
+You can run HoneyPy in console mode. From any terminal run:
+
+ ```
+ cd /opt/HoneyPy
+ ./Honey.py
+ ```
 
 ### Daemon
 
-You can run HoneyPy as a daemon process. Run the command `./Honey.py -d &`
+You can run HoneyPy as a daemon process. From any terminal run:
+
+ `/opt/Honey.py -d &`
 
 ### On Boot
