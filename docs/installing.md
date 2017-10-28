@@ -13,7 +13,7 @@ Download the latest release from [https://github.com/foospidy/HoneyPy/releases/l
 
 Example script:
 
-```shell
+```bash
 #!/usr/bin/env bash
 
 cd /opt
@@ -27,7 +27,7 @@ Or you can clone the repository from Github with from [https://github.com/foospi
 
 Example script:
 
-```shell
+```bash
 #!/usr/bin/env bash
 
 cd /opt
@@ -42,7 +42,7 @@ Before you can run HoneyPy you must ensure you have all required Python module d
 
 To install dependencies with pip and the requirements.txt file run:
 
-```shell
+```bash
 cd /opt/HoneyPy
 sudo pip install -r reqirements.txt
 ```
@@ -55,7 +55,7 @@ There are several options in how you can launch and run HoneyPy.
 
 You can run HoneyPy in console mode. From any terminal run:
 
- ```shell
+ ```bash
  cd /opt/HoneyPy
  ./Honey.py
  ```
