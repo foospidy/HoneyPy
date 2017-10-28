@@ -66,6 +66,18 @@ cd /opt/HoneyPy
 
 __NOTE:__ You can leverage the [screen](https://www.gnu.org/software/screen/manual/screen.html#Overview) utility to run HoneyPy in console mode. Using screen will keep HoneyPy running even if you lose your terminal connection.
 
+Example creating a screen session for HoneyPy:
+
+```bash
+screen -S MyHoneyPyConsole
+```
+
+Example recovering the HoneyPy screen session:
+
+```bash
+screen -r MyHoneyPyConsole
+```
+
 ### Daemon
 
 You can run HoneyPy as a daemon process. From any terminal run:
