@@ -57,7 +57,7 @@ __WARNING:__ It is highly recommended to __NOT__ run HoneyPy as root. It is reco
 
 ### Console
 
-You can run HoneyPy in console mode. From any terminal run
+You can run HoneyPy in console mode. From any terminal run:
 
 ```bash
 cd /opt/HoneyPy
