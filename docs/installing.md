@@ -53,7 +53,7 @@ There are several options in how you can launch and run HoneyPy.
 
 ### Console
 
-You can run HoneyPy in console mode. From any terminal run:
+You can run HoneyPy in console mode. From any terminal run
 
  ```bash
  cd /opt/HoneyPy
