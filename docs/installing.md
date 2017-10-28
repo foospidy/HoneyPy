@@ -47,9 +47,13 @@ cd /opt/HoneyPy
 sudo pip install -r reqirements.txt
 ```
 
+__NOTE:__ Installing dependencies on your base system will require root access. A recommended alternative to install dependencies and run HoneyPy is to use [Virtualenv](https://virtualenv.pypa.io/). Virtualenv creates isolated Python environments, which may be beneficial if you are running other Python scripts and their dependencies on the same system. However, if you are using a dedicated system, or even a container, to run HoneyPy then Virtualenv may not be necessary.
+
 ## Running
 
 There are several options for how you can launch and run HoneyPy.
+
+__WARNING:__ It is highly recommended to __NOT__ run HoneyPy as root. It is recommended to create a dedicated user account for running HoneyPy.
 
 ### Console
 
@@ -59,6 +63,8 @@ You can run HoneyPy in console mode. From any terminal run
 cd /opt/HoneyPy
 ./Honey.py
 ```
+
+__NOTE:__ You can leverage the [screen](https://www.gnu.org/software/screen/manual/screen.html#Overview) utility to run HoneyPy in console mode. Using screen will keep HoneyPy running even if you lose your terminal connection.
 
 ### Daemon
 
