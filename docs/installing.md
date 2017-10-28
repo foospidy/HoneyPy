@@ -18,6 +18,15 @@ tar -xzf HoneyPy.tar.gz
 mv HoneyPy-${latest} HoneyPy
 ```
 
-Or you can clone the repository from Github with:
+Or you can clone the repository from Github with from [https://github.com/foospidy/HoneyPy.git](https://github.com/foospidy/HoneyPy.git).
 
-`git clone https://github.com/foospidy/HoneyPy.git`
+Example script:
+
+```
+#!/usr/bin/env bash
+
+cd /opt
+git clone https://github.com/foospidy/HoneyPy.git
+```
+
+__WARNING:__ Cloning the repository will pull any development changes that may be a work in progress. This could result you may experience bugs or breaks.
