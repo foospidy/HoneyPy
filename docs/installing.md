@@ -46,7 +46,10 @@ There are several options in how you can launch and run HoneyPy.
 
 ### Console
 
-You can run HoneyPy in console mode. From any terminal run the command 
+You can run HoneyPy in console mode. From any terminal run the command `./Honey.py`
+
 ### Daemon
+
+You can run HoneyPy as a daemon process. Run the command `./Honey.py -d &`
 
 ### On Boot
