@@ -67,13 +67,17 @@ password | Password for authentication.
 Name | Description
 ---------- | -------
 enabled | Enable this logger (e.g. Yes or No).
+bot_id | Telegram bot HTTP API token.
 
 #### Twitter
 
 Name | Description
 ---------- | -------
 enabled | Enable this logger (e.g. Yes or No).
-bot_id | Telegram bot HTTP API token.
+consumerkey | Your Twitter consumer key.
+consumersecret | Your Twitter consumer secret.
+oauthtoken | Your Twitter OAuth token.
+oauthsecret | Your Witter OAuth secret.
 
 ## Services
 
