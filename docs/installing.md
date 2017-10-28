@@ -55,10 +55,10 @@ There are several options in how you can launch and run HoneyPy.
 
 You can run HoneyPy in console mode. From any terminal run
 
- ```bash
- cd /opt/HoneyPy
- ./Honey.py
- ```
+```bash
+cd /opt/HoneyPy
+./Honey.py
+```
 
 ### Daemon
 
