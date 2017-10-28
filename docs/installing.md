@@ -64,9 +64,9 @@ cd /opt/HoneyPy
 
 You can run HoneyPy as a daemon process. From any terminal run:
 
- ```bash
- /opt/Honey.py -d &
- ```
+```bash
+/opt/Honey.py -d &
+```
 
 ### On Boot
 
