@@ -10,16 +10,18 @@ Name | Description
 ---------- | -------
 nodename | Name for this HoneyPy node to be displayed in tweets, Slack messages, and other integrations.
 
-The remaining sections in the configuration file are for configuring loggers.
+### Loggers
 
-### Elasticsearch
+The remaining sections in the `honeypy.cfg` configuration file are for configuring loggers.
+
+#### Elasticsearch
 
 Name | Description
 ---------- | -------
 enabled | Enable this logger (e.g. Yes or No).
 es_url | URL to Elasticsearch endpoint (e.g.  http://localhost:9200/honeypot/honeypy).
 
-### HoneyDB
+#### HoneyDB
 
 Name | Description
 ---------- | -------
@@ -27,7 +29,7 @@ enabled | Enable this logger (e.g. Yes or No).
 api_id | Your HoneyDB API id.
 api_key | Your HoneyDB API key.
 
-### Logstash
+#### Logstash
 
 Name | Description
 ---------- | -------
@@ -35,7 +37,7 @@ enabled | Enable this logger (e.g. Yes or No).
 host | Logstash host.
 port | Logstash port.
 
-### RabbitMQ
+#### RabbitMQ
 
 Name | Description
 ---------- | -------
@@ -44,14 +46,14 @@ url_param | RabbitMQ config url (e.g. amqp://username:password@rabbitmq_host/%2f
 exchange | Name of the Rabbitmq Exchange
 routing_key | Rabbitmq routing Key (if not configured in RabbitmQ, leave blank)
 
-### Slack
+#### Slack
 
 Name | Description
 ---------- | -------
 enabled | Enable this logger (e.g. Yes or No).
 webhook_url | Slack channel webhook URL.
 
-### Splunk
+#### Splunk
 
 Name | Description
 ---------- | -------
@@ -60,13 +62,13 @@ url | Splunk API endpoint (e.g. https://localhost:8089/services/receivers/simple
 username | Username for authentication. 
 password | Password for authentication.
 
-### Telegram
+#### Telegram
 
 Name | Description
 ---------- | -------
 enabled | Enable this logger (e.g. Yes or No).
 
-### Twitter
+#### Twitter
 
 Name | Description
 ---------- | -------
