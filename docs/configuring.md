@@ -1,7 +1,7 @@
 # Configuring HoneyPy
 
-## HoneyPy Configuration
+## HoneyPy
 
-## Service Configuration
+## Services
 
-## Logger Configuration
+## Loggers
