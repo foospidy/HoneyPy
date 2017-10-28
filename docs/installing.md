@@ -40,7 +40,7 @@ __WARNING:__ Cloning the repository will pull any development changes that may b
 
 Before you can run HoneyPy you must ensure you have all required Python module dependencies installed. For a list of the dependencies see the [requirements.txt](https://raw.githubusercontent.com/foospidy/HoneyPy/master/requirements.txt) file. It is recommended to install dependencies using [pip](https://pypi.python.org/pypi/pip).
 
-To install dependencies with pip and the requirements.txt file run:
+To install dependencies with pip and the requirements.txt file run
 
 ```bash
 cd /opt/HoneyPy
