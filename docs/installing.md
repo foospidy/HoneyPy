@@ -49,7 +49,7 @@ sudo pip install -r reqirements.txt
 
 ## Running
 
-There are several options in how you can launch and run HoneyPy.
+There are several options for how you can launch and run HoneyPy.
 
 ### Console
 
@@ -64,6 +64,10 @@ cd /opt/HoneyPy
 
 You can run HoneyPy as a daemon process. From any terminal run:
 
- `/opt/Honey.py -d &`
+ ```bash
+ /opt/Honey.py -d &
+ ```
 
 ### On Boot
+
+Configuring your system to launch HoneyPy on system boot will depend on what version of Linux you are using. Most likely you will need a startup script. HoneyPy comes with an example startup script, `honeypyd`, which has been tested on Debian (Jessie). You can find this script in the `/opt/HoneyPy/etc/` directory. To view this script on Github, [click here](https://raw.githubusercontent.com/foospidy/HoneyPy/master/etc/honeypyd).
