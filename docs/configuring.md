@@ -12,7 +12,11 @@ nodename | Name for this HoneyPy node to be displayed in tweets, Slack messages,
 
 ### Loggers
 
-The remaining sections in the `honeypy.cfg` configuration file are for configuring loggers.
+The remaining sections in the `honeypy.cfg` configuration file are for configuring loggers. Loggers are modules that make consuming or processing event data more convenient by sending the event data to another service. These other services and their configuration options are listed below.
+
+__NOTE:__ More than one logger can be configured at a time. For example, if the Elasticsearch, HoneyDB, and RabbitMQ loggers are configured then all events will be sent to all three services.
+
+__NOTE:__ By default, HoneyPy logs all events to the log file `/opt/HoneyPy/log/honeypy.log`. All events are logged to this file regardless of a logger being configured or not.
 
 #### Elasticsearch
 
@@ -77,7 +81,7 @@ enabled | Enable this logger (e.g. Yes or No).
 consumerkey | Your Twitter consumer key.
 consumersecret | Your Twitter consumer secret.
 oauthtoken | Your Twitter OAuth token.
-oauthsecret | Your Witter OAuth secret.
+oauthsecret | Your Twitter OAuth secret.
 
 ## Services
 
