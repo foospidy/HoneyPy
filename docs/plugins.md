@@ -2,23 +2,16 @@
 
 ## DNS
 
-- Medium interaction - Responds to DNS queries with a random ip address.
-
-### udp
-
-`plugins/DnsUdp`
+Responds to DNS queries with a random ip address.
+- Medium interaction
+    - udp: `plugins/DnsUdp`
 
 ## Echo
 
-- Low interaction - Echos back data sent by a connected clients.
-
-### tcp
-
-`plugins/Echo`
-
-### udp
-
-`plugins/Echo_dup`
+Echos back data sent by connected clients.
+- Low interaction
+    - tcp: `plugins/Echo`
+    - udp: `plugins/Echo_udp`
 
 ## Elasticsearch
 
