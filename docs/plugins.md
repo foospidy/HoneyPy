@@ -17,6 +17,11 @@ Echos back data sent by connected clients.
 
 ## Elasticsearch
 
+Simple Elasticsearch emulation. Responds to requests for /, request for node information /_nodes, and search requests /_search.
+
+- Low interaction
+    - tcp: `plugins/Elasticsearch`
+
 ## FTP
 
 ## HashCountRandom
