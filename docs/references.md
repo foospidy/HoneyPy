@@ -1,6 +1,6 @@
 # References
 
-- tbd
+- Blog series: [Getting Started With HoneyPy](https://medium.com/@foospidy/honeypy-getting-started-series-a49291e41a8e)
 
 # Mentions
 
