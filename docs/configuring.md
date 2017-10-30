@@ -96,3 +96,32 @@ If you want to revert back to the default service config file simply run
 ```bash
 cp profiles/service.default.profile service.cfg
 ```
+
+## Low Ports
+
+While you should not run HoneyPy with the root user, this means HoneyPy will not be able to listen on ports 1 through 1024. As a work around you can use implement port redirection with IPTables. If you're not familiar with using IPTables you can try using ipt-kit (https://github.com/foospidy/ipt-kit). You will need to run ipt-kit as root to modify IPTables. Once the redirection rules are in place you won't need to run HoneyPy as root for low ports.
+
+As an example, if you want HoneyPy to listen for telnet connections on port 23, choose a port above 1024. Edit the HoneyPy service config file to have telnet run on a high port (e.g. 2300). Then use ipt-kit to redirect 23 to 2300, example commands:
+
+if root user:
+
+`#./ipt_set_tcp 23 2300`
+
+or if using sudo:
+
+`$sudo ./ipt_set_tcp 23 2300`
+
+If you have low ports configured, when you run HoneyPy it will display a list of ipt-kit commands to run. For example:
+
+```
+./ipt_set_tcp 7 10007
+./ipt_set_udp 7 10007
+./ipt_set_tcp 8 10008
+./ipt_set_udp 8 10008
+./ipt_set_tcp 21 10021
+./ipt_set_tcp 23 10009
+./ipt_set_tcp 24 10010
+```
+
+Alternatively, you can use authbind to enabled the usage of low ports by HoneyPy's run user. More on authbind here:
+https://debian-administration.org/article/386/Running_network_services_as_a_non-root_user
