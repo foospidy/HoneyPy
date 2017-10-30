@@ -85,6 +85,10 @@ oauthsecret | Your Twitter OAuth secret.
 
 ## Services
 
-Name | Description
----------- | -------
-enabled | Enable this logger (e.g. Yes or No).
+The `service.cfg` file tells HoneyPy which services to launch. There are several additional service configuration files located in the `etc/profiles` directory. The service config file is used to define service names, ports, and plugins to run on your honeypot. Each service defined in the file has an `enabled` option. This option can be set to Yes or No to determine which services run on start. You can also use one of the provided config files, or create your own. To use one of the other files simply copy the file over service.cfg. For example:
+
+`cp profiles/services.windows_iis.profile service.cfg`
+
+If you want to revert back to the default service config file simply run
+
+`cp profiles/service.default.profile service.cfg`
