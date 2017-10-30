@@ -17,31 +17,71 @@ Echos back data sent by connected clients.
 
 ## Elasticsearch
 
-Simple Elasticsearch emulation. Responds to requests for /, request for node information /_nodes, and search requests /_search.
+Simple Elasticsearch emulation. Responds to requests for `/`, request for node information `/_nodes`, and search requests `/_search`.
 
 - Low interaction
     - tcp: `plugins/Elasticsearch`
 
-## FTP
-
 ## HashCountRandom
+
+A bogus service. For each instance of data sent by a connected client it increments a counter and returns a md5 hash of the count and some random data.
+
+- Low interaction
+    - tcp: `plugins/HashCountRandom`
 
 ## MOTD
 
-### tcp
+For each connection it returns a message and closes the connection.
 
-### udp
+- Low interaction
+    - tcp: `plugins/MOTD`
+    - udp: `plugins/MOTD_udp`
 
 ## NTP
 
+Accepts NTP requests, returns a packet with the current system time.
+
+- Low interaction
+    - udp: `plugins/NtpUdp`
+
 ## Random
+
+For each instance of data sent by a connected client it returns some random data.
+
+- Low interaction
+    - tcp: `plugins/Random`
 
 ## SIP
 
+Simple SIP (Session Initiation Protocol) emulation.
+
+- Low interaction
+    - udp: `plugins/SIP`
+
 ## SMTP
 
-## Telnet
+Simple SMTP server emulation. Provides interaction with a subset of commands.
+
+- Low interaction
+    - tcp: `plugins/SmtpExim`
 
 ## TFTP
 
+TFTP (Trivial File Transfer Protocol) emulation.
+
+- Medium interaction
+    - udp: `plugins/TFTP`
+
+## Telnet
+
+Emulates a Telnet service.
+
+- Medium interaction
+    - tcp: `plugins/TelnetUnix`
+
 ## Web
+
+Simple web server emulation. Responds to `/robots.txt`, `/wp-login.php`, and various PhpMysqlAdmin pages. All other requests receive a simple 200 OK response.
+
+- Low interaction
+    - tcp: `plugins/Web`
