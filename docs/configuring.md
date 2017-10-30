@@ -106,7 +106,7 @@ As an example, if you want HoneyPy to listen for telnet connections on port 23, 
 if root user:
 
 ```bash
-#./ipt_set_tcp 23 2300
+./ipt_set_tcp 23 2300
 ```
 
 or if using sudo:
@@ -127,5 +127,6 @@ If you have low ports configured, when you run HoneyPy it will display a list of
 ./ipt_set_tcp 24 10010
 ```
 
-Alternatively, you can use authbind to enabled the usage of low ports by HoneyPy's run user. More on authbind here:
-https://debian-administration.org/article/386/Running_network_services_as_a_non-root_user
+__NOTE:__ The commands above can be generated as a script using HoneyPy. First edit your `service.cfg`, then run `./Honey.py -ipt`. The script will be saved to `/tmp/honeypy-ipt.sh`. Copy the script to the ipt-kit directory, and make sure the script file has execute permissions, e.g. `chmod +x honeypy-ipt.sh`. Run the script as root or with sudo.
+
+Alternatively, you can use authbind to enabled the usage of low ports by HoneyPy's run user. More on authbind here: [https://debian-administration.org/article/386/Running_network_services_as_a_non-root_user](https://debian-administration.org/article/386/Running_network_services_as_a_non-root_user)
