@@ -119,7 +119,7 @@ for service in service_config.sections():
         plugin = importlib.import_module(plugin_module)
         service_object = None
 
-        if False == args.d:
+        if  args.d == False:
             if int(low_port) < 1024:
                 if display_low_port_message:
                     print 'Your service configuration suggests that you want to run on at least one low port!'
@@ -128,7 +128,7 @@ for service in service_config.sections():
                     display_low_port_message = False
 
         try:
-            if 'tcp' == protocol.lower():
+            if  protocol.lower() == 'tcp':
                 # run tcp service
                 service_object = reactor.listenTCP(int(port), plugin.pluginFactory(service))
             else:
@@ -160,7 +160,7 @@ for service in service_config.sections():
             sys.exit()
 
 # run HoneyPy Console if daemon mode not specified
-if False == args.d:
+if args.d == False:
     stdio.StandardIO(HoneyPyConsole(honeypy_config, services))
 
 # start reactor
