@@ -2,7 +2,7 @@ install:
 	pip install -r requirements.txt
 
 lint:
-	pylint Honey.pylint
+	pylint Honey.py
 
 clean:
 	rm -f *.pyc
