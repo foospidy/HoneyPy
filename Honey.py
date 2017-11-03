@@ -145,7 +145,7 @@ for service in service_config.sections():
                 services[1].append(service_object)
 
         except Exception as e:
-            print(str(e) + '\n')
+            print str(e) + '\n'
 
             if str(e).find('Permission denied') != -1:
                 print 'If you are attempting to use a low port (below 1024), do not.'
