@@ -119,7 +119,7 @@ for service in service_config.sections():
         plugin = importlib.import_module(plugin_module)
         service_object = None
 
-        if  args.d == False:
+        if  args.d is False:
             if int(low_port) < 1024:
                 if display_low_port_message:
                     print 'Your service configuration suggests that you want to run on at least one low port!'
@@ -137,7 +137,7 @@ for service in service_config.sections():
 
             if service_object:
                 # stop services from listening immediately if not starting in daemon mode.
-                if False == args.d:
+                if args.d is False:
                     service_object.stopListening()
 
                 # save service objects to array, to be used by HoneyPy Console
@@ -160,7 +160,7 @@ for service in service_config.sections():
             sys.exit()
 
 # run HoneyPy Console if daemon mode not specified
-if args.d == False:
+if args.d is False:
     stdio.StandardIO(HoneyPyConsole(honeypy_config, services))
 
 # start reactor
