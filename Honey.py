@@ -32,47 +32,47 @@ args = parser.parse_args()
 # get path for config files
 honeypy_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/honeypy.cfg'
 service_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/services.cfg'
-log_path            = os.path.dirname(os.path.abspath(__file__)) + '/log/'
-log_file_name       = 'honeypy.log'
-ipt_file_name       = '/tmp/honeypy-ipt.sh'
+log_path = os.path.dirname(os.path.abspath(__file__)) + '/log/'
+log_file_name = 'honeypy.log'
+ipt_file_name = '/tmp/honeypy-ipt.sh'
 
 # get version
 version = file(os.path.dirname(os.path.abspath(__file__)) + '/VERSION').read().strip()
 
 # setup config parsers
-honeypy_config  = ConfigParser.ConfigParser()
-service_config  = ConfigParser.ConfigParser()
+honeypy_config = ConfigParser.ConfigParser()
+service_config = ConfigParser.ConfigParser()
 
 # read config files
 honeypy_config.read(honeypy_config_file)
 service_config.read(service_config_file)
 
 if args.ipt:
-	# generate ipt-kit script in /tmp and quit.
-	ipt_file = open(ipt_file_name,'w')
-	ipt_file.write('# copy this file to your ipt-kit directory and execute.\n')
+    # generate ipt-kit script in /tmp and quit.
+    ipt_file = open(ipt_file_name, 'w')
+    ipt_file.write('# copy this file to your ipt-kit directory and execute.\n')
 
-	for service in service_config.sections():
-		if 'Yes' == service_config.get(service, 'enabled'):
-			[low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
-			[protocol, port]         = service_config.get(service, 'port').split(':')
+    for service in service_config.sections():
+        if 'Yes' == service_config.get(service, 'enabled'):
+            [low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
+            [protocol, port] = service_config.get(service, 'port').split(':')
 
-			if int(low_port) < 1024:
-				ipt_file.write('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port + ' $1\n')
+            if int(low_port) < 1024:
+                ipt_file.write('./ipt_set_' + low_protocol + ' ' + low_port + ' ' + port + ' $1\n')
 
-	# set file permission, close, and quit
-	os.chmod(ipt_file_name, 0744)
-	ipt_file.close()
-	quit()
+    # set file permission, close, and quit
+    os.chmod(ipt_file_name, 0744)
+    ipt_file.close()
+    quit()
 
 # setup log file and formatting
 if not os.path.exists(os.path.dirname(log_path)):
-	# if log directory does not exist, create it.
-	os.makedirs(os.path.dirname(log_path))
+    # if log directory does not exist, create it.
+    os.makedirs(os.path.dirname(log_path))
 
-log_file                     = DailyLogFile(log_file_name, log_path)
-file_log_observer            = FileLogObserver(log_file)
-time_zone                    = subprocess.check_output(['date', '+%z'])
+log_file = DailyLogFile(log_file_name, log_path)
+file_log_observer = FileLogObserver(log_file)
+time_zone = subprocess.check_output(['date', '+%z'])
 file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
 
 # start logging
@@ -87,11 +87,11 @@ if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
    'Yes' == honeypy_config.get('rabbitmq', 'enabled') or \
    'Yes' == honeypy_config.get('splunk', 'enabled'):
 
-	# tail log file when reactor runs
-	tailer           = HoneyPyLogTail(log_path + log_file_name)
-	tailer.config    = honeypy_config
-	tailer.useragent = 'HoneyPy (' + version + ')'
-	tailer.start()
+    # tail log file when reactor runs
+    tailer = HoneyPyLogTail(log_path + log_file_name)
+    tailer.config = honeypy_config
+    tailer.useragent = 'HoneyPy (' + version + ')'
+    tailer.start()
 
 # services object array
 services = []
@@ -103,62 +103,65 @@ display_low_port_message = True
 
 # function to ensure we get external IP (rather than hostname) for udp connections.
 # http://stackoverflow.com/questions/24196932/how-can-i-get-the-ip-address-of-eth0-in-python/24196955
+
+
 def get_ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
     return s.getsockname()[0]
 
+
 for service in service_config.sections():
-	if 'Yes' == service_config.get(service, 'enabled'):
-		[low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
-		[protocol, port]         = service_config.get(service, 'port').split(':')
-		plugin_module            = 'plugins.' + service_config.get(service, 'plugin')
-		plugin                   = importlib.import_module(plugin_module)
-		service_object           = None
+    if 'Yes' == service_config.get(service, 'enabled'):
+        [low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
+        [protocol, port] = service_config.get(service, 'port').split(':')
+        plugin_module = 'plugins.' + service_config.get(service, 'plugin')
+        plugin = importlib.import_module(plugin_module)
+        service_object = None
 
-		if False == args.d:
-			if int(low_port) < 1024:
-				if display_low_port_message:
-					print('Your service configuration suggests that you want to run on at least one low port!')
-					print('To enable port redirection run the following ipt-kit (https://github.com/foospidy/ipt-kit) commands as root:')
-					print('')
-					display_low_port_message = False
+        if False == args.d:
+            if int(low_port) < 1024:
+                if display_low_port_message:
+                    print('Your service configuration suggests that you want to run on at least one low port!')
+                    print('To enable port redirection run the following ipt-kit (https://github.com/foospidy/ipt-kit) commands as root:')
+                    print('')
+                    display_low_port_message = False
 
-		try:
-			if 'tcp' == protocol.lower():
-				# run tcp service
-				service_object = reactor.listenTCP(int(port), plugin.pluginFactory(service))
-			else:
-				# run udp service
-				service_object = reactor.listenUDP(int(port), plugin.pluginMain(service, get_ip_address(), port))
+        try:
+            if 'tcp' == protocol.lower():
+                # run tcp service
+                service_object = reactor.listenTCP(int(port), plugin.pluginFactory(service))
+            else:
+                # run udp service
+                service_object = reactor.listenUDP(int(port), plugin.pluginMain(service, get_ip_address(), port))
 
-			if service_object:
-				# stop services from listening immediately if not starting in daemon mode.
-				if False == args.d:
-					service_object.stopListening()
+            if service_object:
+                # stop services from listening immediately if not starting in daemon mode.
+                if False == args.d:
+                    service_object.stopListening()
 
-				# save service objects to array, to be used by HoneyPy Console
-				services[0].append(service)
-				services[1].append(service_object)
+                # save service objects to array, to be used by HoneyPy Console
+                services[0].append(service)
+                services[1].append(service_object)
 
-		except Exception as e:
-			print(str(e) + '\n')
+        except Exception as e:
+            print(str(e) + '\n')
 
-			if -1 != str(e).find('Permission denied'):
-				print('If you are attempting to use a low port (below 1024), do not.')
-				print('Low ports require root privilege and you should not run HoneyPy as root.')
-				print('Run the service on a high port and use IP Tables to redirect the low port')
-				print('to a high port. This may help, https://github.com/foospidy/ipt-kit')
+            if -1 != str(e).find('Permission denied'):
+                print('If you are attempting to use a low port (below 1024), do not.')
+                print('Low ports require root privilege and you should not run HoneyPy as root.')
+                print('Run the service on a high port and use IP Tables to redirect the low port')
+                print('to a high port. This may help, https://github.com/foospidy/ipt-kit')
 
-			if -1 != str(e).find('Address already in use'):
-				print('A service (' + service + ') is configured to run on a port that is already')
-				print('in use by another process. Kill the other process or use a different port.')
+            if -1 != str(e).find('Address already in use'):
+                print('A service (' + service + ') is configured to run on a port that is already')
+                print('in use by another process. Kill the other process or use a different port.')
 
-			sys.exit()
+            sys.exit()
 
 # run HoneyPy Console if daemon mode not specified
 if False == args.d:
-	stdio.StandardIO(HoneyPyConsole(honeypy_config, services))
+    stdio.StandardIO(HoneyPyConsole(honeypy_config, services))
 
 # start reactor
 reactor.run()
