@@ -53,7 +53,7 @@ if args.ipt:
     ipt_file.write('# copy this file to your ipt-kit directory and execute.\n')
 
     for service in service_config.sections():
-        if 'Yes' == service_config.get(service, 'enabled'):
+        if service_config.get(service, 'enabled') == 'Yes':
             [low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
             [protocol, port] = service_config.get(service, 'port').split(':')
 
@@ -78,14 +78,14 @@ file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
 # start logging
 log.startLoggingWithObserver(file_log_observer.emit, False)
 
-if 'Yes' == honeypy_config.get('twitter', 'enabled') or \
-   'Yes' == honeypy_config.get('honeydb', 'enabled') or \
-   'Yes' == honeypy_config.get('slack', 'enabled') or \
-   'Yes' == honeypy_config.get('logstash', 'enabled') or \
-   'Yes' == honeypy_config.get('elasticsearch', 'enabled') or \
-   'Yes' == honeypy_config.get('telegram', 'enabled') or \
-   'Yes' == honeypy_config.get('rabbitmq', 'enabled') or \
-   'Yes' == honeypy_config.get('splunk', 'enabled'):
+if honeypy_config.get('twitter', 'enabled') == 'Yes' or \
+   honeypy_config.get('honeydb', 'enabled') == 'Yes' or \
+   honeypy_config.get('slack', 'enabled') == 'Yes' or \
+   honeypy_config.get('logstash', 'enabled') == 'Yes' or \
+   honeypy_config.get('elasticsearch', 'enabled') == 'Yes' or \
+   honeypy_config.get('telegram', 'enabled') == 'Yes' or \
+   honeypy_config.get('rabbitmq', 'enabled') == 'Yes' or \
+   honeypy_config.get('splunk', 'enabled'):
 
     # tail log file when reactor runs
     tailer = HoneyPyLogTail(log_path + log_file_name)
@@ -112,7 +112,7 @@ def get_ip_address():
 
 
 for service in service_config.sections():
-    if 'Yes' == service_config.get(service, 'enabled'):
+    if service_config.get(service, 'enabled') == 'Yes':
         [low_protocol, low_port] = service_config.get(service, 'low_port').split(':')
         [protocol, port] = service_config.get(service, 'port').split(':')
         plugin_module = 'plugins.' + service_config.get(service, 'plugin')
@@ -147,13 +147,13 @@ for service in service_config.sections():
         except Exception as e:
             print(str(e) + '\n')
 
-            if -1 != str(e).find('Permission denied'):
+            if str(e).find('Permission denied') != -1:
                 print 'If you are attempting to use a low port (below 1024), do not.'
                 print 'Low ports require root privilege and you should not run HoneyPy as root.'
                 print 'Run the service on a high port and use IP Tables to redirect the low port'
                 print 'to a high port. This may help, https://github.com/foospidy/ipt-kit'
 
-            if -1 != str(e).find('Address already in use'):
+            if str(e).find('Address already in use') != -1:
                 print 'A service (' + service + ') is configured to run on a port that is already'
                 print 'in use by another process. Kill the other process or use a different port.'
 
