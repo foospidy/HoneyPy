@@ -5,3 +5,4 @@ python_twitter == 3.1
 certifi
 urllib3
 pika == 0.10.0
+pylint
