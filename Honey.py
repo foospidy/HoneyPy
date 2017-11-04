@@ -16,7 +16,6 @@ from lib.honeypy_console import HoneyPyConsole
 from twisted.internet import protocol
 from twisted.internet import reactor
 from twisted.internet import stdio
-from twisted.internet.endpoints import TCP4ServerEndpoint
 from twisted.python import log
 from twisted.python.log import FileLogObserver
 from twisted.python.logfile import DailyLogFile
@@ -131,8 +130,7 @@ for service in service_config.sections():
         try:
             if  protocol.lower() == 'tcp':
                 # run tcp service
-                endpoint = TCP4ServerEndpoint(reactor, int(port))
-                endpoint.listen(plugin.pluginFactory(service))
+                service_object = reactor.listenUDP(int(port), plugin.pluginFactory(service))
             else:
                 # run udp service
                 service_object = reactor.listenUDP(int(port), plugin.pluginMain(service, get_ip_address(), port))
