@@ -1,4 +1,4 @@
 [MASTER]
 
-disable=invalid-name,line-too-long,too-many-lines,broad-except,missing-docstring,attribute-defined-outside-init,too-many-branches,too-many-public-methods,redefined-outer-name,too-many-instance-attributes,too-many-statements,redefined-builtin,too-few-public-methods,too-many-locals,too-many-nested-blocks
+disable=invalid-name,line-too-long,too-many-lines,broad-except,missing-docstring,attribute-defined-outside-init,too-many-branches,too-many-public-methods,redefined-outer-name,too-many-instance-attributes,too-many-statements,redefined-builtin,too-few-public-methods,too-many-locals,too-many-nested-blocks,too-many-boolean-expressions
 ignored-classes=twisted.internet.reactor
