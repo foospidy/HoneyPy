@@ -6,3 +6,4 @@ certifi
 urllib3
 pika == 0.10.0
 pylint
+autopep8

@@ -1,10 +1,11 @@
 from twisted.python import log
 from lib.followtail import FollowTail
 
+
 class HoneyPyLogTail(FollowTail):
     # class varaibles for HoneyDB
-    got_hmac     = False
-    hmac_hash    = None
+    got_hmac = False
+    hmac_hash = None
     hmac_message = None
 
     def lineReceived(self, line):
@@ -46,7 +47,7 @@ class HoneyPyLogTail(FollowTail):
                 # time_parts[2]: time zone
                 time_parts = parts[1].split(',')
 
-                try: 
+                try:
                     # Twitter integration
                     if 'Yes' == self.config.get('twitter', 'enabled'):
                         from loggers.twitter.honeypy_twitter import post_tweet
@@ -75,7 +76,7 @@ class HoneyPyLogTail(FollowTail):
                             log.msg('HoneyDB logger: retrieving initial hmac.')
                             self.got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
 
-                        for i in range(1,4):
+                        for i in range(1, 4):
                             log.msg('HoneyDB logger: post attempt {}.'.format(i))
 
                             if self.got_hmac:
@@ -83,17 +84,17 @@ class HoneyPyLogTail(FollowTail):
 
                                 if 'TCP' == parts[4]:
                                     if 11 == len(parts):
-                                        parts.append('') # no data for CONNECT events
+                                        parts.append('')  # no data for CONNECT events
 
                                     response = post_log(self.useragent, self.config.get('honeydb', 'url'), self.hmac_hash, self.hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-                                    
+
                                 else:
                                     # UDP splits differently (see comment section above)
                                     if 12 == len(parts):
-                                        parts.append('') # no data sent
+                                        parts.append('')  # no data sent
 
                                     response = post_log(self.useragent, self.config.get('honeydb', 'url'), self.hmac_hash, self.hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-                        
+
                                 if 'Success' == response:
                                     break
 
@@ -101,14 +102,14 @@ class HoneyPyLogTail(FollowTail):
                                     if 'Invalid HMAC' == response and i < 3:
                                         log.msg('HoneyDB logger: hmac invalid, retrieving new hmac.')
                                         self.got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
-                                    
+
                                     elif 'Invalid HMAC' == response and i == 3:
                                         log.msg('HoneyDB logger: hmac invalid, 3 failed attempts, giving up.')
-                                    
+
                                     elif i < 3:
                                         log.msg('HoneyDB logger: {}, make another attempt.'.format(response))
-                                    
-                                    else:   
+
+                                    else:
                                         log.msg('HoneyDB logger: {}, 3 failed attempts, giving up.'.format(response))
 
                     # Logstash integration
@@ -117,13 +118,13 @@ class HoneyPyLogTail(FollowTail):
 
                         if 'TCP' == parts[4]:
                             if 11 == len(parts):
-                                parts.append('') # no data for CONNECT events
+                                parts.append('')  # no data for CONNECT events
 
                             post_logstash(self.useragent, self.config.get('logstash', 'host'), self.config.get('logstash', 'port'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
                         else:
                             # UDP splits differently (see comment section above)
                             if 12 == len(parts):
-                                parts.append('') # no data sent
+                                parts.append('')  # no data sent
 
                             post_logstash(self.useragent, self.config.get('logstash', 'host'), self.config.get('logstash', 'port'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
@@ -133,13 +134,13 @@ class HoneyPyLogTail(FollowTail):
 
                         if 'TCP' == parts[4]:
                             if 11 == len(parts):
-                                parts.append('') # no data for CONNECT events
+                                parts.append('')  # no data for CONNECT events
 
                             post_elasticsearch(self.useragent, self.config.get('elasticsearch', 'es_url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
                         else:
                             # UDP splits differently (see comment section above)
                             if 12 == len(parts):
-                                parts.append('') # no data sent
+                                parts.append('')  # no data sent
 
                             post_elasticsearch(self.useragent, self.config.get('elasticsearch', 'es_url'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
@@ -156,19 +157,19 @@ class HoneyPyLogTail(FollowTail):
                     if 'Yes' == self.config.get('splunk', 'enabled'):
                         from loggers.splunk.honeypy_splunk import post_splunk
 
-                        url 		= self.config.get('splunk', 'url')
-                        username 	= self.config.get('splunk', 'username')
-                        password 	= self.config.get('splunk', 'password')
+                        url = self.config.get('splunk', 'url')
+                        username = self.config.get('splunk', 'username')
+                        password = self.config.get('splunk', 'password')
 
                         if 'TCP' == parts[4]:
                             if 11 == len(parts):
-                                parts.append('') # no data for CONNECT events
+                                parts.append('')  # no data for CONNECT events
 
                             post_splunk(username, password, self.useragent, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
                         else:
                             # UDP splits differently (see comment section above)
                             if 12 == len(parts):
-                                parts.append('') # no data sent
+                                parts.append('')  # no data sent
 
                             post_splunk(username, password, self.useragent, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
@@ -181,9 +182,9 @@ class HoneyPyLogTail(FollowTail):
                                 parts.append('')  # no data for CONNECT events
 
                             post_rabbitmq(self.config.get('rabbitmq', 'url_param'), self.config.get('rabbitmq', 'exchange'),
-                                        self.config.get('rabbitmq', 'routing_key'),parts[0],
-                                        time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5],
-                                        parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+                                          self.config.get('rabbitmq', 'routing_key'), parts[0],
+                                          time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5],
+                                          parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
 
                         else:
                             # UDP splits differently (see comment section above)
@@ -191,8 +192,8 @@ class HoneyPyLogTail(FollowTail):
                                 parts.append('')  # no data sent
 
                             post_rabbitmq(self.config.get('rabbitmq', 'url_param'), self.config.get('rabbitmq', 'exchange'),
-                                        self.config.get('rabbitmq', 'routing_key'),parts[0],
-                                        time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6],
-                                        parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+                                          self.config.get('rabbitmq', 'routing_key'), parts[0],
+                                          time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6],
+                                          parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
                 except Exception as e:
                     log.msg('Exception: HoneyPyLogTail: {}: {}'.format(str(e), str(parts)))
