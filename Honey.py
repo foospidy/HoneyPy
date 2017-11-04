@@ -7,17 +7,15 @@ import sys
 import os
 import subprocess
 import socket
-import threading
 import ConfigParser
 import argparse
 import importlib
 
 from lib.honeypy_logtail import HoneyPyLogTail
 from lib.honeypy_console import HoneyPyConsole
-from twisted.internet import protocol, reactor, endpoints, stdio
-from twisted.protocols import basic
+from twisted.internet import protocol, reactor, stdio
 from twisted.python import log
-from twisted.python.log import ILogObserver, FileLogObserver
+from twisted.python.log import FileLogObserver
 from twisted.python.logfile import DailyLogFile
 
 # prevent creation of compiled bytecode files
