@@ -130,7 +130,7 @@ for service in service_config.sections():
         try:
             if protocol.lower() == 'tcp':
                 # run tcp service
-                service_object = reactor.listenUDP(int(port), plugin.pluginFactory(service))
+                service_object = reactor.listenTCP(int(port), plugin.pluginFactory(service))
             else:
                 # run udp service
                 service_object = reactor.listenUDP(int(port), plugin.pluginMain(service, get_ip_address(), port))
