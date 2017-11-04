@@ -116,10 +116,6 @@ class HoneyPyConsole(basic.LineReceiver):
 
         return changed
 
-    def do_bash(self):
-        """bash: Drop to bash shell. Type 'exit' to return to HoneyPy"""
-        response = os.system('/bin/bash')
-
     def do_exit(self):
         """exit: Exit HoneyPy"""
         self.sendLine('Goodbye.')
