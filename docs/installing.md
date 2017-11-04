@@ -34,7 +34,7 @@ cd /opt
 git clone https://github.com/foospidy/HoneyPy.git
 ```
 
-__WARNING:__ Cloning the repository will pull any development changes that may be a work in progress. As a result you may experience bugs or breaks.
+__WARNING:__ Cloning the repository will pull any development changes that may be a work in progress. As a result you may experience bugs or breaks. Current build status [![Build Status](https://travis-ci.org/foospidy/HoneyPy.svg?branch=master)](https://travis-ci.org/foospidy/HoneyPy)
 
 ## Dependencies
 
