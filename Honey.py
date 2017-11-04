@@ -119,7 +119,7 @@ for service in service_config.sections():
         plugin = importlib.import_module(plugin_module)
         service_object = None
 
-        if  args.d is False:
+        if args.d is False:
             if int(low_port) < 1024:
                 if display_low_port_message:
                     print 'Your service configuration suggests that you want to run on at least one low port!'
@@ -128,7 +128,7 @@ for service in service_config.sections():
                     display_low_port_message = False
 
         try:
-            if  protocol.lower() == 'tcp':
+            if protocol.lower() == 'tcp':
                 # run tcp service
                 service_object = reactor.listenUDP(int(port), plugin.pluginFactory(service))
             else:
