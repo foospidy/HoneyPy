@@ -88,7 +88,8 @@ class HoneyPyConsole(basic.LineReceiver):
         for i in range(len(self.services[0])):
             self.sendLine(self.services[0][i] + '\t' + str(self.services[1][i]))
 
-    def _list_profiles(self):
+    @staticmethod
+    def _list_profiles():
         """list profiles: List all availible profiles"""
         path = 'etc/profiles/'
         files = next(os.walk(path))[2]
@@ -105,7 +106,8 @@ class HoneyPyConsole(basic.LineReceiver):
         else:
             print 'Error! No change.'
 
-    def _set_profile(self, profile='default'):
+    @staticmethod
+    def _set_profile(profile='default'):
         changed = False
         src = 'etc/profiles/services.' + profile + '.profile'
         dst = 'etc/services.cfg'
