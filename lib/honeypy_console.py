@@ -5,7 +5,7 @@
 
 import os
 import shutil
-from twisted.internet import stdio, reactor
+from twisted.internet import reactor
 from twisted.protocols import basic
 
 
@@ -52,9 +52,10 @@ class HoneyPyConsole(basic.LineReceiver):
 
     def do_start(self):
         """start: Start all configured services"""
-        if 0 == len(self.services[1]):
+        if len(self.services[1]) == 0:
             self.sendLine('No services are enabled.')
         else:
+            i = 0
             for i in range(len(self.services[1])):
                 self.services[1][i].startListening()
 
@@ -62,6 +63,7 @@ class HoneyPyConsole(basic.LineReceiver):
 
     def do_stop(self):
         """stop: Stop all configured services"""
+        i = 0
         for i in range(len(self.services[1])):
             self.services[1][i].stopListening()
 
@@ -76,7 +78,7 @@ class HoneyPyConsole(basic.LineReceiver):
 
     def do_list(self, list='services'):
         """list: List information. Usage: list [services|profiles]"""
-        if 'profiles' == list:
+        if list == 'profiles':
             self._list_profiles()
         else:
             self._list_services()
@@ -97,7 +99,7 @@ class HoneyPyConsole(basic.LineReceiver):
 
     def do_set(self, setting='profile', value='default'):
         """set: Change settings. Usage: set profile <profile>"""
-        if self._set_profile(value):
+        if self._set_profile(value) and setting == 'profile':
             print 'Profile changed to ' + value
             print 'Quit and restart HoneyPy for profile change to take effect!'
         else:
