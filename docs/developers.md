@@ -17,7 +17,7 @@ There are three sections to edit: custom import, custom protocol, and custom fun
 
 Example of custom import. Import the Python modules you need:
 
-```
+```python
 ### START CUSTOM IMPORT
 import time
 import os
@@ -27,7 +27,7 @@ import md5
 
 Next, use the custom protocol section to write your logic. use the `self.tx()` function to transfer (send) data to the socket, and use the `self.rx()` function to receive data from the socket.
 
-```
+```python
 ### START CUSTOM PROTOCOL ###########################################################
 self.tx('ACCEPT_CONN: ' + str(self.remote_host) + ':' + str(self.remote_port) + '\n')
 count = 0
@@ -43,7 +43,7 @@ while True:
 
 Add custom functions as needed at the bottom. All functions must have the first parameter be `self`. When you call custom functions from the custom protocol section you must prefix them with `self.`, for example: `self.md5sum('test')`
 
-```
+```python
 ### START CUSTOM FUNCTIONS ##########################################################
 def md5sum(self, data):
 	m = md5.new()
