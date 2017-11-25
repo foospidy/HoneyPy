@@ -4,4 +4,5 @@ pages:
 - Installing: installing.md
 - Configuring: configuring.md
 - Plugins: plugins.md
+- Developers: developers.md
 - References: references.md
