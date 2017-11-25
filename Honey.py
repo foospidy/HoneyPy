@@ -101,14 +101,16 @@ services.append([])
 # start enabled services
 display_low_port_message = True
 
-# function to ensure we get external IP (rather than hostname) for udp connections.
-# http://stackoverflow.com/questions/24196932/how-can-i-get-the-ip-address-of-eth0-in-python/24196955
-
 
 def get_ip_address():
+    # function to ensure we get external IP (rather than hostname) for udp connections.
+    # http://stackoverflow.com/questions/24196932/how-can-i-get-the-ip-address-of-eth0-in-python/24196955
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
-    return s.getsockname()[0]
+    ipaddress = s.getsockname()[0]
+    s.shutdown(socket.SHUT_RDWR)
+    s.close()
+    return ipaddress
 
 
 for service in service_config.sections():
