@@ -11,7 +11,7 @@ Terms:
 
 Hopefully creating new plugins is easy. HoneyPy takes care of sending/receiving data and logging, all you have to do is write the custom protocol/logic. The service emulators in the plugins directory can be used as templates to create new emulators.
 
-Example: https://github.com/foospidy/HoneyPy/blob/master/plugins/HashCountRandom/HashCountRandom.py
+Example: [https://github.com/foospidy/HoneyPy/blob/master/plugins/HashCountRandom/HashCountRandom.py](https://github.com/foospidy/HoneyPy/blob/master/plugins/HashCountRandom/HashCountRandom.py)
 
 There are three sections to edit: custom import, custom protocol, and custom functions. To keep the template well organized, you should only make modifciaitons in the designated sections, note the comments that denote each section.
 
