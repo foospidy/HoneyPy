@@ -44,7 +44,7 @@ To install dependencies with pip and the requirements.txt file run:
 
 ```bash
 cd /opt/HoneyPy
-sudo pip install -r reqirements.txt
+sudo pip install -r requirements.txt
 ```
 
 __NOTE:__ Installing dependencies on your base system will require root access. A recommended alternative to install dependencies and run HoneyPy is to use [Virtualenv](https://virtualenv.pypa.io/). Virtualenv creates isolated Python environments, which may be beneficial if you are running other Python scripts and their dependencies on the same system. However, if you are using a dedicated system, or even a container, to run HoneyPy then Virtualenv may not be necessary.
