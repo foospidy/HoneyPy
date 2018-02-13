@@ -10,15 +10,14 @@ import socket
 import ConfigParser
 import argparse
 import importlib
-
-from lib.honeypy_logtail import HoneyPyLogTail
-from lib.honeypy_console import HoneyPyConsole
 from twisted.internet import protocol
 from twisted.internet import reactor
 from twisted.internet import stdio
 from twisted.python import log
 from twisted.python.log import FileLogObserver
 from twisted.python.logfile import DailyLogFile
+from lib.honeypy_logtail import HoneyPyLogTail
+from lib.honeypy_console import HoneyPyConsole
 
 # prevent creation of compiled bytecode files
 sys.dont_write_bytecode = True
