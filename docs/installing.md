@@ -40,14 +40,32 @@ __WARNING:__ Cloning the repository will pull any development changes that may b
 
 Before you can run HoneyPy you must ensure you have all required Python module dependencies installed. For a list of the dependencies see the [requirements.txt](https://raw.githubusercontent.com/foospidy/HoneyPy/master/requirements.txt) file. It is recommended to install dependencies using [pip](https://pypi.python.org/pypi/pip).
 
-To install dependencies with pip and the requirements.txt file run:
+__NOTE:__ Installing dependencies on your base system will require root access. Recommended alternatives to install dependencies and run HoneyPy are [Virtualenv](https://virtualenv.pypa.io/) or [pipenv](https://github.com/pypa/pipenv) as described below. Both create isolated Python environments, which may be beneficial if you are running other Python scripts and their dependencies on the same system. However, if you are using a dedicated system, or even a container, to run HoneyPy, then Virtualenv/pipenv may not be necessary.
+
+
+To install dependencies globally with pip and the requirements.txt file run:
 
 ```bash
 cd /opt/HoneyPy
 sudo pip install -r requirements.txt
 ```
 
-__NOTE:__ Installing dependencies on your base system will require root access. A recommended alternative to install dependencies and run HoneyPy is to use [Virtualenv](https://virtualenv.pypa.io/). Virtualenv creates isolated Python environments, which may be beneficial if you are running other Python scripts and their dependencies on the same system. However, if you are using a dedicated system, or even a container, to run HoneyPy then Virtualenv may not be necessary.
+To install dependencies using Virtualenv run:
+```bash
+cd /opt/HoneyPy
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+To install dependencies using pipenv run:
+```bash
+cd /opt/HoneyPy
+pipenv install
+pipenv shell
+```
+
+__NOTE:__ Please keep in mind that you have to activate the Virtualenv/pipenv before using HoneyPy.
 
 ## Running
 
