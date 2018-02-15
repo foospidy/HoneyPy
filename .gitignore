@@ -8,6 +8,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+venv/
 build/
 develop-eggs/
 dist/
@@ -56,7 +57,12 @@ docs/_build/
 # PyBuilder
 target/
 
+# PyCharm
+.idea/
+
+# pipenv
+Pipfile.lock
+
+# custom stuff
 .vscode/
 .DS_Store
-.venv/
-.env/
