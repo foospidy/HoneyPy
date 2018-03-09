@@ -180,9 +180,9 @@ class HoneyPyLogTail(FollowTail):
                         from loggers.sumologic.honeypy_sumologic import post_sumologic
 
                         url = self.config.get('sumologic', 'url')
-                        custom_source_host = self.config.get('sumologic','custom_source_host')
-                        custom_source_name = self.config.get('sumologic','custom_source_name')
-                        custom_source_category = self.config.get('sumologic','custom_source_category')
+                        custom_source_host = self.config.get('sumologic', 'custom_source_host')
+                        custom_source_name = self.config.get('sumologic', 'custom_source_name')
+                        custom_source_category = self.config.get('sumologic', 'custom_source_category')
 
                         if parts[4] == 'TCP':
                             if len(parts) == 11:
