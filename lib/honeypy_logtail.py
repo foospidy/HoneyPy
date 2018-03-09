@@ -194,7 +194,7 @@ class HoneyPyLogTail(FollowTail):
                             if len(parts) == 12:
                                 parts.append('')  # no data sent
 
-                            post_sumologic(self.useragent, custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+                            post_sumologic(self.useragent, custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
                     # Rabbitmq integration.
                     if self.config.get('rabbitmq', 'enabled') == 'Yes':
