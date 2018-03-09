@@ -84,6 +84,7 @@ if honeypy_config.get('twitter', 'enabled') == 'Yes' or \
    honeypy_config.get('elasticsearch', 'enabled') == 'Yes' or \
    honeypy_config.get('telegram', 'enabled') == 'Yes' or \
    honeypy_config.get('rabbitmq', 'enabled') == 'Yes' or \
+   honeypy_config.get('sumologic', 'enabled') == 'Yes' or \
    honeypy_config.get('splunk', 'enabled'):
 
     # tail log file when reactor runs
