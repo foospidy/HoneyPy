@@ -174,7 +174,7 @@ class HoneyPyLogTail(FollowTail):
                                 parts.append('')  # no data sent
 
                             post_splunk(username, password, self.useragent, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-		    
+
 		    #sumologic
                     if self.config.get('sumologic', 'enabled') == 'Yes':
                         from loggers.sumologic.honeypy_sumologic import post_sumologic
