@@ -175,6 +175,27 @@ class HoneyPyLogTail(FollowTail):
 
                             post_splunk(username, password, self.useragent, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
+		    #sumologic
+                    if self.config.get('sumologic', 'enabled') == 'Yes':
+                        from loggers.sumologic.honeypy_sumologic import post_sumologic
+
+                        url = self.config.get('sumologic', 'url')
+                        custom_source_host = self.config.get('sumologic', 'custom_source_host')
+                        custom_source_name = self.config.get('sumologic', 'custom_source_name')
+                        custom_source_category = self.config.get('sumologic', 'custom_source_category')
+
+                        if parts[4] == 'TCP':
+                            if len(parts) == 11:
+                                parts.append('')  # no data for CONNECT events
+
+                            post_sumologic(self.useragent, custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+                        else:
+                            # UDP splits differently (see comment section above)
+                            if len(parts) == 12:
+                                parts.append('')  # no data sent
+
+                            post_sumologic(self.useragent, custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+
                     # Rabbitmq integration.
                     if self.config.get('rabbitmq', 'enabled') == 'Yes':
                         from loggers.rabbitmq.honeypy_rabbitmq import post_rabbitmq
