@@ -1,6 +1,7 @@
 site_name: HoneyPy Docs
 pages:
 - Home: index.md
+- Quickstart: quickstart.md
 - Installing: installing.md
 - Configuring: configuring.md
 - Plugins: plugins.md
