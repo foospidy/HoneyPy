@@ -52,25 +52,13 @@ class HoneyPyLogTail(FollowTail):
 
                 # iterate through the configured sections
                 for section in self.config.sections():
-                    if section == "sumologic" and self.config.get(section, 'enabled'):
+                    if section in ["twitter", "sumologic"] and self.config.get(section, 'enabled'):
                         self.config.items(section)
                         module_name = "loggers.%s.honeypy_%s" % (section, section)
                         logger_module = import_module(module_name)
                         logger_module.process(self.config, section, parts, time_parts, self.useragent)
 
                 try:
-                    # Twitter integration
-                    try:
-                        if self.config.get('twitter', 'enabled') == 'Yes':
-                            from loggers.twitter.honeypy_twitter import post_tweet
-
-                            if parts[4] == 'TCP':
-                                post_tweet(self.config, parts[8], parts[9])
-                            else:
-                                # UDP splits differently (see comment section above)
-                                post_tweet(self.config, parts[9], parts[10])
-                    except NoSectionError:
-                        pass
 
                     try:
                         # Slack integration
