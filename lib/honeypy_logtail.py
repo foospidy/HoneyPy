@@ -1,3 +1,4 @@
+from importlib import import_module
 from ConfigParser import NoSectionError
 from twisted.python import log
 from lib.followtail import FollowTail
@@ -48,6 +49,14 @@ class HoneyPyLogTail(FollowTail):
                 # time_parts[1]: millisecond
                 # time_parts[2]: time zone
                 time_parts = parts[1].split(',')
+
+                # iterate through the configured sections
+                for section in self.config.sections():
+                    if section == "sumologic" and self.config.get(section, 'enabled'):
+                        self.config.items(section)
+                        module_name = "loggers.%s.honeypy_%s" % (section, section)
+                        logger_module = import_module(module_name)
+                        logger_module.process(self.config, section, parts, time_parts, self.useragent)
 
                 try:
                     # Twitter integration
@@ -193,30 +202,6 @@ class HoneyPyLogTail(FollowTail):
                                     parts.append('')  # no data sent
 
                                 post_splunk(username, password, self.useragent, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-                    except NoSectionError:
-                        pass
-
-                    try:
-                        #sumologic
-                        if self.config.get('sumologic', 'enabled') == 'Yes':
-                            from loggers.sumologic.honeypy_sumologic import post_sumologic
-
-                            url = self.config.get('sumologic', 'url')
-                            custom_source_host = self.config.get('sumologic', 'custom_source_host')
-                            custom_source_name = self.config.get('sumologic', 'custom_source_name')
-                            custom_source_category = self.config.get('sumologic', 'custom_source_category')
-
-                            if parts[4] == 'TCP':
-                                if len(parts) == 11:
-                                    parts.append('')  # no data for CONNECT events
-
-                                post_sumologic(self.useragent, custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-                            else:
-                                # UDP splits differently (see comment section above)
-                                if len(parts) == 12:
-                                    parts.append('')  # no data sent
-
-                                post_sumologic(self.useragent, custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
                     except NoSectionError:
                         pass
 
