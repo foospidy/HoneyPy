@@ -5,12 +5,11 @@
 
 import sys
 import hashlib
-import urllib
-import requests
 import itertools
 import operator
 import json
 import random
+import requests
 from uuid import getnode
 from twisted.python import log
 
