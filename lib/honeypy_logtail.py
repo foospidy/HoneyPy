@@ -6,10 +6,6 @@ from lib.followtail import FollowTail
 class HoneyPyLogTail(FollowTail):
     config = None
     useragent = None
-    # class varaibles for HoneyDB
-    got_hmac = False
-    hmac_hash = None
-    hmac_message = None
 
     def lineReceived(self, line):
         parts = line.split()
@@ -52,60 +48,13 @@ class HoneyPyLogTail(FollowTail):
 
                 # iterate through the configured sections
                 for section in self.config.sections():
-                    if section in ["slack", "twitter", "sumologic"] and self.config.get(section, 'enabled'):
+                    if section in ["honeydb", "slack", "twitter", "sumologic"] and self.config.get(section, 'enabled'):
                         self.config.items(section)
                         module_name = "loggers.%s.honeypy_%s" % (section, section)
                         logger_module = import_module(module_name)
                         logger_module.process(self.config, section, parts, time_parts, self.useragent)
 
                 try:
-
-                    try:
-                        # HoneyDB integration
-                        if self.config.get('honeydb', 'enabled') == 'Yes':
-                            from loggers.honeydb.honeypy_honeydb import post_log, get_hmac
-
-                            if self.hmac_hash is None:
-                                log.msg('HoneyDB logger: retrieving initial hmac.')
-                                self.got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
-
-                            for i in range(1, 4):
-                                log.msg('HoneyDB logger: post attempt {}.'.format(i))
-
-                                if self.got_hmac:
-                                    response = None
-
-                                    if parts[4] == 'TCP':
-                                        if len(parts) == 11:
-                                            parts.append('')  # no data for CONNECT events
-
-                                        response = post_log(self.useragent, self.config.get('honeydb', 'url'), self.hmac_hash, self.hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-
-                                    else:
-                                        # UDP splits differently (see comment section above)
-                                        if len(parts) == 12:
-                                            parts.append('')  # no data sent
-
-                                        response = post_log(self.useragent, self.config.get('honeydb', 'url'), self.hmac_hash, self.hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-
-                                    if response == 'Success':
-                                        break
-
-                                    else:
-                                        if response == 'Invalid HMAC' and i < 3:
-                                            log.msg('HoneyDB logger: hmac invalid, retrieving new hmac.')
-                                            self.got_hmac, self.hmac_hash, self.hmac_message = get_hmac(self.useragent, self.config.get('honeydb', 'hmac_url'), self.config.get('honeydb', 'api_id'), self.config.get('honeydb', 'api_key'))
-
-                                        elif response == 'Invalid HMAC' and i == 3:
-                                            log.msg('HoneyDB logger: hmac invalid, 3 failed attempts, giving up.')
-
-                                        elif i < 3:
-                                            log.msg('HoneyDB logger: {}, make another attempt.'.format(response))
-
-                                        else:
-                                            log.msg('HoneyDB logger: {}, 3 failed attempts, giving up.'.format(response))
-                    except NoSectionError:
-                        pass
 
                     try:
                         # Logstash integration
