@@ -83,6 +83,11 @@ tailer.config = honeypy_config
 tailer.config.set('honeypy', 'useragent', 'HoneyPy (' + version + ')')
 tailer.start()
 
+log.msg(tailer.config.get('honeypy', 'useragent') + " Started")
+for section in tailer.config.sections():
+    if section != 'honeypy' and tailer.config.get(section, 'enabled').lower() == 'yes':
+        log.msg("Enabled Logger : %s" % (section))
+
 # services object array
 services = []
 services.append([])
