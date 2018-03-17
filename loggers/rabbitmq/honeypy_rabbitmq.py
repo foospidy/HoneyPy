@@ -48,16 +48,14 @@ def process(config, section, parts, time_parts, useragent):
         if len(parts) == 11:
             parts.append('')  # no data for CONNECT events
 
-        post(config.get(section, 'url_param'), config.get(section, 'exchange'), config.get(section, 'routing_key'), 
-                            parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+        post(config.get(section, 'url_param'), config.get(section, 'exchange'), config.get(section, 'routing_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
 
     else:
         # UDP splits differently (see comment section above)
         if len(parts) == 12:
             parts.append('')  # no data sent
 
-        post(config.get(section, 'url_param'), config.get(section, 'exchange'), config.get(section, 'routing_key'), 
-                              parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+        post(config.get(section, 'url_param'), config.get(section, 'exchange'), config.get(section, 'routing_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
 
 def post(url_param, exchange, routing_key, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
