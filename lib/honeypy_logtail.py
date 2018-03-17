@@ -1,5 +1,4 @@
 from importlib import import_module
-from ConfigParser import NoSectionError
 from twisted.python import log
 from lib.followtail import FollowTail
 
@@ -46,16 +45,14 @@ class HoneyPyLogTail(FollowTail):
                 # time_parts[2]: time zone
                 time_parts = parts[1].split(',')
 
-                # iterate through the configured sections
-                for section in self.config.sections():
-                    #this is a transitional condition
-                    if section in ["rabbitmq", "splunk", "telegram", "elasticsearch", "logstash", "honeydb", "slack", "twitter", "sumologic"] and self.config.get(section, 'enabled'):
-                        self.config.items(section)
-                        module_name = "loggers.%s.honeypy_%s" % (section, section)
-                        logger_module = import_module(module_name)
-                        logger_module.process(self.config, section, parts, time_parts, self.useragent)
-
                 try:
+                    # iterate through the configured sections
+                    for section in self.config.sections():
+                        if self.config.get(section, 'enabled'):
+                            self.config.items(section)
+                            module_name = "loggers.%s.honeypy_%s" % (section, section)
+                            logger_module = import_module(module_name)
+                            logger_module.process(self.config, section, parts, time_parts, self.useragent)
 
                 except Exception as e:
                     log.msg('Exception: HoneyPyLogTail: {}: {}'.format(str(e), str(parts)))
