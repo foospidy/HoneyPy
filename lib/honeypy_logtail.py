@@ -4,7 +4,6 @@ from lib.followtail import FollowTail
 
 class HoneyPyLogTail(FollowTail):
     config = None
-    useragent = None
 
     def lineReceived(self, line):
         parts = line.split()
@@ -52,7 +51,7 @@ class HoneyPyLogTail(FollowTail):
                             self.config.items(section)
                             module_name = "loggers.%s.honeypy_%s" % (section, section)
                             logger_module = import_module(module_name)
-                            logger_module.process(self.config, section, parts, time_parts, self.useragent)
+                            logger_module.process(self.config, section, parts, time_parts)
 
                 except Exception as e:
                     log.msg('Exception: HoneyPyLogTail: {}: {}'.format(str(e), str(parts)))

@@ -10,7 +10,7 @@ from twisted.python import log
 # prevent creation of compiled bytecode files
 sys.dont_write_bytecode = True
 
-def process(config, section, parts, time_parts, useragent):
+def process(config, section, parts, time_parts):
         # TCP
         #	parts[0]: date
         #	parts[1]: time_parts
@@ -47,16 +47,17 @@ def process(config, section, parts, time_parts, useragent):
         if len(parts) == 11:
             parts.append('')  # no data for CONNECT events
 
-        post(useragent, custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+        post(custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
     else:
         # UDP splits differently (see comment section above)
         if len(parts) == 12:
             parts.append('')  # no data sent
 
-        post(useragent, custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+        post(custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
 
-def post(useragent, custom_source_host, custom_source_name, custom_source_category, url, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+def post(custom_source_host, custom_source_name, custom_source_category, url, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+    useragent = None
     h = hashlib.md5()
     h.update(data)
 

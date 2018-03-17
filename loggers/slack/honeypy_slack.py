@@ -10,7 +10,7 @@ from twisted.python import log
 # prevent creation of compiled bytecode files
 sys.dont_write_bytecode = True
 
-def process(config, section, parts, time_parts, useragent):
+def process(config, section, parts, time_parts):
         # TCP
         #	parts[0]: date
         #	parts[1]: time_parts
@@ -46,7 +46,8 @@ def process(config, section, parts, time_parts, useragent):
         post(config, parts[9], parts[10])
 
 def post(honeypycfg, service, clientip):
-    headers = {'Content-type': 'application/json', 'User-Agent': honeypycfg.get('honeypy', 'useragent')}
+    useragent = None
+    headers = {'Content-type': 'application/json', 'User-Agent': useragent}
     data = '{"text": "' + honeypycfg.get('honeypy', 'nodename') + ': Possible *' + service + '* attack from ' + clientip + ' <https://riskdiscovery.com/honeydb/#host/' + clientip + '>"}'
 
     url = honeypycfg.get('slack', 'webhook_url')

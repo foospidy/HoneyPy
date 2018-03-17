@@ -7,7 +7,7 @@ from twitter import Twitter
 from twitter.oauth import OAuth
 from twisted.python import log
 
-def process(config, section, parts, time_parts, useragent):
+def process(config, section, parts, time_parts):
         # TCP
         #	parts[0]: date
         #	parts[1]: time_parts

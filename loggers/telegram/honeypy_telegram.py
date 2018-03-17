@@ -8,7 +8,7 @@ import urllib3
 import certifi
 
 
-def process(config, section, parts, time_parts, useragent):
+def process(config, section, parts, time_parts):
         # TCP
         #	parts[0]: date
         #	parts[1]: time_parts

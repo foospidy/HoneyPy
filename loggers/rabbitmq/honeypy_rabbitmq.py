@@ -15,7 +15,7 @@ import pika
 # prevent creation of compiled bytecode files
 sys.dont_write_bytecode = True
 
-def process(config, section, parts, time_parts, useragent):
+def process(config, section, parts, time_parts):
         # TCP
         #	parts[0]: date
         #	parts[1]: time_parts

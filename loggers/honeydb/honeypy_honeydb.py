@@ -17,7 +17,7 @@ from twisted.python import log
 sys.dont_write_bytecode = True
 
 
-def process(config, section, parts, time_parts, useragent):
+def process(config, section, parts, time_parts):
         # TCP
         #	parts[0]: date
         #	parts[1]: time_parts
@@ -52,7 +52,7 @@ def process(config, section, parts, time_parts, useragent):
 
     if hmac_hash is None:
         log.msg('HoneyDB logger: retrieving initial hmac.')
-        got_hmac, hmac_hash, hmac_message = get_hmac(useragent, config.get('honeydb', 'hmac_url'), config.get('honeydb', 'api_id'), config.get('honeydb', 'api_key'))
+        got_hmac, hmac_hash, hmac_message = get_hmac(config.get('honeydb', 'hmac_url'), config.get('honeydb', 'api_id'), config.get('honeydb', 'api_key'))
 
     for i in range(1, 4):
         log.msg('HoneyDB logger: post attempt {}.'.format(i))
@@ -64,14 +64,14 @@ def process(config, section, parts, time_parts, useragent):
                 if len(parts) == 11:
                     parts.append('')  # no data for CONNECT events
 
-                response = post(useragent, config.get('honeydb', 'url'), hmac_hash, hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+                response = post(config.get('honeydb', 'url'), hmac_hash, hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
 
             else:
                 # UDP splits differently (see comment section above)
                 if len(parts) == 12:
                     parts.append('')  # no data sent
 
-                response = post(useragent, config.get('honeydb', 'url'), hmac_hash, hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+                response = post(config.get('honeydb', 'url'), hmac_hash, hmac_message, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
             if response == 'Success':
                 break
@@ -79,7 +79,7 @@ def process(config, section, parts, time_parts, useragent):
             else:
                 if response == 'Invalid HMAC' and i < 3:
                     log.msg('HoneyDB logger: hmac invalid, retrieving new hmac.')
-                    got_hmac, hmac_hash, hmac_message = get_hmac(useragent, config.get('honeydb', 'hmac_url'), config.get('honeydb', 'api_id'), config.get('honeydb', 'api_key'))
+                    got_hmac, hmac_hash, hmac_message = get_hmac(config.get('honeydb', 'hmac_url'), config.get('honeydb', 'api_id'), config.get('honeydb', 'api_key'))
 
                 elif response == 'Invalid HMAC' and i == 3:
                     log.msg('HoneyDB logger: hmac invalid, 3 failed attempts, giving up.')
@@ -93,7 +93,8 @@ def process(config, section, parts, time_parts, useragent):
 
 
 
-def get_hmac(useragent, url, api_id, api_key):
+def get_hmac(url, api_id, api_key):
+    useragent = None
     headers = {'User-Agent': useragent, 'X-HoneyDb-ApiId': api_id, 'X-HoneyDb-ApiKey': api_key}
     url = 'https://riskdiscovery.com/honeydb/api/hmac'
 
@@ -111,7 +112,8 @@ def get_hmac(useragent, url, api_id, api_key):
         log.msg('HoneyDB logger: Error retrieving hmac: %s' % (str(e.message).strip()))
         return False, None, None
 
-def post(useragent, url, hmac_hash, hmac_message, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+def post(url, hmac_hash, hmac_message, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+    useragent = None
     # post events to honeydb logger
     h = hashlib.md5()
     h.update(data)
