@@ -3,11 +3,10 @@
 # See LICENSE for details
 # HoneyPy telegram module by aancw
 
+import json
 import urllib3
 import certifi
-import sys
-import json
-from twisted.python import log
+
 
 def process(config, section, parts, time_parts, useragent):
         # TCP
@@ -37,7 +36,7 @@ def process(config, section, parts, time_parts, useragent):
         #	parts[10]: remote_host
         #	parts[11]: remote_port
         #	parts[12]: data
- 
+
     if parts[4] == 'TCP':
         post(config, parts[8], parts[9])
     else:
