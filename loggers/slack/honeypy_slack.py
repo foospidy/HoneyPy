@@ -55,3 +55,5 @@ def post(honeypycfg, service, clientip):
 
     if r.status_code != requests.codes.ok:
         log.msg('Error posting to Slack: %s' % str(r.status_code))
+    else:
+        log.msg(("slack response : %s" % (r.reason)))
