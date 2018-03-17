@@ -49,36 +49,13 @@ class HoneyPyLogTail(FollowTail):
                 # iterate through the configured sections
                 for section in self.config.sections():
                     #this is a transitional condition
-                    if section in ["telegram", "elasticsearch", "logstash", "honeydb", "slack", "twitter", "sumologic"] and self.config.get(section, 'enabled'):
+                    if section in ["splunk", "telegram", "elasticsearch", "logstash", "honeydb", "slack", "twitter", "sumologic"] and self.config.get(section, 'enabled'):
                         self.config.items(section)
                         module_name = "loggers.%s.honeypy_%s" % (section, section)
                         logger_module = import_module(module_name)
                         logger_module.process(self.config, section, parts, time_parts, self.useragent)
 
                 try:
-
-                    try:
-                        # Splunk
-                        if self.config.get('splunk', 'enabled') == 'Yes':
-                            from loggers.splunk.honeypy_splunk import post_splunk
-
-                            url = self.config.get('splunk', 'url')
-                            username = self.config.get('splunk', 'username')
-                            password = self.config.get('splunk', 'password')
-
-                            if parts[4] == 'TCP':
-                                if len(parts) == 11:
-                                    parts.append('')  # no data for CONNECT events
-
-                                post_splunk(username, password, self.useragent, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-                            else:
-                                # UDP splits differently (see comment section above)
-                                if len(parts) == 12:
-                                    parts.append('')  # no data sent
-
-                                post_splunk(username, password, self.useragent, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-                    except NoSectionError:
-                        pass
 
                     try:
                         # Rabbitmq integration.
