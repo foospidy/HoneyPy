@@ -47,8 +47,7 @@ class HoneyPyLogTail(FollowTail):
                 try:
                     # iterate through the configured sections, but not the main app section
                     for section in self.config.sections():
-                        if section != 'honeypy' and self.config.get(section, 'enabled'):
-                            self.config.items(section)
+                        if section != 'honeypy' and self.config.get(section, 'enabled').lower() == 'yes':
                             module_name = "loggers.%s.honeypy_%s" % (section, section)
                             logger_module = import_module(module_name)
                             logger_module.process(self.config, section, parts, time_parts)
