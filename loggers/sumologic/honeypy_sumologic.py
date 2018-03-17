@@ -38,26 +38,27 @@ def process(config, section, parts, time_parts):
         #	parts[10]: remote_host
         #	parts[11]: remote_port
         #	parts[12]: data
-    url = config.get(section, 'url')
-    custom_source_host = config.get(section, 'custom_source_host')
-    custom_source_name = config.get(section, 'custom_source_name')
-    custom_source_category = config.get(section, 'custom_source_category')
 
     if parts[4] == 'TCP':
         if len(parts) == 11:
             parts.append('')  # no data for CONNECT events
 
-        post(custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+        post(config, section, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
     else:
         # UDP splits differently (see comment section above)
         if len(parts) == 12:
             parts.append('')  # no data sent
 
-        post(custom_source_host, custom_source_name, custom_source_category, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+        post(config, section, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
 
-def post(custom_source_host, custom_source_name, custom_source_category, url, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
-    useragent = None
+def post(config, section, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+    useragent = config.get('honeypy', 'useragent')
+    url = config.get(section, 'url')
+    custom_source_host = config.get(section, 'custom_source_host')
+    custom_source_name = config.get(section, 'custom_source_name')
+    custom_source_category = config.get(section, 'custom_source_category')
+
     h = hashlib.md5()
     h.update(data)
 
@@ -96,7 +97,7 @@ def post(custom_source_host, custom_source_name, custom_source_category, url, da
     try:
         r = requests.post(url, headers=headers, json=data, verify=True, timeout=3)
         page = r.text
-        log.msg('Post event to sumologic, response: %s' % (str(page).strip()))
+        log.msg('Post event to %s, response: %s' % (section, str(page).strip()))
     except Exception as e:
-        log.msg('Error posting to sumologic: %s' % (str(e.message).strip()))
+        log.msg('Error posting to %s : %s' % (section, str(e.message).strip()))
  
