@@ -40,20 +40,21 @@ def process(config, section, parts, time_parts):
         #	parts[12]: data
 
     if parts[4] == 'TCP' and parts[5] == 'CONNECT':
-        post(config, parts[8], parts[9])
+        post(config, section, parts[8], parts[9])
     elif parts[6] == 'RX':
         # UDP splits differently (see comment section above)
-        post(config, parts[9], parts[10])
+        post(config, section, parts[9], parts[10])
 
-def post(honeypycfg, service, clientip):
-    useragent = None
+def post(config, section, service, clientip):
+    useragent = config.get('honeypy', 'useragent')
+    url = config.get(section, 'webhook_url')
+
     headers = {'Content-type': 'application/json', 'User-Agent': useragent}
-    data = '{"text": "' + honeypycfg.get('honeypy', 'nodename') + ': Possible *' + service + '* attack from ' + clientip + ' <https://riskdiscovery.com/honeydb/#host/' + clientip + '>"}'
+    data = '{"text": "' + config.get('honeypy', 'nodename') + ': Possible *' + service + '* attack from ' + clientip + ' <https://riskdiscovery.com/honeydb/#host/' + clientip + '>"}'
 
-    url = honeypycfg.get('slack', 'webhook_url')
     r = requests.post(url, headers=headers, data=data, timeout=3)
 
-    if r.status_code != requests.codes.ok:
-        log.msg('Error posting to Slack: %s' % str(r.status_code))
+    if r.ok:
+        log.msg(("%s response : %s" % (section, r.reason)))
     else:
-        log.msg(("slack response : %s" % (r.reason)))
+        log.msg('Error posting to %s : %s' % (section, str(r.status_code)))
