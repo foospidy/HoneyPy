@@ -49,39 +49,13 @@ class HoneyPyLogTail(FollowTail):
                 # iterate through the configured sections
                 for section in self.config.sections():
                     #this is a transitional condition
-                    if section in ["splunk", "telegram", "elasticsearch", "logstash", "honeydb", "slack", "twitter", "sumologic"] and self.config.get(section, 'enabled'):
+                    if section in ["rabbitmq", "splunk", "telegram", "elasticsearch", "logstash", "honeydb", "slack", "twitter", "sumologic"] and self.config.get(section, 'enabled'):
                         self.config.items(section)
                         module_name = "loggers.%s.honeypy_%s" % (section, section)
                         logger_module = import_module(module_name)
                         logger_module.process(self.config, section, parts, time_parts, self.useragent)
 
                 try:
-
-                    try:
-                        # Rabbitmq integration.
-                        if self.config.get('rabbitmq', 'enabled') == 'Yes':
-                            from loggers.rabbitmq.honeypy_rabbitmq import post_rabbitmq
-
-                            if parts[4] == 'TCP':
-                                if len(parts) == 11:
-                                    parts.append('')  # no data for CONNECT events
-
-                                post_rabbitmq(self.config.get('rabbitmq', 'url_param'), self.config.get('rabbitmq', 'exchange'),
-                                              self.config.get('rabbitmq', 'routing_key'), parts[0],
-                                              time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5],
-                                              parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-
-                            else:
-                                # UDP splits differently (see comment section above)
-                                if len(parts) == 12:
-                                    parts.append('')  # no data sent
-
-                                post_rabbitmq(self.config.get('rabbitmq', 'url_param'), self.config.get('rabbitmq', 'exchange'),
-                                              self.config.get('rabbitmq', 'routing_key'), parts[0],
-                                              time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6],
-                                              parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
-                    except NoSectionError:
-                        pass
 
                 except Exception as e:
                     log.msg('Exception: HoneyPyLogTail: {}: {}'.format(str(e), str(parts)))

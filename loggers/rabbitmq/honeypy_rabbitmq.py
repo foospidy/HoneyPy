@@ -15,9 +15,52 @@ import pika
 # prevent creation of compiled bytecode files
 sys.dont_write_bytecode = True
 
+def process(config, section, parts, time_parts, useragent):
+        # TCP
+        #	parts[0]: date
+        #	parts[1]: time_parts
+        #	parts[2]: plugin
+        #	parts[3]: session
+        #	parts[4]: protocol
+        #	parts[5]: event
+        #	parts[6]: local_host
+        #	parts[7]: local_port
+        #	parts[8]: service
+        #	parts[9]: remote_host
+        #	parts[10]: remote_port
+        #	parts[11]: data
+        # UDP
+        #	parts[0]: date
+        #	parts[1]: time_parts
+        #	parts[2]: plugin string part
+        #	parts[3]: plugin string part
+        #	parts[4]: session
+        #	parts[5]: protocol
+        #	parts[6]: event
+        #	parts[7]: local_host
+        #	parts[8]: local_port
+        #	parts[9]: service
+        #	parts[10]: remote_host
+        #	parts[11]: remote_port
+        #	parts[12]: data
 
-def post_rabbitmq(url_param, exchange, routing_key, date, time, date_time, millisecond, session,
-                  protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+    if parts[4] == 'TCP':
+        if len(parts) == 11:
+            parts.append('')  # no data for CONNECT events
+
+        post(config.get(section, 'url_param'), config.get(section, 'exchange'), config.get(section, 'routing_key'), 
+                            parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+
+    else:
+        # UDP splits differently (see comment section above)
+        if len(parts) == 12:
+            parts.append('')  # no data sent
+
+        post(config.get(section, 'url_param'), config.get(section, 'exchange'), config.get(section, 'routing_key'), 
+                              parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+
+
+def post(url_param, exchange, routing_key, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
 
     h = hashlib.md5()
     h.update(data)
@@ -44,12 +87,9 @@ def post_rabbitmq(url_param, exchange, routing_key, date, time, date_time, milli
     logtosend = json.dumps(data1)
 
     try:
-
         connection = pika.BlockingConnection(pika.URLParameters(url_param))
         channel = connection.channel()
-        channel.basic_publish(exchange=exchange,
-                              routing_key=routing_key,
-                              body=str(logtosend))
+        channel.basic_publish(exchange=exchange, routing_key=routing_key, body=str(logtosend))
 
         connection.close()
 
