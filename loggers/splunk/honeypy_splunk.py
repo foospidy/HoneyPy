@@ -39,25 +39,26 @@ def process(config, section, parts, time_parts):
         #	parts[10]: remote_host
         #	parts[11]: remote_port
         #	parts[12]: data
-    url = config.get(section, 'url')
-    username = config.get(section, 'username')
-    password = config.get(section, 'password')
 
     if parts[4] == 'TCP':
         if len(parts) == 11:
             parts.append('')  # no data for CONNECT events
 
-        post(password, useragent, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+        post(config, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
     else:
         # UDP splits differently (see comment section above)
         if len(parts) == 12:
             parts.append('')  # no data sent
 
-        post(username, password, url, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+        post(config, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
 
-def post(username, password, url, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
-    useragent = None
+def post(config, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+    useragent = config.get('honeypy', 'useragent')
+    url = config.get('splunk', 'url')
+    username = config.get('splunk', 'username')
+    password = config.get('splunk', 'password')
+
     h = hashlib.md5()
     h.update(data)
 
