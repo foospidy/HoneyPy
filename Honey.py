@@ -80,7 +80,13 @@ log.startLoggingWithObserver(file_log_observer.emit, False)
 # tail log file when reactor runs
 tailer = HoneyPyLogTail(log_path + log_file_name)
 tailer.config = honeypy_config
-tailer.useragent = 'HoneyPy (' + version + ')'
+tailer.config.set('honeypy', 'useragent', 'HoneyPy (' + version + ')')
+log.msg(tailer.config.get('honeypy', 'useragent') + " Started")
+
+for section in tailer.config.sections():
+    if section != 'honeypy' and tailer.config.get(section, 'enabled').lower() == 'yes':
+        log.msg("Enabled Logger : %s" % (section))
+
 tailer.start()
 
 # services object array
