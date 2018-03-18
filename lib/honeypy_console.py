@@ -80,6 +80,8 @@ class HoneyPyConsole(basic.LineReceiver):
         """list: List information. Usage: list [services|profiles]"""
         if list == 'profiles':
             self._list_profiles()
+        elif list == 'loggers':
+            self._list_loggers()
         else:
             self._list_services()
 
@@ -87,6 +89,15 @@ class HoneyPyConsole(basic.LineReceiver):
         """list services: List all configured services"""
         for i in range(len(self.services[0])):
             self.sendLine(self.services[0][i] + '\t' + str(self.services[1][i]))
+
+    def _list_loggers(self):
+        """list loggers: List all enabled loggers"""
+        for section in self.config.sections():
+            if section != 'honeypy':
+                if self.config.get(section, 'enabled').lower() == 'yes':
+                    self.sendLine('\t Enabled\t'+section)
+                else:
+                    self.sendLine('\t Disabled\t'+section)
 
     @staticmethod
     def _list_profiles():
