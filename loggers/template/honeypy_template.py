@@ -1,16 +1,11 @@
 # HoneyPy Copyright (C) 2013-2017 foospidy
 # https://github.com/foospidy/HoneyPy
 # See LICENSE for details
-# HoneyPy rabbitmq logger
-
 import sys
 import hashlib
-import socket
-import json
+from datetime import datetime
+import requests
 from twisted.python import log
-
-#pika==0.10.0
-import pika
 
 # prevent creation of compiled bytecode files
 sys.dont_write_bytecode = True
@@ -48,23 +43,28 @@ def process(config, section, parts, time_parts):
         if len(parts) == 11:
             parts.append('')  # no data for CONNECT events
 
-        post(config.get(section, 'url_param'), config.get(section, 'exchange'), config.get(section, 'routing_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
-
+        post(config, section, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
     else:
         # UDP splits differently (see comment section above)
         if len(parts) == 12:
             parts.append('')  # no data sent
 
-        post(config.get(section, 'url_param'), config.get(section, 'exchange'), config.get(section, 'routing_key'), parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+        post(config, section, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
 
-def post(url_param, exchange, routing_key, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+def post(config, section, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+    useragent = config.get('honeypy', 'useragent')
+    url = config.get(section, 'url')
 
     h = hashlib.md5()
     h.update(data)
 
+    date_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M:%S").isoformat()
+
+    headers = {'User-Agent': useragent, "Content-Type": "application/json"}
+
     # applying [:-3] to time to truncate millisecond
-    data1 = {
+    data = {
         'date': date,
         'time': time,
         'date_time': date_time,
@@ -82,19 +82,10 @@ def post(url_param, exchange, routing_key, date, time, date_time, millisecond, s
         'data_hash': h.hexdigest()
     }
 
-    logtosend = json.dumps(data1)
-
     try:
-        connection = pika.BlockingConnection(pika.URLParameters(url_param))
-        channel = connection.channel()
-        channel.basic_publish(exchange=exchange, routing_key=routing_key, body=str(logtosend))
-
-        connection.close()
-
-        log.msg('Post event to rabbitmq! {%s} (%s bytes)' % (logtosend, len(logtosend)))
-
-    except socket.error, msg:
-        log.msg('[ERROR] post_rabbitmq, socket.error: %s' % msg[1])
-
+        r = requests.post(url, headers=headers, json=data, verify=True, timeout=3)
+        page = r.text
+        log.msg('Post event to %s, response: %s' % (section, str(page).strip()))
     except Exception as e:
-        log.msg('Error posting to rabbitmq: %s' % (str(e.message).strip()))
+        log.msg('Error posting to %s : %s' % (section, str(e.message).strip()))
+ 

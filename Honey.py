@@ -77,21 +77,16 @@ file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
 # start logging
 log.startLoggingWithObserver(file_log_observer.emit, False)
 
-if honeypy_config.get('twitter', 'enabled') == 'Yes' or \
-   honeypy_config.get('honeydb', 'enabled') == 'Yes' or \
-   honeypy_config.get('slack', 'enabled') == 'Yes' or \
-   honeypy_config.get('logstash', 'enabled') == 'Yes' or \
-   honeypy_config.get('elasticsearch', 'enabled') == 'Yes' or \
-   honeypy_config.get('telegram', 'enabled') == 'Yes' or \
-   honeypy_config.get('rabbitmq', 'enabled') == 'Yes' or \
-   honeypy_config.get('sumologic', 'enabled') == 'Yes' or \
-   honeypy_config.get('splunk', 'enabled'):
+# tail log file when reactor runs
+tailer = HoneyPyLogTail(log_path + log_file_name)
+tailer.config = honeypy_config
+tailer.config.set('honeypy', 'useragent', 'HoneyPy (' + version + ')')
+tailer.start()
 
-    # tail log file when reactor runs
-    tailer = HoneyPyLogTail(log_path + log_file_name)
-    tailer.config = honeypy_config
-    tailer.useragent = 'HoneyPy (' + version + ')'
-    tailer.start()
+log.msg(tailer.config.get('honeypy', 'useragent') + " Started")
+for section in tailer.config.sections():
+    if section != 'honeypy' and tailer.config.get(section, 'enabled').lower() == 'yes':
+        log.msg("Enabled Logger : %s" % (section))
 
 # services object array
 services = []
