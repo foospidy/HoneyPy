@@ -44,13 +44,23 @@ class HoneyPyLogTail(FollowTail):
                 # time_parts[2]: time zone
                 time_parts = parts[1].split(',')
 
-                try:
-                    # iterate through the configured sections, but not the main app section
-                    for section in self.config.sections():
-                        if section != 'honeypy' and self.config.get(section, 'enabled').lower() == 'yes':
-                            module_name = "loggers.%s.honeypy_%s" % (section, section)
-                            logger_module = import_module(module_name)
-                            logger_module.process(self.config, section, parts, time_parts)
+                #determin remote_host
+                if parts[4] == 'TCP':
+                    remote_host = parts[9]
+                else:
+                    remote_host = parts[10]
 
-                except Exception as e:
-                    log.msg('Exception: HoneyPyLogTail: {}: {}'.format(str(e), str(parts)))
+                #check if remote host is in whitelist
+                if remote_host in self.config.get('honeypy', 'whitelist').split(","):
+                    log.msg("Remote host %s is whitelisted, external logging surpressed." % remote_host)
+                else:
+                    try:
+                        # iterate through the configured sections, but not the main app section
+                        for section in self.config.sections():
+                            if section != 'honeypy' and self.config.get(section, 'enabled').lower() == 'yes':
+                                module_name = "loggers.%s.honeypy_%s" % (section, section)
+                                logger_module = import_module(module_name)
+                                logger_module.process(self.config, section, parts, time_parts)
+
+                    except Exception as e:
+                        log.msg('Exception: HoneyPyLogTail: {}: {}'.format(str(e), str(parts)))
