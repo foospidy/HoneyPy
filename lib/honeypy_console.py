@@ -77,7 +77,7 @@ class HoneyPyConsole(basic.LineReceiver):
         self.sendLine('[HoneyPy Copyright (c) 2013-2017. foospidy]\n')
 
     def do_list(self, list='services'):
-        """list: List information. Usage: list [services|profiles]"""
+        """list: List information. Usage: list [services|profiles|loggers]"""
         if list == 'profiles':
             self._list_profiles()
         elif list == 'loggers':
