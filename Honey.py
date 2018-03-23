@@ -61,27 +61,26 @@ service_config.read(service_config_file)
 
 #check if other service profiles are to be included
 if honeypy_config.has_option('honeypy', 'service_profiles'):
-    log.msg('Skipping etc/services.cfg');
+    log.msg('Skipping etc/services.cfg')
     service_config = ConfigParser.ConfigParser()
-    for service_profile in honeypy_config.get('honeypy','service_profiles').split(','):
-        profile_cfg_file=os.path.dirname(os.path.abspath(__file__)) + '/etc/profiles/' + service_profile.strip()
+    for service_profile in honeypy_config.get('honeypy', 'service_profiles').split(','):
+        profile_cfg_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/profiles/' + service_profile.strip()
         log.msg("Reading services from %s" % profile_cfg_file)
-        profile_cfg=ConfigParser.ConfigParser()
+        profile_cfg = ConfigParser.ConfigParser()
         profile_cfg.read(profile_cfg_file)
-        #add the services from this profile 
+        #add the services from this profile
         for section in profile_cfg.sections():
-            if profile_cfg.get(section, 'enabled').lower() == 'yes' :
-                #if enabled and don't already exist 
-                if not service_config.has_section(section): 
-                    log.msg("Adding service : %s %s" % (section,profile_cfg.get(section,'low_port')))
+            if profile_cfg.get(section, 'enabled').lower() == 'yes':
+                #if enabled and don't already exist
+                if not service_config.has_section(section):
+                    log.msg("Adding service : %s %s" % (section, profile_cfg.get(section, 'low_port')))
                     service_config.add_section(section)
                     #read the options and add then to the new service section
                     for option in profile_cfg.options(section):
-                        service_config.set(section,option,profile_cfg.get(section,option))
+                        service_config.set(section, option, profile_cfg.get(section, option))
                 else:
-                    log.msg("Skipping duplicate service : %s %s" % (section,service_config.get(section,'low_port')))
+                    log.msg("Skipping duplicate service : %s %s" % (section, service_config.get(section, 'low_port')))
 
-                    
 if args.ipt:
     # generate ipt-kit script in /tmp and quit.
     ipt_file = open(ipt_file_name, 'w')
