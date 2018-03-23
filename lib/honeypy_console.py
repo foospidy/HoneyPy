@@ -107,7 +107,7 @@ class HoneyPyConsole(basic.LineReceiver):
 
         for f in files:
             parts = f.split('.')
-            if parts[0]=='services' and parts[2]=='profile':
+            if parts[0] == 'services' and parts[2] == 'profile':
                 print parts[1]
 
     def do_set(self, setting='profile', value='default'):
