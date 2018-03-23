@@ -35,8 +35,21 @@ log_path = os.path.dirname(os.path.abspath(__file__)) + '/log/'
 log_file_name = 'honeypy.log'
 ipt_file_name = '/tmp/honeypy-ipt.sh'
 
+# setup log file and formatting
+if not os.path.exists(os.path.dirname(log_path)):
+    # if log directory does not exist, create it.
+    os.makedirs(os.path.dirname(log_path))
+
+log_file = DailyLogFile(log_file_name, log_path)
+file_log_observer = FileLogObserver(log_file)
+time_zone = subprocess.check_output(['date', '+%z'])
+file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
+
 # get version
 version = file(os.path.dirname(os.path.abspath(__file__)) + '/VERSION').read().strip()
+
+# start logging
+log.startLoggingWithObserver(file_log_observer.emit, False)
 
 # setup config parsers
 honeypy_config = ConfigParser.ConfigParser()
@@ -46,6 +59,29 @@ service_config = ConfigParser.ConfigParser()
 honeypy_config.read(honeypy_config_file)
 service_config.read(service_config_file)
 
+#check if other service profiles are to be included
+if honeypy_config.has_option('honeypy', 'service_profiles'):
+    log.msg('Skipping etc/services.cfg');
+    service_config = ConfigParser.ConfigParser()
+    for service_profile in honeypy_config.get('honeypy','service_profiles').split(','):
+        profile_cfg_file=os.path.dirname(os.path.abspath(__file__)) + '/etc/profiles/' + service_profile.strip()
+        log.msg("Reading services from %s" % profile_cfg_file)
+        profile_cfg=ConfigParser.ConfigParser()
+        profile_cfg.read(profile_cfg_file)
+        #add the services from this profile 
+        for section in profile_cfg.sections():
+            if profile_cfg.get(section, 'enabled').lower() == 'yes' :
+                #if enabled and don't already exist 
+                if not service_config.has_section(section): 
+                    log.msg("Adding service : %s %s" % (section,profile_cfg.get(section,'low_port')))
+                    service_config.add_section(section)
+                    #read the options and add then to the new service section
+                    for option in profile_cfg.options(section):
+                        service_config.set(section,option,profile_cfg.get(section,option))
+                else:
+                    log.msg("Skipping duplicate service : %s %s" % (section,service_config.get(section,'low_port')))
+
+                    
 if args.ipt:
     # generate ipt-kit script in /tmp and quit.
     ipt_file = open(ipt_file_name, 'w')
@@ -63,19 +99,6 @@ if args.ipt:
     os.chmod(ipt_file_name, 0744)
     ipt_file.close()
     quit()
-
-# setup log file and formatting
-if not os.path.exists(os.path.dirname(log_path)):
-    # if log directory does not exist, create it.
-    os.makedirs(os.path.dirname(log_path))
-
-log_file = DailyLogFile(log_file_name, log_path)
-file_log_observer = FileLogObserver(log_file)
-time_zone = subprocess.check_output(['date', '+%z'])
-file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
-
-# start logging
-log.startLoggingWithObserver(file_log_observer.emit, False)
 
 # tail log file when reactor runs
 tailer = HoneyPyLogTail(log_path + log_file_name)
@@ -106,7 +129,6 @@ def get_ip_address():
     s.shutdown(socket.SHUT_RDWR)
     s.close()
     return ipaddress
-
 
 for service in service_config.sections():
     if service_config.get(service, 'enabled') == 'Yes':
