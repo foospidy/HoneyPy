@@ -77,7 +77,7 @@ class HoneyPyConsole(basic.LineReceiver):
         self.sendLine('[HoneyPy Copyright (c) 2013-2017. foospidy]\n')
 
     def do_list(self, list='services'):
-        """list: List information. Usage: list [services|profiles]"""
+        """list: List information. Usage: list [services|profiles|loggers]"""
         if list == 'profiles':
             self._list_profiles()
         elif list == 'loggers':
@@ -107,7 +107,8 @@ class HoneyPyConsole(basic.LineReceiver):
 
         for f in files:
             parts = f.split('.')
-            print parts[1]
+            if parts[0] == 'services' and parts[2] == 'profile':
+                print parts[1]
 
     def do_set(self, setting='profile', value='default'):
         """set: Change settings. Usage: set profile <profile>"""
