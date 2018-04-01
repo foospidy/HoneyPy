@@ -51,7 +51,7 @@ class HoneyPyLogTail(FollowTail):
                     remote_host = parts[10]
 
                 #check if remote host is in whitelist
-                if self.config.has_section('whitelist') and remote_host in self.config.get('honeypy', 'whitelist').split(","):
+                if self.config.has_option('honeypy', 'whitelist') and remote_host in self.config.get('honeypy', 'whitelist').split(','):
                     log.msg("Remote host %s is whitelisted, external logging surpressed." % remote_host)
                 else:
                     try:
