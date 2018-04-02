@@ -130,6 +130,17 @@ class HoneyPyConsole(basic.LineReceiver):
 
         return changed
 
+    def do_test(self, test='loggers'):
+        """test: Generate a test event"""
+        if test == 'loggers':
+            self._test_loggers()
+
+    @staticmethod
+    def _test_loggers():
+        """test loggers: generate atest event"""
+        from twisted.python import log
+        log.msg('%s %s  TCP TEST %s %s %s %s %s %s' % ('session', "test", '127.0.0.1', '-1', 'test', '127.0.0.1', '-1', 'TestFromHoneyPyConsole'), system='test')
+
     def do_exit(self):
         """exit: Exit HoneyPy"""
         self.sendLine('Goodbye.')
