@@ -31,14 +31,14 @@ port        = udp:10008
 description = Send a message via udp.
 enabled     = Yes
 
-[Telnet]
-plugin      = TelnetDebian7
+[Telnet.Unix]
+plugin      = TelnetUnix
 low_port    = tcp:23
 port        = tcp:10009
-description = Emulate Debian telnet login vai tcp.
+description = Emulate Debian telnet login via tcp.
 enabled     = Yes
 
-[Windows.Telnet]
+[Telnet.Windows]
 plugin      = TelnetWindows
 low_port    = tcp:24
 port        = tcp:10010
