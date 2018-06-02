@@ -79,7 +79,7 @@ def process(config, section, parts, time_parts):
             else:
                 if response == 'Invalid HMAC' and i < 3:
                     log.msg('HoneyDB logger: hmac invalid, retrieving new hmac.')
-                    got_hmac, hmac_hash, hmac_message = get_hmac(config, section)
+                    got_hmac, hmac_hash, hmac_message, collectors = get_hmac(config, section)
 
                 elif response == 'Invalid HMAC' and i == 3:
                     log.msg('HoneyDB logger: hmac invalid, 3 failed attempts, giving up.')
