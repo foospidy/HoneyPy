@@ -52,7 +52,7 @@ def process(config, section, parts, time_parts):
 
     if hmac_hash is None:
         log.msg('HoneyDB logger: retrieving initial hmac.')
-        got_hmac, hmac_hash, hmac_message = get_hmac(config, section)
+        got_hmac, hmac_hash, hmac_message, collectors = get_hmac(config, section)
 
     for i in range(1, 4):
         log.msg('HoneyDB logger: post attempt {}.'.format(i))
@@ -64,14 +64,14 @@ def process(config, section, parts, time_parts):
                 if len(parts) == 11:
                     parts.append('')  # no data for CONNECT events
 
-                response = post(hmac_hash, hmac_message, config, section, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+                response = post(hmac_hash, hmac_message, collectors, config, section, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
 
             else:
                 # UDP splits differently (see comment section above)
                 if len(parts) == 12:
                     parts.append('')  # no data sent
 
-                response = post(hmac_hash, hmac_message, config, section, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
+                response = post(hmac_hash, hmac_message, collectors, config, section, parts[0], time_parts[0], parts[0] + ' ' + time_parts[0], time_parts[1], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11], parts[12])
 
             if response == 'Success':
                 break
@@ -90,17 +90,12 @@ def process(config, section, parts, time_parts):
                 else:
                     log.msg('HoneyDB logger: {}, 3 failed attempts, giving up.'.format(response))
 
-
-
-
 def get_hmac(config, section):
     useragent = config.get('honeypy', 'useragent')
     api_id = config.get('honeydb', 'api_id')
     api_key = config.get('honeydb', 'api_key')
 
-    hmac_url = config.get(section, 'hmac_url')
-    if hmac_url == "'dummy'":
-        hmac_url = 'https://riskdiscovery.com/honeydb/api/hmac'
+    hmac_url = 'https://riskdiscovery.com/honeydb/api/hmac'
 
     headers = {'User-Agent': useragent, 'X-HoneyDb-ApiId': api_id, 'X-HoneyDb-ApiKey': api_key}
 
@@ -110,7 +105,7 @@ def get_hmac(config, section):
 
         if j['status'] == 'Success':
             log.msg('HoneyDB logger: hmac received with message: {}'.format(j['hmac_message']))
-            return True, j['hmac_hash'], j['hmac_message']
+            return True, j['hmac_hash'], j['hmac_message'], j['collectors']
         else:
             raise Exception(j['status'])
 
@@ -118,13 +113,9 @@ def get_hmac(config, section):
         log.msg('HoneyDB logger: Error retrieving hmac: %s' % (str(e.message).strip()))
         return False, None, None
 
-def post(hmac_hash, hmac_message, config, section, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
+def post(hmac_hash, hmac_message, collectors, config, section, date, time, date_time, millisecond, session, protocol, event, local_host, local_port, service, remote_host, remote_port, data):
     useragent = config.get('honeypy', 'useragent')
-    url = config.get(section, 'url')
-    if url == "'dummy'":
-        urls = ('https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/046b612677d0c8b57420ea0e9b3cc4960a21b6bfea00a0a22a63ddb81aae64ab/honeydb/collector',
-                'https://z17veyvn82.execute-api.us-east-1.amazonaws.com/prod/collector')
-        url = random.choice(urls)
+    url = random.choice(collectors)
 
     # post events to honeydb logger
     h = hashlib.md5()
