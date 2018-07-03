@@ -25,6 +25,13 @@ port        = tcp:2380
 description = etcd server client API
 enabled     = Yes
 
+[Kube.cAdvisor]
+plugin      = Web
+low_port    = tcp:4194
+port        = tcp:4194
+description = cAdvisor
+enabled     = Yes
+
 [Kube.healthzPort]
 plugin      = Echo
 low_port    = tcp:10248
