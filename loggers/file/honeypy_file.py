@@ -82,6 +82,6 @@ def post(config, section, date, time, date_time, millisecond, session, protocol,
     }
 
     if not file:
-        file = open(config.get(section, 'filename'), 'a+')
+        file = open(config.get(section, 'filename'), 'a+', 1)
 
-    file.write(json.dumps(data) + os.linesep).flush()
+    file.write(json.dumps(data) + os.linesep)
