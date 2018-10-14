@@ -54,6 +54,6 @@ def post(honeypycfg, service, clientip):
     nodename = honeypycfg.get('honeypy', 'nodename')
 
     try:
-        t.statuses.update(status=nodename + ': #' + service + ' Possible '  + service + ' attack from ' + clientip + ' https://riskdiscovery.com/honeydb/#host/' + clientip)
+        t.statuses.update(status=nodename + ': #' + service + ' Possible '  + service + ' attack from ' + clientip + ' https://riskdiscovery.com/honeydb/host/' + clientip)
     except Exception, err:
         log.msg('Error posting to Twitter: %s' % err)
