@@ -2,6 +2,7 @@
 
 - Blog series: [Getting Started With HoneyPy](https://medium.com/@foospidy/honeypy-getting-started-series-a49291e41a8e)
 - HoneyPy [tweets](https://twitter.com/HoneyPyLog)!
+- [Honeypot, añadiendo una capa de seguridad en una empresa de telecomunicaciones](http://hdl.handle.net/10609/59528)
 
 # Mentions
 
