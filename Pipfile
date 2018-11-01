@@ -12,7 +12,7 @@ verify_ssl = true
 [packages]
 
 dnslib = "==0.9.7"
-requests = "==2.6.0"
+requests = "==2.20.0"
 Twisted = "==14.0.2"
 python-twitter = "==3.1"
 certifi = "*"
