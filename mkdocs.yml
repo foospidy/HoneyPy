@@ -1,4 +1,5 @@
 site_name: HoneyPy Docs
+theme: readthedocs
 pages:
 - Home: index.md
 - Quickstart: quickstart.md
