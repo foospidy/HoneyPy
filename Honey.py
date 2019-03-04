@@ -16,6 +16,7 @@ from twisted.internet import stdio
 from twisted.python import log
 from twisted.python.log import FileLogObserver
 from twisted.python.logfile import DailyLogFile
+from lib.honeypy_logtail import SingleDailyLogFile
 from lib.honeypy_logtail import HoneyPyLogTail
 from lib.honeypy_console import HoneyPyConsole
 
@@ -35,12 +36,23 @@ log_path = os.path.dirname(os.path.abspath(__file__)) + '/log/'
 log_file_name = 'honeypy.log'
 ipt_file_name = '/tmp/honeypy-ipt.sh'
 
+# setup config parsers
+honeypy_config = ConfigParser.ConfigParser()
+service_config = ConfigParser.ConfigParser()
+
+# read config files
+honeypy_config.read(honeypy_config_file)
+service_config.read(service_config_file)
+
 # setup log file and formatting
 if not os.path.exists(os.path.dirname(log_path)):
     # if log directory does not exist, create it.
     os.makedirs(os.path.dirname(log_path))
 
-log_file = DailyLogFile(log_file_name, log_path)
+if honeypy_config.get('honeypy', 'limit_internal_logs').lower() == 'yes':
+    log_file = SingleDailyLogFile(log_file_name, log_path)
+else:
+    log_file = DailyLogFile(log_file_name, log_path)
 file_log_observer = FileLogObserver(log_file)
 time_zone = subprocess.check_output(['date', '+%z'])
 file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
@@ -50,14 +62,6 @@ version = file(os.path.dirname(os.path.abspath(__file__)) + '/VERSION').read().s
 
 # start logging
 log.startLoggingWithObserver(file_log_observer.emit, False)
-
-# setup config parsers
-honeypy_config = ConfigParser.ConfigParser()
-service_config = ConfigParser.ConfigParser()
-
-# read config files
-honeypy_config.read(honeypy_config_file)
-service_config.read(service_config_file)
 
 #check if other service profiles are to be included
 if honeypy_config.has_option('honeypy', 'service_profiles'):

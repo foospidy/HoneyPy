@@ -1,6 +1,7 @@
 from importlib import import_module
 from twisted.python import log
 from lib.followtail import FollowTail
+from twisted.python.logfile import DailyLogFile
 
 class HoneyPyLogTail(FollowTail):
     config = None
@@ -64,3 +65,11 @@ class HoneyPyLogTail(FollowTail):
 
                     except Exception as e:
                         log.msg('Exception: HoneyPyLogTail: {}: {}'.format(str(e), str(parts)))
+
+
+class SingleDailyLogFile(DailyLogFile):
+    def rotate(self):
+        super(SingleDailyLogFile, self).rotate()
+        newpath = "%s.%s" % (self.path, self.suffix(self.lastDate))
+        if os.path.exists(newpath):
+            os.remove(newpath)
