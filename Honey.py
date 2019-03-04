@@ -107,6 +107,14 @@ if args.ipt:
 tailer = HoneyPyLogTail(log_path + log_file_name)
 tailer.config = honeypy_config
 tailer.config.set('honeypy', 'useragent', 'HoneyPy (' + version + ')')
+
+# set persistent logger connections
+for section in tailer.config.sections():
+    if tailer.config.has_option(section, 'persistent') and tailer.config.get(section, 'persistent').lower() == 'yes' and tailer.config.get(section, 'enabled').lower() == 'yes':
+        module_name = "loggers.%s.honeypy_%s" % (section, section)
+        logger_module = importlib.import_module(module_name)
+        tailer.persistent_conns[section] = logger_module.conn(tailer.config, section)
+
 tailer.start()
 
 log.msg(tailer.config.get('honeypy', 'useragent') + " Started")
