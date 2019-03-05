@@ -32,9 +32,6 @@ args = parser.parse_args()
 # get path for config files
 honeypy_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/honeypy.cfg'
 service_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/services.cfg'
-log_path = os.path.dirname(os.path.abspath(__file__)) + '/log/'
-log_file_name = 'honeypy.log'
-ipt_file_name = '/tmp/honeypy-ipt.sh'
 
 # setup config parsers
 honeypy_config = ConfigParser.ConfigParser()
@@ -45,9 +42,21 @@ honeypy_config.read(honeypy_config_file)
 service_config.read(service_config_file)
 
 # setup log file and formatting
-if not os.path.exists(os.path.dirname(log_path)):
+if honeypy_config.has_option('honeypy', 'internal_log_dir'):
+    if os.path.isabs(honeypy_config.get('honeypy', 'internal_log_dir')):
+        log_path = honeypy_config.get('honeypy', 'internal_log_dir')
+    else:
+        log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), honeypy_config.get('honeypy', 'internal_log_dir'))
+    log_path = os.path.normpath(log_path)
+else:
+    log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'log/')
+
+log_file_name = 'honeypy.log'
+ipt_file_name = '/tmp/honeypy-ipt.sh'
+
+if not os.path.exists(log_path):
     # if log directory does not exist, create it.
-    os.makedirs(os.path.dirname(log_path))
+    os.makedirs(log_path)
 
 if honeypy_config.get('honeypy', 'limit_internal_logs').lower() == 'yes':
     log_file = SingleDailyLogFile(log_file_name, log_path)
@@ -104,7 +113,7 @@ if args.ipt:
     quit()
 
 # tail log file when reactor runs
-tailer = HoneyPyLogTail(log_path + log_file_name)
+tailer = HoneyPyLogTail(os.path.join(log_path, log_file_name))
 tailer.config = honeypy_config
 tailer.config.set('honeypy', 'useragent', 'HoneyPy (' + version + ')')
 
