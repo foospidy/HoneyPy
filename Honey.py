@@ -30,8 +30,9 @@ parser.add_argument('-ipt', help='generate ipt-kit script in /tmp.', default=Fal
 args = parser.parse_args()
 
 # get path for config files
-honeypy_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/honeypy.cfg'
-service_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/services.cfg'
+script_dir = os.path.dirname(os.path.abspath(__file__))
+honeypy_config_file = script_dir + '/etc/honeypy.cfg'
+service_config_file = script_dir + '/etc/services.cfg'
 
 # setup config parsers
 honeypy_config = ConfigParser.ConfigParser()
@@ -46,10 +47,10 @@ if honeypy_config.has_option('honeypy', 'internal_log_dir'):
     if os.path.isabs(honeypy_config.get('honeypy', 'internal_log_dir')):
         log_path = honeypy_config.get('honeypy', 'internal_log_dir')
     else:
-        log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), honeypy_config.get('honeypy', 'internal_log_dir'))
+        log_path = os.path.join(script_dir, honeypy_config.get('honeypy', 'internal_log_dir'))
     log_path = os.path.normpath(log_path)
 else:
-    log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'log/')
+    log_path = os.path.join(script_dir, 'log/')
 
 log_file_name = 'honeypy.log'
 ipt_file_name = '/tmp/honeypy-ipt.sh'
@@ -67,7 +68,7 @@ time_zone = subprocess.check_output(['date', '+%z'])
 file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
 
 # get version
-version = file(os.path.dirname(os.path.abspath(__file__)) + '/VERSION').read().strip()
+version = file(script_dir + '/VERSION').read().strip()
 
 # start logging
 log.startLoggingWithObserver(file_log_observer.emit, False)
@@ -77,7 +78,7 @@ if honeypy_config.has_option('honeypy', 'service_profiles'):
     log.msg('Skipping etc/services.cfg')
     service_config = ConfigParser.ConfigParser()
     for service_profile in honeypy_config.get('honeypy', 'service_profiles').split(','):
-        profile_cfg_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/profiles/' + service_profile.strip()
+        profile_cfg_file = script_dir + '/etc/profiles/' + service_profile.strip()
         log.msg("Reading services from %s" % profile_cfg_file)
         profile_cfg = ConfigParser.ConfigParser()
         profile_cfg.read(profile_cfg_file)
