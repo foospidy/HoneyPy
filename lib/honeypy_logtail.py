@@ -1,7 +1,8 @@
+import os
 from importlib import import_module
 from twisted.python import log
-from lib.followtail import FollowTail
 from twisted.python.logfile import DailyLogFile
+from lib.followtail import FollowTail
 
 class HoneyPyLogTail(FollowTail):
     config = None
@@ -73,7 +74,9 @@ class HoneyPyLogTail(FollowTail):
 
 class SingleDailyLogFile(DailyLogFile):
     def rotate(self):
-        super(SingleDailyLogFile, self).rotate()
-        newpath = "%s.%s" % (self.path, self.suffix(self.lastDate))
-        if os.path.exists(newpath):
-            os.remove(newpath)
+        DailyLogFile.rotate(self)
+        dir = os.path.dirname(self.path)
+        files = os.listdir(dir)
+        for file in files:
+            if file.startswith("honeypy.log."):
+                os.remove(os.path.join(dir, file))
