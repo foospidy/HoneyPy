@@ -7,3 +7,4 @@ urllib3
 pika == 0.10.0
 pylint
 autopep8
+hpfeeds3 == 0.9.8

@@ -4,11 +4,13 @@ There are two configuration files for HoneyPy, both are located in the HoneyPy `
 
 ## HoneyPy
 
-In the `honeypy.cfg` file, the main configuration section is the `[honeypy]` section and actually only has one option to configure.
+In the `honeypy.cfg` file, the main configuration section is the `[honeypy]` section and only has two options to configure.
 
 Name | Description
 ---------- | -------
 nodename | Name for this HoneyPy node to be displayed in tweets, Slack messages, and other integrations.
+limit_internal_logs | Enabling this will ensure that the internal log files are limited to one day, which can be useful for limited deployments e.g. automated containers (e.g. Yes or No).
+internal_log_dir | Directory for internal HoneyPy logs (not external loggers). Use leading slash for absolute path, or omit for relative path. Default: `log/`
 
 ### Loggers
 
@@ -82,6 +84,19 @@ consumerkey | Your Twitter consumer key.
 consumersecret | Your Twitter consumer secret.
 oauthtoken | Your Twitter OAuth token.
 oauthsecret | Your Twitter OAuth secret.
+
+#### hpfeeds
+
+Name | Description
+---------- | -------
+enabled | Enable this logger (e.g. Yes or No).
+persistent | Is a persistent connection required (e.g. Yes).
+server | hpfeeds server
+port | hpfeeds port
+ident | hpfeeds ident
+secret | hpfeeds secret
+channel | hpfeeds channel
+serverid | hpfeeds server ID
 
 ## Services
 

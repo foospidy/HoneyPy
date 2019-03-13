@@ -16,6 +16,7 @@ from twisted.internet import stdio
 from twisted.python import log
 from twisted.python.log import FileLogObserver
 from twisted.python.logfile import DailyLogFile
+from lib.honeypy_logtail import SingleDailyLogFile
 from lib.honeypy_logtail import HoneyPyLogTail
 from lib.honeypy_console import HoneyPyConsole
 
@@ -29,27 +30,9 @@ parser.add_argument('-ipt', help='generate ipt-kit script in /tmp.', default=Fal
 args = parser.parse_args()
 
 # get path for config files
-honeypy_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/honeypy.cfg'
-service_config_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/services.cfg'
-log_path = os.path.dirname(os.path.abspath(__file__)) + '/log/'
-log_file_name = 'honeypy.log'
-ipt_file_name = '/tmp/honeypy-ipt.sh'
-
-# setup log file and formatting
-if not os.path.exists(os.path.dirname(log_path)):
-    # if log directory does not exist, create it.
-    os.makedirs(os.path.dirname(log_path))
-
-log_file = DailyLogFile(log_file_name, log_path)
-file_log_observer = FileLogObserver(log_file)
-time_zone = subprocess.check_output(['date', '+%z'])
-file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
-
-# get version
-version = file(os.path.dirname(os.path.abspath(__file__)) + '/VERSION').read().strip()
-
-# start logging
-log.startLoggingWithObserver(file_log_observer.emit, False)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+honeypy_config_file = script_dir + '/etc/honeypy.cfg'
+service_config_file = script_dir + '/etc/services.cfg'
 
 # setup config parsers
 honeypy_config = ConfigParser.ConfigParser()
@@ -59,12 +42,43 @@ service_config = ConfigParser.ConfigParser()
 honeypy_config.read(honeypy_config_file)
 service_config.read(service_config_file)
 
+# setup log file and formatting
+if honeypy_config.has_option('honeypy', 'internal_log_dir'):
+    if os.path.isabs(honeypy_config.get('honeypy', 'internal_log_dir')):
+        log_path = honeypy_config.get('honeypy', 'internal_log_dir')
+    else:
+        log_path = os.path.join(script_dir, honeypy_config.get('honeypy', 'internal_log_dir'))
+    log_path = os.path.normpath(log_path)
+else:
+    log_path = os.path.join(script_dir, 'log/')
+
+log_file_name = 'honeypy.log'
+ipt_file_name = '/tmp/honeypy-ipt.sh'
+
+if not os.path.exists(log_path):
+    # if log directory does not exist, create it.
+    os.makedirs(log_path)
+
+if honeypy_config.get('honeypy', 'limit_internal_logs').lower() == 'yes':
+    log_file = SingleDailyLogFile(log_file_name, log_path)
+else:
+    log_file = DailyLogFile(log_file_name, log_path)
+file_log_observer = FileLogObserver(log_file)
+time_zone = subprocess.check_output(['date', '+%z'])
+file_log_observer.timeFormat = "%Y-%m-%d %H:%M:%S,%f," + time_zone.rstrip()
+
+# get version
+version = file(script_dir + '/VERSION').read().strip()
+
+# start logging
+log.startLoggingWithObserver(file_log_observer.emit, False)
+
 #check if other service profiles are to be included
 if honeypy_config.has_option('honeypy', 'service_profiles'):
     log.msg('Skipping etc/services.cfg')
     service_config = ConfigParser.ConfigParser()
     for service_profile in honeypy_config.get('honeypy', 'service_profiles').split(','):
-        profile_cfg_file = os.path.dirname(os.path.abspath(__file__)) + '/etc/profiles/' + service_profile.strip()
+        profile_cfg_file = script_dir + '/etc/profiles/' + service_profile.strip()
         log.msg("Reading services from %s" % profile_cfg_file)
         profile_cfg = ConfigParser.ConfigParser()
         profile_cfg.read(profile_cfg_file)
@@ -100,9 +114,17 @@ if args.ipt:
     quit()
 
 # tail log file when reactor runs
-tailer = HoneyPyLogTail(log_path + log_file_name)
+tailer = HoneyPyLogTail(os.path.join(log_path, log_file_name))
 tailer.config = honeypy_config
 tailer.config.set('honeypy', 'useragent', 'HoneyPy (' + version + ')')
+
+# set persistent logger connections
+for section in tailer.config.sections():
+    if tailer.config.has_option(section, 'persistent') and tailer.config.get(section, 'persistent').lower() == 'yes' and tailer.config.get(section, 'enabled').lower() == 'yes':
+        module_name = "loggers.%s.honeypy_%s" % (section, section)
+        logger_module = importlib.import_module(module_name)
+        tailer.persistent_conns[section] = logger_module.conn(tailer.config, section)
+
 tailer.start()
 
 log.msg(tailer.config.get('honeypy', 'useragent') + " Started")

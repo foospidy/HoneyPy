@@ -1,9 +1,12 @@
+import os
 from importlib import import_module
 from twisted.python import log
+from twisted.python.logfile import DailyLogFile
 from lib.followtail import FollowTail
 
 class HoneyPyLogTail(FollowTail):
     config = None
+    persistent_conns = {}
 
     def lineReceived(self, line):
         parts = line.split()
@@ -60,7 +63,20 @@ class HoneyPyLogTail(FollowTail):
                             if section != 'honeypy' and self.config.get(section, 'enabled').lower() == 'yes':
                                 module_name = "loggers.%s.honeypy_%s" % (section, section)
                                 logger_module = import_module(module_name)
-                                logger_module.process(self.config, section, parts, time_parts)
+                                if section in self.persistent_conns:
+                                    logger_module.process(self.config, self.persistent_conns[section], section, parts, time_parts)
+                                else:
+                                    logger_module.process(self.config, section, parts, time_parts)
 
                     except Exception as e:
                         log.msg('Exception: HoneyPyLogTail: {}: {}'.format(str(e), str(parts)))
+
+
+class SingleDailyLogFile(DailyLogFile):
+    def rotate(self):
+        DailyLogFile.rotate(self)
+        dir = os.path.dirname(self.path)
+        files = os.listdir(dir)
+        for file in files:
+            if file.startswith("honeypy.log."):
+                os.remove(os.path.join(dir, file))
