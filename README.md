@@ -3,8 +3,15 @@
 [![Build Status](https://travis-ci.org/foospidy/HoneyPy.svg?branch=master)](https://travis-ci.org/foospidy/HoneyPy)
 [![Documentation Status](https://readthedocs.org/projects/honeypy/badge/?version=latest)](http://honeypy.readthedocs.io/en/latest/?badge=latest)
 
+A low interaction honeypot with the capability to be more of a medium interaction honeypot.
 
-**A low interaction honeypot with the capability to be more of a medium interaction honeypot.**
+**Project status:**
+
+* No longer in active development, however pull requests are still welcome.
+* Repository will remain for anyone wanting to use or contribute to HoneyPy.
+* I recommend using the honeydb-agent instead: https://honeydb-agent-docs.readthedocs.io/
+
+**Description**
 
 HoneyPy is written in Python2 and is intended to be easy to:
 * install and deploy
