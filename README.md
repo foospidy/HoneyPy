@@ -7,7 +7,7 @@ A low interaction honeypot with the capability to be more of a medium interactio
 
 **Project status:**
 
-* No longer in active development, however pull requests are still welcome.
+* No longer in active development.
 * Repository will remain for anyone wanting to use or contribute to HoneyPy.
 * I recommend using the honeydb-agent instead: https://honeydb-agent-docs.readthedocs.io/
 
